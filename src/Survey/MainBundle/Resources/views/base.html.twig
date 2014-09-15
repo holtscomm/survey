@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="en" >
+
+<head>
+  <meta charset="utf-8">
+  <!-- If you delete this meta tag World War Z will become a reality -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Online Gift Survey{% endblock %}</title>
+
+  <link rel="stylesheet" href="{{ asset('bundles/surveymain/css/normalize.css') }}">
+  <link rel="stylesheet" href="{{ asset('bundles/surveymain/css/foundation.css') }}">
+
+  {% block header_styles %}{% endblock %}
+  {% block header_scripts %}{% endblock %}
+
+  <script src="{{ asset('bundles/surveymain/js/vendor/modernizr.js') }}"></script>
+</head>
+<body>
+
+  {% block content %}{% endblock %}
+
+  {% block body_scripts %}{% endblock %}
+  <script src="{{ asset('bundles/surveymain/js/vendor/jquery.js') }}"></script>
+  <script src="{{ asset('bundles/surveymain/js/foundation.min.js') }}"></script>
+  <script>
+    $(document).foundation();
+  </script>
+</body>
+</html>
