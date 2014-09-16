@@ -114,6 +114,11 @@ class Question
         return $this->category_mappings[$this->getCategory()];
     }
 
+    /**
+     * Checks if the category passed in is valid
+     * 
+     * @return boolean
+     */
     public function isValidCategory($category)
     {
         return array_key_exists($category, $this->category_mappings);
