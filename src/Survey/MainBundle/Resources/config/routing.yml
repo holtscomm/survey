@@ -1,3 +1,15 @@
 main:
     path: /
     defaults: { _controller: SurveyMainBundle:Main:index }
+
+create:
+    path: /create
+    defaults: { _controller: SurveyMainBundle:Main:create }
+
+show:
+    path: /show/{id}
+    defaults: { _controller: SurveyMainBundle:Main:show }
+
+show_by_category:
+    path: /show/category/{category}
+    defaults: { _controller: SurveyMainBundle:Main:showByCategory }
