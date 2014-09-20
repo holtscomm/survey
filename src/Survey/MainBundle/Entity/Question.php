@@ -31,6 +31,12 @@ class Question
         "wis" => "Wisdom"
     );
 
+    private $answer_choices = array(
+        1 => "Almost always true of me",
+        2 => "Sometimes/Occasionally true of me",
+        3 => "Rarely if at all true of me"
+    );
+
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -44,7 +50,7 @@ class Question
     protected $text;
 
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="string", length=3)
      */
     protected $category;
 
@@ -120,7 +126,12 @@ class Question
      */
     public function getPrettyCategory()
     {
-        return $this->category_mappings[$this->getCategory()];
+        $pretty_category = "";
+        if($this->isValidCategory($this->getCategory()))
+        {
+            $pretty_category = $this->category_mappings[$this->getCategory()];
+        }
+        return $pretty_category;
     }
 
     /**
@@ -131,5 +142,15 @@ class Question
     public function isValidCategory($category)
     {
         return array_key_exists($category, $this->category_mappings);
+    }
+
+    /**
+     * Get the answer choices for every question (it is always the same three choices)
+     * 
+     * @return array of strings
+     */
+    public function getAnswerChoices()
+    {
+        return $this->answer_choices;
     }
 }
