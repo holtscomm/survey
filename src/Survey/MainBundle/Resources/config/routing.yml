@@ -13,3 +13,11 @@ show:
 show_by_category:
     path: /show/category/{category}
     defaults: { _controller: SurveyMainBundle:Main:showByCategory }
+
+question_migration:
+    path: /question/migration
+    defaults: { _controller: SurveyMainBundle:Migration:confirm }
+
+migration_confirmed:
+    path: /question/migration/confirmed
+    defaults: { _controller: SurveyMainBundle:Migration:migrate }

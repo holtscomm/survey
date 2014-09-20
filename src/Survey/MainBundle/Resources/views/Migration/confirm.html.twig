@@ -1,0 +1,9 @@
+{% extends 'SurveyMainBundle::base.html.twig' %}
+
+{% block content %}
+<div class="row">
+    <h2>WARNING: You are about to do a bunch of work</h2>
+    <p>You are about to migrate all of the questions from their text form into their database form. This is only about 180 questions but it'd be best if you were sure before continuing.</p>
+    <a href="{{ path('migration_confirmed') }}"><button>Continue?</button></a>
+</div>
+{% endblock %}
