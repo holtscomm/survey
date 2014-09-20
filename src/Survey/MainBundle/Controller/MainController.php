@@ -18,7 +18,7 @@ class MainController extends Controller
     {
         $question = new Question();
         $question->setText("This question has text! Huzzah!");
-        $question->setCategory("healing");
+        $question->setCategory("hea");
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($question);

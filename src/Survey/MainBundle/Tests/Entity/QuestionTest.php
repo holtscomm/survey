@@ -7,7 +7,7 @@ class QuestionTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->good_category = "healing";
+        $this->good_category = "hea";
         $this->bad_category = "some bogus thing";
         $this->question = new Question();
     }

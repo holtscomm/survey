@@ -11,17 +11,24 @@ use DomainException;
 class Question
 {
     private $category_mappings = array(
-        "admin" => "Administration (Leadership)",
-        "apostleship" => "Apostleship (Missionary)",
-        "counsellor" => "Counsellor (Exhorter)",
-        "discernment" => "Discernment",
-        "evangelist" => "Evangelist",
-        "faith" => "Faith",
-        "giving" => "Giving",
-        "healing" => "Healing",
-        "interpretation" => "Interpretation of Tongues",
-        "knowledge" => "Knowledge",
-        // More...
+        "adm" => "Administration (Leadership)",
+        "apo" => "Apostleship (Missionary)",
+        "cou" => "Counsellor (Exhorter)",
+        "dis" => "Discernment",
+        "eva" => "Evangelist",
+        "fai" => "Faith",
+        "giv" => "Giving",
+        "hea" => "Healing",
+        "int" => "Interpretation of Tongues",
+        "kno" => "Knowledge",
+        "mir" => "Miracles",
+        "pro" => "Prophecy (Preacher/Proclaimer)",
+        "she" => "Sheperding (Pastor/Teacher)",
+        "ser" => "Serving (Helps)",
+        "sho" => "Showing Mercy (Compassion)",
+        "tea" => "Teaching",
+        "ton" => "Tongues",
+        "wis" => "Wisdom"
     );
 
     /**
@@ -75,10 +82,12 @@ class Question
     }
 
     /**
-     * Set category
+     * Set category. If it is not a valid category, DomainException will be
+     *  thrown
      *
      * @param string $category
      * @return Question
+     * @throws DomainException
      */
     public function setCategory($category)
     {
@@ -105,7 +114,7 @@ class Question
     }
 
     /**
-     * Get the expanded version of a category, i.e. "healing" becomes "Healing"
+     * Get the expanded version of a category, i.e. "hea" becomes "Healing"
      * 
      * @return string
      */
