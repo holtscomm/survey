@@ -8,4 +8,15 @@
 <div class="row">
     <p>Here is a 'gift survey' that Keith Walker developed. He'd like it digitized so it could be done online. I've attached the PDF of the paper version. And just realized that I only did the first answer page of two. However, I think you can get the idea.</p>
 </div>
+
+{% if question %}
+<div class="row">
+    <p>Found a question! Here is its info:</p>
+    <ul>
+        <li>{{ question.getText() }}</li>
+        <li>{{ question.getCategory() }}</li>
+    </ul>
+</div>
+{% endif %}
+
 {% endblock %}
