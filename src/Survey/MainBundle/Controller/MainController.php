@@ -14,19 +14,6 @@ class MainController extends Controller
         );
     }
 
-    public function createAction()
-    {
-        $question = new Question();
-        $question->setText("This question has text! Huzzah!");
-        $question->setCategory("hea");
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($question);
-        $em->flush();
-
-        return new Response('Created new question with id '. $question->getId());
-    }
-
     public function showAction($id)
     {
         $question = $this->getDoctrine()
@@ -39,7 +26,7 @@ class MainController extends Controller
         }
 
         return $this->render(
-            'SurveyMainBundle:Main:index.html.twig', 
+            'SurveyMainBundle:Main:showquestion.html.twig', 
             array("question"=>$question)
         );
     }
@@ -54,7 +41,7 @@ class MainController extends Controller
         );
 
         return $this->render(
-            'SurveyMainBundle:Main:index.html.twig', 
+            'SurveyMainBundle:Main:showcategory.html.twig', 
             array("questions" => $questions)
         );
     }
