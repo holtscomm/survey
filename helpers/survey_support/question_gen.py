@@ -38,8 +38,6 @@ with open(file_name, 'r') as f:
     for line in f:
         # Split by the first period
         question_number, text = line.split('.', 1)
-        # print "%s" % question_number
-        # print "Text: %s" % text.strip()
         question_category = None
         for category in category_mappings:
             if int(question_number) in category_mappings[category]:
