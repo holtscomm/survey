@@ -1,5 +1,7 @@
 {% extends 'SurveyMainBundle::base.html.twig' %}
 
+{% block home_active %}class='active'{% endblock %}
+
 {% block content %}
 <div class="row">
     <h1>Welcome to the Online Gift Survey!</h1>
@@ -7,6 +9,10 @@
 
 <div class="row">
     <p>Here is a 'gift survey' that Keith Walker developed. He'd like it digitized so it could be done online. I've attached the PDF of the paper version. And just realized that I only did the first answer page of two. However, I think you can get the idea.</p>
+</div>
+
+<div class="row">
+    <a href="#"><button>Take the survey!</button></a>
 </div>
 
 {% endblock %}
