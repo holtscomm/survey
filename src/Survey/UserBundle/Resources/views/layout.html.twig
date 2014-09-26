@@ -1,0 +1,18 @@
+{% extends 'SurveyMainBundle::base.html.twig' %}
+
+{% block log_active %}class='active'{% endblock %}
+
+{% block content %}
+<div class="row">
+    <h1>Login</h1>
+</div>
+
+<div class="row">
+    <p>Logging in allows you to save your progress on the online survey. If you don't have an account click <a href="{{ path('fos_user_registration_register') }}">here</a> to create one.</p>
+</div>
+
+<div class="row">
+    {% block fos_user_content %}
+    {% endblock fos_user_content %} 
+</div>
+{% endblock %}
