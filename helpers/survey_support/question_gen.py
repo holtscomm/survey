@@ -1,11 +1,8 @@
 #!/usr/bin/python
 import sys
 
-
 args = sys.argv
 file_name = args[1]
-
-php_calls = []
 
 PHP_CODE_TEMPLATE = """
 $question{question_number} = new Question();

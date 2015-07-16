@@ -1,0 +1,21 @@
+{
+  "name": "survey",
+  "version": "0.0.0",
+  "homepage": "https://github.com/holtscomm/survey",
+  "authors": [
+    "Graham Holtslander <menello@gmail.com>"
+  ],
+  "description": "A survey program for Google App Engine",
+  "main": "src/main.py",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "~3.3.5"
+  }
+}
