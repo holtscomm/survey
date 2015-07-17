@@ -1,2 +1,35 @@
 /* Global styles */
-@import "../vendor/bootstrap-sass/assets/stylesheets/bootstrap"
+@import "../vendor/bootstrap-sass/assets/stylesheets/bootstrap";
+
+.questions-header {
+  width: 340px;
+
+  @media (min-width: $screen-xs-min) {
+    width: 665px;
+  }
+
+  @media (min-width: $screen-sm-min) {
+    width: 720px;
+  }
+
+  @media (min-width: $screen-md-min) {
+    width: 940px;
+  }
+
+  @media (min-width: $screen-lg-min) {
+    width: 1140px;
+  }
+
+  & > th {
+    vertical-align: bottom;
+  }
+
+  &.affix {
+    top: 0;
+    border-bottom: 1px grey solid;
+  }
+}
+
+.question-choice {
+  text-align: center;
+}

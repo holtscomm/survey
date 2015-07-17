@@ -1,20 +1,43 @@
 {% extends 'base.html' %}
 
+{% block survey_active %}active{% endblock %}
+
 {% block content %}
 <div class="container">
     <div class="row">
-        <h1>Welcome to the Online Gift Survey!</h1>
-    </div>
+        <div class="col-md-12">
+        <h1>Taking the Survey</h1>
 
-    {% if questions %}
-    <div class="row">
-        <p>Found some questions! Here they are:</p>
-        <ul>
-        {% for question in questions %}
-            <li>{{ question }}</li>
-        {% endfor %}
-        </ul>
+        {% if questions %}
+            <p>Answer each question as honestly as you can.</p>
+            <table class="table table-striped">
+                <colgroup>
+                    <col style="width:5%"></col>
+                    <col style="width:65%"></col>
+                    <col style="width:10%"></col>
+                    <col style="width:10%"></col>
+                    <col style="width:10%"></col>
+                </colgroup>
+                <tr class="questions-header" data-spy="affix" data-offset-top="200">
+                    <th style="width:5%">#</th>
+                    <th style="width:65%">Question Text</th>
+                    <th style="width:10%">Almost always true of me</th>
+                    <th style="width:10%">Sometimes or occasionally true of me</th>
+                    <th style="width:10%">Rarely if at all true of me</th>
+                </tr>
+                {% for question in questions %}
+                    <tr>
+                        <td>{{ loop.index }}.</td>
+                        <td>{{ question.text }}</td>
+                        <td class="question-choice"><input type="radio" name="question{{loop.index}}" value="1" /></td>
+                        <td class="question-choice"><input type="radio" name="question{{loop.index}}" value="2" /></td>
+                        <td class="question-choice"><input type="radio" name="question{{loop.index}}" value="3" /></td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <a href="#" class="btn btn-primary">Submit the survey</a>
+        {% endif %}
+        </div>
     </div>
-    {% endif %}
 </div>
 {% endblock %}

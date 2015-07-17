@@ -8770,3 +8770,45 @@ button.close {
     display: none !important;
   }
 }
+/* line 4, ../scss/global.scss */
+.questions-header {
+  width: 340px;
+}
+@media (min-width: 480px) {
+  /* line 4, ../scss/global.scss */
+  .questions-header {
+    width: 665px;
+  }
+}
+@media (min-width: 768px) {
+  /* line 4, ../scss/global.scss */
+  .questions-header {
+    width: 720px;
+  }
+}
+@media (min-width: 992px) {
+  /* line 4, ../scss/global.scss */
+  .questions-header {
+    width: 940px;
+  }
+}
+@media (min-width: 1200px) {
+  /* line 4, ../scss/global.scss */
+  .questions-header {
+    width: 1140px;
+  }
+}
+/* line 23, ../scss/global.scss */
+.questions-header > th {
+  vertical-align: bottom;
+}
+/* line 27, ../scss/global.scss */
+.questions-header.affix {
+  top: 0;
+  border-bottom: 1px grey solid;
+}
+
+/* line 33, ../scss/global.scss */
+.question-choice {
+  text-align: center;
+}

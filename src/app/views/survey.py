@@ -3,17 +3,13 @@ Survey view
 """
 
 from . import TemplatedView
+from app.models.question import Question
 
 class IndexView(TemplatedView):
 
     def get(self):
         context = {
-            'questions': [
-                'Bunch',
-                'Of',
-                'Cool',
-                'Q\'s',
-            ]
+            'questions': Question.get_all_questions()
         }
 
         self.render_response("showCategory.html", **context)
