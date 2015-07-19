@@ -5,39 +5,45 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
-        <h1>Taking the Survey</h1>
-
-        {% if questions %}
+        <div class="col-md-12 questions">
+            <h1>Taking the Survey</h1>
             <p>Answer each question as honestly as you can.</p>
-            <table class="table table-striped">
-                <colgroup>
-                    <col style="width:5%"></col>
-                    <col style="width:65%"></col>
-                    <col style="width:10%"></col>
-                    <col style="width:10%"></col>
-                    <col style="width:10%"></col>
-                </colgroup>
-                <tr class="questions-header" data-spy="affix" data-offset-top="200">
-                    <th style="width:5%">#</th>
-                    <th style="width:65%">Question Text</th>
-                    <th style="width:10%">Almost always true of me</th>
-                    <th style="width:10%">Sometimes or occasionally true of me</th>
-                    <th style="width:10%">Rarely if at all true of me</th>
-                </tr>
-                {% for question in questions %}
-                    <tr>
-                        <td>{{ loop.index }}.</td>
-                        <td>{{ question.text }}</td>
-                        <td class="question-choice"><input type="radio" name="question{{loop.index}}" value="1" /></td>
-                        <td class="question-choice"><input type="radio" name="question{{loop.index}}" value="2" /></td>
-                        <td class="question-choice"><input type="radio" name="question{{loop.index}}" value="3" /></td>
-                    </tr>
-                {% endfor %}
-            </table>
-            <a href="#" class="btn btn-primary">Submit the survey</a>
-        {% endif %}
         </div>
     </div>
 </div>
+
+    {% if questions %}
+    <div class="questions">
+        <div class="questions-header">
+            <div class="container">
+                <div class="row">
+                <!-- class="questions-header" data-spy="affix" data-offset-top="200"> -->
+                    <span class="col-md-1 col-xs-1">#</span>
+                    <span class="col-md-8 col-xs-11">Question Text</span>
+                    <span class="col-md-1 question-answer-description">Almost always true of me</span>
+                    <span class="col-md-1 question-answer-description">Sometimes or occasionally true of me</span>
+                    <span class="col-md-1 question-answer-description">Rarely if at all true of me</span>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            {% for question in questions %}
+            <div class="row question-item">
+                <span class="col-md-1 col-xs-1 question-number">{{ loop.index }}.</span>
+                <span class="col-md-8 col-xs-11 question-text">{{ question.text }}</span>
+                <span class="col-md-1 col-xs-4 question-choice">
+                    <span>Always</span> <input type="radio" name="question{{loop.index}}" value="1" />
+                </span>
+                <span class="col-md-1 col-xs-4 question-choice">
+                    <span>Sometimes</span> <input type="radio" name="question{{loop.index}}" value="2" />
+                </span>
+                <span class="col-md-1 col-xs-4 question-choice">
+                    <span>Rarely</span> <input type="radio" name="question{{loop.index}}" value="3" />
+                </span>
+            </div>
+            {% endfor %}
+            <a href="#" class="btn btn-primary">Submit the survey</a>
+        </div>
+    </div>
+            {% endif %}
 {% endblock %}

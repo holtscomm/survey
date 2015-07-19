@@ -1,35 +1,40 @@
 /* Global styles */
 @import "../vendor/bootstrap-sass/assets/stylesheets/bootstrap";
 
-.questions-header {
-  width: 340px;
+.questions {
 
-  @media (min-width: $screen-xs-min) {
-    width: 665px;
+  .questions-header {
+    font-size: 1.2em;
+    background-color: lightgray;
+
+    .question-answer-description {
+      display: none;
+
+      @media (min-width: $screen-md-min) {
+        display: block;
+      }
+    }
   }
 
-  @media (min-width: $screen-sm-min) {
-    width: 720px;
-  }
+  .question-item {
+    padding: 20px 0;
 
-  @media (min-width: $screen-md-min) {
-    width: 940px;
-  }
+    .question-text {
+      padding-bottom: 15px;
 
-  @media (min-width: $screen-lg-min) {
-    width: 1140px;
-  }
+      @media (min-width: $screen-md-min) {
+        padding-bottom: 0;
+      }
+    }
 
-  & > th {
-    vertical-align: bottom;
-  }
+    .question-choice {
+      text-align: center;
 
-  &.affix {
-    top: 0;
-    border-bottom: 1px grey solid;
+      & > span {
+        @media (min-width: $screen-md-min) {
+          display: none;
+        }
+      }
+    }
   }
-}
-
-.question-choice {
-  text-align: center;
 }
