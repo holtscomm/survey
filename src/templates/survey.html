@@ -11,7 +11,7 @@
         </div>
     </div>
 </div>
-
+    <form method="POST">
     {% if questions %}
     <div class="questions">
         <div class="questions-header">
@@ -29,21 +29,24 @@
         <div class="container">
             {% for question in questions %}
             <div class="row question-item">
+                <input type="hidden" name="question-number-{{question.question_number}}" value="{{question.question_number}}" />
+                <input type="hidden" name="question-category-{{question.question_number}}" value="{{question.category}}" />
                 <span class="col-md-1 col-xs-1 question-number">{{ loop.index }}.</span>
                 <span class="col-md-8 col-xs-11 question-text">{{ question.text }}</span>
                 <span class="col-md-1 col-xs-4 question-choice">
-                    <span>Always</span> <input type="radio" name="question{{loop.index}}" value="1" />
+                    <span>Always</span> <input type="radio" name="choice{{question.question_number}}" value="2" required />
                 </span>
                 <span class="col-md-1 col-xs-4 question-choice">
-                    <span>Sometimes</span> <input type="radio" name="question{{loop.index}}" value="2" />
+                    <span>Sometimes</span> <input type="radio" name="choice{{question.question_number}}" value="1" required />
                 </span>
                 <span class="col-md-1 col-xs-4 question-choice">
-                    <span>Rarely</span> <input type="radio" name="question{{loop.index}}" value="3" />
+                    <span>Rarely</span> <input type="radio" name="choice{{question.question_number}}" value="0" required />
                 </span>
             </div>
             {% endfor %}
-            <a href="#" class="btn btn-primary">Submit the survey</a>
+            <input type="submit" href="#" class="btn btn-primary" value="Submit the survey" />
         </div>
     </div>
-            {% endif %}
+    {% endif %}
+    </form>
 {% endblock %}

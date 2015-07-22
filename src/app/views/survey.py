@@ -1,6 +1,7 @@
 """
 Survey view
 """
+import logging
 
 from . import TemplatedView
 from app.models.question import Question
@@ -9,7 +10,9 @@ class IndexView(TemplatedView):
 
     def get(self):
         context = {
-            'questions': Question.get_all_questions()
+            'questions': Question.get_all_questions(ordered=True)
         }
 
-        self.render_response("showCategory.html", **context)
+        logging.debug("%r", context['questions'])
+
+        self.render_response("survey.html", **context)
