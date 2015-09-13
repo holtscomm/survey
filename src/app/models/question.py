@@ -30,7 +30,8 @@ class Question(ndb.Model):
         "wis": "Wisdom"
     }
 
-    def get_pretty_category(self):
+    @property
+    def pretty_category(self):
         """ Return the full (pretty) category name. """
         return self.CATEGORY_MAPPINGS[self.category]
 
