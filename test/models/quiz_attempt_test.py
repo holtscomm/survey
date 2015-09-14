@@ -23,11 +23,10 @@ class QuizAttemptTests(GaeTestCase):
             })
         self.attempt.questions = questions
 
-    def test_top_categories_returns_aggregated_data_for_categories(self):
-        top_cats = self.attempt.top_categories
+    def test_graded_categories_returns_aggregated_data_for_categories(self):
         # Even though there are 20 questions from the different categories,
         # they should be combined into just 10 top category figures.
-        self.assertEqual(len(self.categories), len(top_cats))
+        self.assertEqual(len(self.categories), len(self.attempt.graded_categories))
 
     def test_convert_points_converts_per_business_requirements(self):
         # 0 is 0, 1 is worth 2, and 2 is worth 5

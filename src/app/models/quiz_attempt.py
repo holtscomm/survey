@@ -23,10 +23,18 @@ class QuizAttempt(ndb.Model):
     updated = ndb.DateTimeProperty(auto_now=True)
 
     @property
-    def top_categories(self):
-        categories = {question['category']: 0 for question in self.questions}
-        for question in self.questions:
-            categories[question['category']] = categories[question['category']] + self.convert_points(question['answer'])
+    def graded_categories(self):
+        """
+        These are the final categories that someone is in. Unordered!
+
+        Returns a dict like:
+        {
+            "adm": 10,
+            "tea": 5,
+            ...etc...
+        }
+        """
+        categories = {q['category']: sum([self.convert_points(que['answer']) for que in self.questions if que['category'] == q['category']]) for q in self.questions}
 
         return categories
 
