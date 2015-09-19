@@ -3,6 +3,7 @@ Question model
 """
 from google.appengine.ext import ndb
 
+
 class Question(ndb.Model):
 
     text = ndb.TextProperty()

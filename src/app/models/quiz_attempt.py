@@ -3,6 +3,7 @@ from google.appengine.ext import ndb
 
 from .question import Question
 
+
 class QuizAttempt(ndb.Model):
     """
     Stores information about a quiz attempt for a user. questions is a
@@ -25,7 +26,7 @@ class QuizAttempt(ndb.Model):
     @property
     def graded_categories(self):
         """
-        These are the final categories that someone is in. Unordered!
+        These are the final categories that someone is in. In descending order.
 
         Returns a dict like:
         {
@@ -34,9 +35,18 @@ class QuizAttempt(ndb.Model):
             ...etc...
         }
         """
-        categories = {q['category']: sum([self.convert_points(que['answer']) for que in self.questions if que['category'] == q['category']]) for q in self.questions}
+        categories = []
+        for category in Question.CATEGORY_MAPPINGS.keys():
+            sum_points = sum([self.convert_points(question['answer']) for question in self.questions
+                              if question['category'] == category])
+            categories.append((Question.CATEGORY_MAPPINGS[category], sum_points))
 
-        return categories
+        return sorted(categories, cmp=lambda x, y: cmp(x[1], y[1]), reverse=True)
+
+    @classmethod
+    def get_by_user_id(cls, user_id):
+        """ Get all quiz attempts from a user id """
+        return cls.query(cls.user_id == user_id).fetch()
 
     @staticmethod
     def convert_points(answer):
