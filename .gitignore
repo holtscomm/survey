@@ -7,3 +7,4 @@ src/static/.sass-cache/*
 .sass-cache/*
 .idea/*
 data/*
+coverage-report/*

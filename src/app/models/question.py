@@ -37,9 +37,9 @@ class Question(ndb.Model):
         return self.CATEGORY_MAPPINGS[self.category]
 
     @classmethod
-    def get_all_questions(cls, ordered=False):
+    def get_all_questions(cls, ordered=False, limit=180):
         """ Returns all questions in a random order. """
         if ordered:
-            return cls.query().order(cls.question_number).fetch(limit=180)
+            return cls.query().order(cls.question_number).fetch(limit=limit)
 
-        return query.fetch(limit=180)
+        return cls.query().fetch(limit=limit)
