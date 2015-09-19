@@ -8,10 +8,10 @@
         <div class="col-md-12">
             <h1>Quiz results for user_id 1</h1>
             {% for attempt in quiz_attempts %}
-                <p>{{ attempt.user_id }}</p>
+                <p>{{ loop.index }}</p>
                 <ul>
                 {% for category in attempt.graded_categories if category[1] > 0 %}
-                    <li>{{ category[0] }} - {{ category[1] }}</li>
+                    <li>{{ category[0] }}</li>
                 {% endfor %}
                 </ul>
             {% endfor %}

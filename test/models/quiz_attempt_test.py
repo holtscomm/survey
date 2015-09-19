@@ -27,6 +27,11 @@ class QuizAttemptTests(GaeTestCase):
     def test_graded_categories_returns_aggregated_data_for_categories(self):
         self.assertEqual(len(Question.CATEGORY_MAPPINGS), len(self.attempt.graded_categories))
 
+    def test_graded_categories_come_in_sorted_order(self):
+        graded_cats = self.attempt.graded_categories
+        self.assertLessEqual(graded_cats[1][1], graded_cats[0][1])
+        self.assertLessEqual(graded_cats[2][1], graded_cats[1][1])
+
     def test_convert_points_converts_per_business_requirements(self):
         # 0 is 0, 1 is worth 2, and 2 is worth 5
         self.assertEqual(0, QuizAttempt.convert_points(0))
@@ -34,4 +39,4 @@ class QuizAttemptTests(GaeTestCase):
         self.assertEqual(5, QuizAttempt.convert_points(2))
 
     def test_get_by_user_id_returns_right_number_of_results(self):
-        self.assertEqual(1, QuizAttempt.get_by_user_id(1))
+        self.assertEqual(1, len(QuizAttempt.get_by_user_id(1)))
