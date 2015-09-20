@@ -5,3 +5,6 @@ bower_components/*
 src/static/vendor/*
 src/static/.sass-cache/*
 .sass-cache/*
+.idea/*
+data/*
+coverage-report/*

@@ -3,6 +3,7 @@ Question model
 """
 from google.appengine.ext import ndb
 
+
 class Question(ndb.Model):
 
     text = ndb.TextProperty()
@@ -30,14 +31,15 @@ class Question(ndb.Model):
         "wis": "Wisdom"
     }
 
-    def get_pretty_category(self):
+    @property
+    def pretty_category(self):
         """ Return the full (pretty) category name. """
         return self.CATEGORY_MAPPINGS[self.category]
 
     @classmethod
-    def get_all_questions(cls, ordered=False):
+    def get_all_questions(cls, ordered=False, limit=180):
         """ Returns all questions in a random order. """
         if ordered:
-            return cls.query().order(cls.question_number).fetch(limit=180)
+            return cls.query().order(cls.question_number).fetch(limit=limit)
 
-        return query.fetch(limit=180)
+        return cls.query().fetch(limit=limit)

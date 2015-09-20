@@ -1,4 +1,3 @@
-
 from app.models.question import Question
 from .keith_walker_gift_survey_questions import questions
 
@@ -23,8 +22,9 @@ category_mappings = {
     "wis": [115, 116, 131, 132, 147, 148, 163, 164, 179, 180],
 }
 
-def import_questions(file_name="KeithWalkerGiftSurvey.txt"):
-    for line in filter(lambda x: x != "", questions.splitlines()):
+
+def import_questions():
+    for line in [line for line in questions.splitlines() if line != ""]:
         # Split by the first period.
         question_number, text = line.split('.', 1)
         question_category = None
