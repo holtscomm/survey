@@ -23,6 +23,7 @@ class IndexView(TemplatedView):
 
     def post(self):
         """ POST """
+        # TODO: Move all of this into domain layer
         question_list = []
         for i in range(1, 11):
             question_list.append({

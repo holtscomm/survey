@@ -28,6 +28,9 @@ class QuestionModelTests(GaeTestCase):
     def test_pretty_category_returns_properly(self):
         self.assertEqual('Administration (Leadership)', self.question1.pretty_category)
 
+    def test_get_all_questions_returns_all_questions(self):
+        self.assertEqual(3, len(Question.get_all_questions()))
+
     def test_get_all_questions_ordered_returns_ascending_order(self):
         questions = Question.get_all_questions(True)
         self.assertEqual(120, questions[0].question_number)
