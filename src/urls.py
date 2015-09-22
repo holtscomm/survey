@@ -2,7 +2,7 @@
 urls
 """
 
-from webapp2 import Route, SimpleRoute
+from webapp2 import Route
 
 ROUTES = [
     Route('/', handler='app.views.main.MainView'),

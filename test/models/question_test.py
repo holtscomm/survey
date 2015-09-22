@@ -36,3 +36,11 @@ class QuestionModelTests(GaeTestCase):
         self.assertEqual(120, questions[0].question_number)
         self.assertEqual(121, questions[1].question_number)
         self.assertEqual(122, questions[2].question_number)
+
+    def test_get_questions_by_number_range_requires_from_number(self):
+        with self.assertRaises(ValueError):
+            Question.get_questions_by_number_range(None, 50)
+
+    def test_get_questions_by_number_range_requires_to_number(self):
+        with self.assertRaises(ValueError):
+            Question.get_questions_by_number_range(50, None)
