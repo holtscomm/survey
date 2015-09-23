@@ -1,23 +1,19 @@
 """
 Survey view
 """
-import logging
-
 from . import TemplatedView
-from app.models.question import Question
+from app.domain.questions import get_survey_page
 from app.models.quiz_attempt import QuizAttempt
 
 
-class IndexView(TemplatedView):
+class SurveyView(TemplatedView):
     """ Survey index """
 
-    def get(self):
+    def get(self, page_num):
         """ GET """
         context = {
-            'questions': Question.get_all_questions(ordered=True)[0:10]
+            'questions': get_survey_page(int(page_num))
         }
-
-        logging.debug("%r", context['questions'])
 
         self.render_response("survey.html", **context)
 

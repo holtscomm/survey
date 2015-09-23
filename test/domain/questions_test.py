@@ -24,3 +24,13 @@ class GetSurveyPageTests(GaeTestCase):
         questions = get_survey_page(1)
         self.assertEqual(1, questions[0].question_number)
         self.assertEqual(20, questions[-1].question_number)
+
+    def test_page_num_2_returns_questions_21_to_40(self):
+        questions = get_survey_page(2)
+        self.assertEqual(21, questions[0].question_number)
+        self.assertEqual(40, questions[-1].question_number)
+
+    def test_page_num_4_returns_questions_61_to_80(self):
+        questions = get_survey_page(4)
+        self.assertEqual(61, questions[0].question_number)
+        self.assertEqual(80, questions[-1].question_number)

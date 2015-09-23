@@ -13,7 +13,7 @@ def get_survey_page(page_num):
     if page_num <= 0:
         raise ValueError('page_num must be 1 or higher')
 
-    from_number = page_num * QUESTIONS_PER_PAGE if page_num > 1 else page_num
-    to_number = (page_num + 1 if page_num > 1 else page_num) * QUESTIONS_PER_PAGE
+    from_number = ((page_num - 1) * QUESTIONS_PER_PAGE) + 1 if page_num > 1 else page_num
+    to_number = page_num * QUESTIONS_PER_PAGE
 
     return Question.get_questions_by_number_range(from_number, to_number)
