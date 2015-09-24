@@ -10,7 +10,7 @@ class GetSurveyPageTests(GaeTestCase):
 
     def setUp(self):
         super(GetSurveyPageTests, self).setUp()
-        import_questions()
+        # import_questions()
 
     def test_page_num_is_required(self):
         with self.assertRaises(ValueError):
@@ -20,10 +20,12 @@ class GetSurveyPageTests(GaeTestCase):
         with self.assertRaises(ValueError):
             get_survey_page(-1)
 
-    def test_page_num_1_returns_questions_1_to_20(self):
-        questions = get_survey_page(1)
-        self.assertEqual(1, questions[0].question_number)
-        self.assertEqual(20, questions[-1].question_number)
+    # @mock.patch('app.models.question.Question.get_questions_by_number_range')
+    def test_page_num_1_returns_questions_1_to_20(self, questions_mock):
+        get_survey_page(1)
+        # self.assertEqual(1, questions[0].question_number)
+        # self.assertEqual(20, questions[-1].question_number)
+        questions_mock.assert_called_with(from_number=1, to_number=20)
 
     def test_page_num_2_returns_questions_21_to_40(self):
         questions = get_survey_page(2)
