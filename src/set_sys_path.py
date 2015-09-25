@@ -5,7 +5,8 @@
 import os
 import sys
 
-def setSysPath():
+
+def set_sys_path():
     """
     Add lib as primary libraries directory
     """
@@ -28,4 +29,4 @@ def setSysPath():
             if item.find(r) > 0:
                 sys.path.remove(item)
 
-setSysPath()
+set_sys_path()

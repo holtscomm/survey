@@ -43,3 +43,14 @@ class Question(ndb.Model):
             return cls.query().order(cls.question_number).fetch(limit=limit)
 
         return cls.query().fetch(limit=limit)
+
+    @classmethod
+    def get_questions_by_number_range(cls, from_number, to_number):
+        """ Gets questions by a range of question_numbers (21 - 40). Returned in ascending order. """
+        if not from_number:
+            raise ValueError('from_number is required')
+        if not to_number:
+            raise ValueError('to_number is required')
+
+        return cls.query(cls.question_number >= from_number, cls.question_number <= to_number)\
+            .order(cls.question_number).fetch()

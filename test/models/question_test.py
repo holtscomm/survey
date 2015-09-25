@@ -1,6 +1,7 @@
 """
 Question model tests.
 """
+from app.migrations.question_migration import import_questions
 from app.models.question import Question
 from test.fixtures.appengine import GaeTestCase
 
@@ -36,3 +37,20 @@ class QuestionModelTests(GaeTestCase):
         self.assertEqual(120, questions[0].question_number)
         self.assertEqual(121, questions[1].question_number)
         self.assertEqual(122, questions[2].question_number)
+
+
+class QuestionModelGetQuestionsByNumberRangeTests(GaeTestCase):
+
+    def test_from_number_is_required(self):
+        with self.assertRaises(ValueError):
+            Question.get_questions_by_number_range(None, 50)
+
+    def test_to_number_is_required(self):
+        with self.assertRaises(ValueError):
+            Question.get_questions_by_number_range(50, None)
+
+    def test_number_range_21_to_40_returns_20_questions(self):
+        import_questions()
+
+        quest_range = Question.get_questions_by_number_range(21, 40)
+        self.assertEqual(20, len(quest_range))
