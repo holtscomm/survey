@@ -2,10 +2,11 @@
   "jspm": {
     "directories": {
       "baseURL": "src/static",
-      "packages": "src/static/vendor/jspm_packages"
+      "packages": "src/static/js/vendor/jspm_packages"
     },
     "configFile": "src/static/js/config.js",
     "dependencies": {
+      "fetch": "npm:whatwg-fetch@^0.9.0",
       "react": "npm:react@^0.13.3"
     },
     "devDependencies": {

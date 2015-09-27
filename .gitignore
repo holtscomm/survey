@@ -8,5 +8,5 @@ src/static/.sass-cache/*
 .idea/*
 data/*
 coverage-report/*
-src/static/vendor/jspm_packages/*
+src/static/js/vendor/jspm_packages/*
 node_modules/*
