@@ -97,15 +97,12 @@ class GetSurveyPageForUserIdTests(GaeTestCase):
         ]
         self.assertEqual(expected, actual)
 
-    @mock.patch('app.domain.questions.QuizAttempt.get_by_user_id')
     @mock.patch('app.domain.questions.Question.get_questions_by_number_range')
-    def test_answers_are_zero_if_user_attempt_is_none(self, questions_mock, attempt_mock):
+    def test_answers_are_zero_if_user_attempt_is_none(self, questions_mock):
         questions_mock.return_value = [
             self.question1,
             self.question2
         ]
-
-        attempt_mock.return_value = None
 
         actual = get_survey_page_for_user_id(1, 1)
         expected = [
