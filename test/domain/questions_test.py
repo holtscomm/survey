@@ -120,3 +120,36 @@ class GetSurveyPageForUserIdTests(GaeTestCase):
             }
         ]
         self.assertEqual(expected, actual)
+
+    @mock.patch('app.domain.questions.Question.get_questions_by_number_range')
+    def test_correct_questions_returned_for_page_higher_than_one(self, questions_mock):
+        question21 = Question()
+        question21.text = "Fake text"
+        question21.category = "adm"
+        question21.question_number = 21
+        question22 = Question()
+        question22.text = "Fake text"
+        question22.category = "fai"
+        question22.question_number = 22
+
+        questions_mock.return_value = [
+            question21,
+            question22
+        ]
+
+        actual = get_survey_page_for_user_id(2, 1)
+        expected = [
+            {
+                "question_number": 21,
+                "text": "Fake text",
+                "answer": 0,
+                "category": "adm"
+            },
+            {
+                "question_number": 22,
+                "text": "Fake text",
+                "answer": 0,
+                "category": "fai",
+            }
+        ]
+        self.assertEqual(expected, actual)
