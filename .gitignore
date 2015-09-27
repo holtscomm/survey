@@ -8,3 +8,4 @@ src/static/.sass-cache/*
 .idea/*
 data/*
 coverage-report/*
+src/static/vendor/jspm_packages/*
