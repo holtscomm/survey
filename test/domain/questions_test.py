@@ -36,6 +36,18 @@ class GetSurveyPageTests(GaeTestCase):
 
 class GetSurveyPageForUserIdTests(GaeTestCase):
 
+    def setUp(self):
+        super(GetSurveyPageForUserIdTests, self).setUp()
+
+        self.question1 = Question()
+        self.question1.text = 'Fake text'
+        self.question1.category = 'adm'
+        self.question1.question_number = 1
+        self.question2 = Question()
+        self.question2.text = 'Fake text'
+        self.question2.category = 'fai'
+        self.question2.question_number = 2
+
     @mock.patch('app.domain.questions.get_survey_page')
     def test_get_survey_page_gets_called(self, survey_mock):
         get_survey_page_for_user_id(1, 1)
@@ -49,14 +61,6 @@ class GetSurveyPageForUserIdTests(GaeTestCase):
     @mock.patch('app.domain.questions.QuizAttempt.get_by_user_id')
     @mock.patch('app.domain.questions.Question.get_questions_by_number_range')
     def test_fills_in_answers_and_returns_list_of_dictionaries(self, questions_mock, attempt_mock):
-        self.question1 = Question()
-        self.question1.text = 'Fake text'
-        self.question1.category = 'adm'
-        self.question1.question_number = 1
-        self.question2 = Question()
-        self.question2.text = 'Fake text'
-        self.question2.category = 'fai'
-        self.question2.question_number = 2
 
         questions_mock.return_value = [
             self.question1,
@@ -96,20 +100,13 @@ class GetSurveyPageForUserIdTests(GaeTestCase):
     @mock.patch('app.domain.questions.QuizAttempt.get_by_user_id')
     @mock.patch('app.domain.questions.Question.get_questions_by_number_range')
     def test_answers_are_zero_if_user_attempt_is_none(self, questions_mock, attempt_mock):
-        self.question1 = Question()
-        self.question1.text = 'Fake text'
-        self.question1.category = 'adm'
-        self.question1.question_number = 1
-        self.question2 = Question()
-        self.question2.text = 'Fake text'
-        self.question2.category = 'fai'
-        self.question2.question_number = 2
-
         questions_mock.return_value = [
             self.question1,
             self.question2
         ]
+
         attempt_mock.return_value = None
+
         actual = get_survey_page_for_user_id(1, 1)
         expected = [
             {
