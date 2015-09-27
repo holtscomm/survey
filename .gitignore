@@ -9,3 +9,4 @@ src/static/.sass-cache/*
 data/*
 coverage-report/*
 src/static/vendor/jspm_packages/*
+node_modules/*
