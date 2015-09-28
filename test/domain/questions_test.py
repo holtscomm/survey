@@ -18,6 +18,16 @@ class GetSurveyPageTests(GaeTestCase):
         with self.assertRaises(ValueError):
             get_survey_page(-1)
 
+    def test_page_num_can_not_be_string_one(self):
+        with self.assertRaises(ValueError):
+            get_survey_page("one")
+
+    @mock.patch('app.domain.questions._calculate_from_and_to_for_page_number')
+    def test_page_num_is_converted_to_integer(self, number_mock):
+        number_mock.return_value = (1, 20)
+        get_survey_page("1")
+        number_mock.assert_called_once_with(1)
+
     @mock.patch('app.domain.questions.Question.get_questions_by_number_range')
     def test_page_num_1_returns_questions_1_to_20(self, questions_mock):
         get_survey_page(1)

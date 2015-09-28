@@ -1,6 +1,7 @@
 """ Domain code for questions """
 from app.models.question import Question
 from app.models.quiz_attempt import QuizAttempt
+from app.utils import list_get_or_default
 
 QUESTIONS_PER_PAGE = 20
 
@@ -11,6 +12,8 @@ def get_survey_page(page_num):
     """
     if not page_num:
         raise ValueError('page_num is required')
+    if type(page_num) != int:
+        page_num = int(page_num)
     if page_num <= 0:
         raise ValueError('page_num must be 1 or higher')
 
@@ -24,7 +27,7 @@ def get_survey_page_for_user_id(page_num, user_id):
     Gets a page of the survey and fills in a user's answers on it in the event it has already been filled out.
     """
     survey_page = get_survey_page(page_num)
-    user_attempt = QuizAttempt.get_by_user_id(user_id)
+    user_attempt = QuizAttempt.get_by_user_id(user_id)[0]  # Just work with the first attempt for now.
     user_answers = user_attempt.questions if user_attempt else None
 
     questions = []
@@ -33,7 +36,7 @@ def get_survey_page_for_user_id(page_num, user_id):
         questions.append({
             "question_number": question.question_number,
             "text": question.text,
-            "answer": user_answers[question.question_number - 1]['answer'] if user_answers else 0,
+            "answer": list_get_or_default(user_answers, question.question_number - 1, {}).get('answer', 0),
             "category": question.category
         })
 

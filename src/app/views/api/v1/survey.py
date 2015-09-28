@@ -1,14 +1,15 @@
 """
 APIs for surveys
 """
-import webapp2
 from app.domain.questions import get_survey_page_for_user_id
+from app.views.api import JsonApiHandler
 
 
-class SurveyPageApiHandler(webapp2.RequestHandler):
+class SurveyPageApiHandler(JsonApiHandler):
     """
     API for getting pages of surveys
     """
 
     def get(self, user_id, page_num):
-        get_survey_page_for_user_id(page_num, user_id)
+        questions = get_survey_page_for_user_id(int(page_num), int(user_id))
+        self.return_json_response(questions)
