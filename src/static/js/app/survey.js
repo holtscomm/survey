@@ -12,18 +12,15 @@ class SurveyQuestion extends React.Component {
 }
 
 class SurveyPage extends React.Component {
-  state = {
-    questions: this.props.questions.map((question) => {
+  render() {
+    let questions = this.props.questions.map((question) => {
       return <SurveyQuestion key={question.question_number} questionText={question.text}
                              questionNumber={question.question_number}
                              questionAnswer={question.answer} questionCategory={question.category}/>;
-    })
-  }
-
-  render() {
+    });
     return (
       <div className='survey-page'>
-        {this.state.questions}
+        {questions}
       </div>
     )
   }
