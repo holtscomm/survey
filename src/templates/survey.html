@@ -17,8 +17,6 @@
         </div>
     </div>
 </div>
-    <form method="POST">
-    {% if questions %}
     <div class="questions">
         <div class="questions-header">
             <div class="container">
@@ -32,29 +30,6 @@
                 </div>
             </div>
         </div>
-        <div class="container" id="world-ender">
-
-{#            {% for question in questions %}#}
-{#                {% set question_number = question.question_number %}#}
-{#            <div class="row question-item">#}
-{#                <input type="hidden" name="question-number-{{ question_number }}" value="{{ question_number }}" />#}
-{#                <input type="hidden" name="question-category-{{ question_number }}" value="{{question.category}}" />#}
-{#                <span class="col-md-1 col-xs-1 question-number">{{ question_number }}.</span>#}
-{#                <span class="col-md-8 col-xs-11 question-text">{{ question.text }}</span>#}
-{#                <span class="col-md-1 col-xs-4 question-choice">#}
-{#                    <span>Always</span> <input type="radio" name="choice{{ question_number }}" value="2" required />#}
-{#                </span>#}
-{#                <span class="col-md-1 col-xs-4 question-choice">#}
-{#                    <span>Sometimes</span> <input type="radio" name="choice{{ question_number }}" value="1" required />#}
-{#                </span>#}
-{#                <span class="col-md-1 col-xs-4 question-choice">#}
-{#                    <span>Rarely</span> <input type="radio" name="choice{{ question_number }}" value="0" required />#}
-{#                </span>#}
-{#            </div>#}
-{#            {% endfor %}#}
-{#            <input type="submit" class="btn btn-primary" value="Submit the survey" />#}
-        </div>
+        <div class="container" id="world-ender"></div>
     </div>
-    {% endif %}
-    </form>
 {% endblock %}
