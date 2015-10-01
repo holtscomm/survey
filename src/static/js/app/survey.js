@@ -74,31 +74,44 @@ class SurveyPage extends React.Component {
 
 class Survey extends React.Component {
   state = {
-    questions: []
+    questions: [],
+    done: false,
+    nextPage: 2,
+    prevPage: 1
   }
 
   componentDidMount() {
-    this.getSurveyPage(1, 1);
+    this.getSurveyPage(1, this.state.prevPage);
+  }
+
+  getNextPageOrSubmit = (e) => {
+    this.getSurveyPage(1, this.state.nextPage);
+  }
+
+  getPreviousPage = (e) => {
+    this.getSurveyPage(1, this.state.prevPage);
   }
 
   getSurveyPage(userId, pageNum) {
-    let saved = fetch('/api/v1/survey/1/1')
+    fetch(`/api/v1/survey/${userId}/${pageNum}/`)
       .then((response) => response.json())
       .then((jsonData) => this.updateQuestionsInState(jsonData));
-    // return fetch('/api/v1/survey/1/1')
-    //   .then((response) => response.json());
   }
 
   updateQuestionsInState(questionJson) {
     this.setState({
-      questions: questionJson.data
+      questions: questionJson.data,
+      prevPage: questionJson.prevPage,
+      nextPage: questionJson.nextPage,
+      done: questionJson.done
     });
   }
 
   render() {
     return (<div className='survey'>
         <SurveyPage questions={this.state.questions} />
-        
+        <button onClick={this.getPreviousPage}>Previous</button>
+        <button onClick={this.getNextPageOrSubmit}>{this.state.lastPage ? 'Submit' : 'Next'}</button>
       </div>);
   }
 }
