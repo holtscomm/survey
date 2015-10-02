@@ -28,12 +28,12 @@ class QuizAttempt(ndb.Model):
         """
         These are the final categories that someone is in. In descending order.
 
-        Returns a dict like:
-        {
-            "adm": 10,
-            "tea": 5,
+        Returns a list of tuples like:
+        [
+            ("adm", 10),
+            ("tea", 5),
             ...etc...
-        }
+        ]
         """
         categories = []
         for category in Question.CATEGORY_MAPPINGS.keys():
