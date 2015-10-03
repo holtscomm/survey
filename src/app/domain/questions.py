@@ -27,8 +27,11 @@ def get_survey_page_for_user_id(page_num, user_id):
     Gets a page of the survey and fills in a user's answers on it in the event it has already been filled out.
     """
     survey_page = get_survey_page(page_num)
-    user_attempt = QuizAttempt.get_by_user_id(user_id)[0]  # Just work with the first attempt for now.
-    user_answers = user_attempt.questions if user_attempt else None
+    try:
+        user_attempt = QuizAttempt.get_by_user_id(user_id)  # Just work with the first attempt for now.
+        user_answers = user_attempt.questions
+    except AttributeError:
+        user_answers = []
 
     questions = []
     # Rectify the page with the user's answers and return a list.
