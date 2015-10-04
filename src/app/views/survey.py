@@ -9,10 +9,11 @@ from app.models.quiz_attempt import QuizAttempt
 class SurveyView(TemplatedView):
     """ Survey index """
 
-    def get(self, page_num):
+    def get(self):
         """ GET """
         context = {
-            'questions': get_survey_page(int(page_num))
+            'questions': None  # Eventually maybe this can be server-side-generated React?
+            # https://github.com/markfinger/python-react ?
         }
 
         self.render_response("survey.html", **context)

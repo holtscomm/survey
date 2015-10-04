@@ -1,0 +1,21 @@
+{
+  "jspm": {
+    "directories": {
+      "baseURL": "src/static",
+      "packages": "src/static/js/vendor/jspm_packages"
+    },
+    "configFile": "src/static/js/config.js",
+    "dependencies": {
+      "fetch": "npm:whatwg-fetch@^0.9.0",
+      "react": "npm:react@^0.13.3"
+    },
+    "devDependencies": {
+      "babel": "npm:babel-core@^5.8.24",
+      "babel-runtime": "npm:babel-runtime@^5.8.24",
+      "core-js": "npm:core-js@^1.1.4"
+    }
+  },
+  "devDependencies": {
+    "jspm": "^0.16.10"
+  }
+}

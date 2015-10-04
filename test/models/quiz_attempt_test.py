@@ -39,8 +39,11 @@ class QuizAttemptTests(GaeTestCase):
         self.assertEqual(2, QuizAttempt.convert_points(1))
         self.assertEqual(5, QuizAttempt.convert_points(2))
 
-    def test_get_by_user_id_returns_right_number_of_results(self):
-        self.assertEqual(1, len(QuizAttempt.get_by_user_id(1)))
+    def test_get_by_user_id_returns_attempt_for_user_that_has_an_attempt(self):
+        self.assertIsNotNone(QuizAttempt.get_by_user_id(1))
+
+    def test_get_by_user_id_returns_None_when_no_attempts_exist(self):
+        self.assertIsNone(QuizAttempt.get_by_user_id(100))
 
     def test_adding_more_questions_does_not_break_graded_categories_calculations(self):
         # Right now, Faith is the highest category.

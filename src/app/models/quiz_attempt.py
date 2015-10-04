@@ -28,12 +28,13 @@ class QuizAttempt(ndb.Model):
         """
         These are the final categories that someone is in. In descending order.
 
-        Returns a dict like:
-        {
-            "adm": 10,
-            "tea": 5,
+        Returns a list of tuples like:
+        [
+            ("adm", 10),
+            ("tea", 5),
             ...etc...
-        }
+        ]
+        :rtype: List
         """
         categories = []
         for category in Question.CATEGORY_MAPPINGS.keys():
@@ -45,8 +46,13 @@ class QuizAttempt(ndb.Model):
 
     @classmethod
     def get_by_user_id(cls, user_id):
-        """ Get all quiz attempts from a user id """
-        return cls.query(cls.user_id == user_id).fetch()
+        """
+        Get all quiz attempts from a user id
+        :rtype: QuizAttempt or None
+        """
+        attempts = cls.query(cls.user_id == user_id).fetch()
+
+        return attempts[0] if attempts else None
 
     @staticmethod
     def convert_points(answer):
