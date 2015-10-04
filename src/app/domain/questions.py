@@ -39,7 +39,7 @@ def get_survey_page_for_user_id(page_num, user_id):
         questions.append({
             "question_number": question.question_number,
             "text": question.text,
-            "answer": list_get_or_default(user_answers, question.question_number - 1, {}).get('answer', 0),
+            "answer": list_get_or_default(user_answers, (question.question_number - 1) % 20, {}).get('answer', 0),
             "category": question.category
         })
 
