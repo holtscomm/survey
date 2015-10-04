@@ -13,6 +13,7 @@ class SurveyView(TemplatedView):
         """ GET """
         context = {
             'questions': None  # Eventually maybe this can be server-side-generated React?
+            # https://github.com/markfinger/python-react ?
         }
 
         self.render_response("survey.html", **context)
