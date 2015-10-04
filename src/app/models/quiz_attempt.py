@@ -47,7 +47,7 @@ class QuizAttempt(ndb.Model):
     @classmethod
     def get_by_user_id(cls, user_id):
         """
-        Get all quiz attempts from a user id
+        Get first quiz attempt from a user id
         :rtype: QuizAttempt or None
         """
         attempts = cls.query(cls.user_id == user_id).fetch()
