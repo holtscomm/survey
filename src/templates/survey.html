@@ -2,12 +2,6 @@
 
 {% block survey_active %}active{% endblock %}
 
-{% block header_scripts %}
-<script>
-    System.import('app/survey');
-</script>
-{% endblock %}
-
 {% block content %}
 <div class="container">
     <div class="row">
@@ -32,4 +26,11 @@
         </div>
         <div class="container" id="world-ender"></div>
     </div>
+{% endblock %}
+
+{% block body_scripts %}
+  <script src="/static/js/out.js"></script>
+  <script>
+    // System.import('app/survey');
+  </script>
 {% endblock %}

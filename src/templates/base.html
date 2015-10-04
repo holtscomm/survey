@@ -10,8 +10,8 @@
 
     <link rel="stylesheet" href="/static/css/global.css">
 
-    <script src="/static/js/vendor/jspm_packages/system.js"></script>
-    <script src="/static/js/config.js"></script>
+{#    <script src="/static/js/vendor/jspm_packages/system.js"></script>#}
+{#    <script src="/static/js/config.js"></script>#}
 
     {% block header_styles %}{% endblock %}
     {% block header_scripts %}{% endblock %}
@@ -36,7 +36,7 @@
 
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li class="{% block survey_active %}{% endblock %}"><a href="/survey">Take the Survey</a></li>
+          <li class="{% block survey_active %}{% endblock %}"><a href="/survey/">Take the Survey</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

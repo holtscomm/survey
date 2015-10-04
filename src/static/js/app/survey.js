@@ -1,8 +1,8 @@
 import 'fetch';
 import React from 'react';
 
-// Use `jspm bundle-sfx ./app/survey out.js` to build this bad boy up into a lightning-fast executable.
-// For the above, it's definitely recommended to be in the src/static/js directory :)
+// Use `jspm bundle-sfx ./src/static/js/app/survey ./src/static/js/out.js` to build this bad boy up into
+// a lightning-fast executable. Run from the base of the project!
 
 class SurveyAnswerGroup extends React.Component {
   render() {
