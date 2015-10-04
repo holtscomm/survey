@@ -1,7 +1,9 @@
 """
 APIs for surveys
 """
-from app.domain.questions import get_survey_page_for_user_id
+import json
+
+from app.domain.questions import get_survey_page_for_user_id, save_user_submitted_answers
 from app.views.api import JsonApiHandler
 
 
@@ -11,10 +13,14 @@ class SurveyPageApiHandler(JsonApiHandler):
     """
 
     def get(self, user_id, page_num):
-        int_page_num = int(page_num)
-        questions = get_survey_page_for_user_id(int_page_num, int(user_id))
+        questions, prev_page, next_page = get_survey_page_for_user_id(int(page_num), int(user_id))
         response_data = {
-            'prevPage': 1 if int_page_num == 1 else int_page_num - 1,
-            'nextPage': False if int_page_num == 9 else int_page_num + 1,
+            'prevPage': prev_page,
+            'nextPage': next_page,
         }
         self.return_json_response(questions, additional_info=response_data)
+
+    def post(self, user_id):
+        submitted = json.loads(self.request.POST.get('questions'))
+        save_user_submitted_answers(int(user_id), submitted)
+        self.return_json_response(True)
