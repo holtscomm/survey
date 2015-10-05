@@ -17,3 +17,9 @@ export default class SurveyQuestion extends React.Component {
     );
   }
 }
+
+SurveyQuestion.propTypes = {
+  questionNumber: React.PropTypes.number.isRequired,
+  questionText: React.PropTypes.string.isRequired,
+  questionAnswer: React.PropTypes.number
+}
