@@ -14,7 +14,7 @@ export default class SurveyAnswerGroup extends React.Component {
     }
 
     if (id) {
-      document.getElementById(id).checked = true;
+      React.findDOMNode(this).querySelector('#' + id).checked = true;
     }
   }
 
@@ -54,3 +54,8 @@ export default class SurveyAnswerGroup extends React.Component {
     );
   }
 }
+
+SurveyAnswerGroup.propTypes = {
+  questionNumber: React.PropTypes.number.isRequired,
+  questionAnswer: React.PropTypes.number
+};
