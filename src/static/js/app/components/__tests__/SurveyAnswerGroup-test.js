@@ -1,7 +1,7 @@
 jest.dontMock('../SurveyAnswerGroup.js');
 
 describe('SurveyAnswerGroup', function () {
-  it('starts with nothing selected when questionAnswer is null', function () {
+  it('should start with nothing selected when questionAnswer is null', function () {
     // TODO: Figure out how to reduce this duplication in every test:
     var React = require('react/addons');
     var SurveyAnswerGroup = require('../SurveyAnswerGroup.js');
@@ -21,7 +21,7 @@ describe('SurveyAnswerGroup', function () {
     })
   });
 
-  it('selects the highest answer if questionAnswer is 5', function () {
+  it('should select the highest answer if questionAnswer is 5', function () {
     var React = require('react/addons');
     var SurveyAnswerGroup = require('../SurveyAnswerGroup.js');
     var TestUtils = React.addons.TestUtils;
@@ -33,7 +33,7 @@ describe('SurveyAnswerGroup', function () {
     expect(React.findDOMNode(answerGroup).querySelector('#choice1always').checked).toEqual(true);
   });
 
-  it('selects the middle answer if questionAnswer is 2', function () {
+  it('should select the middle answer if questionAnswer is 2', function () {
     var React = require('react/addons');
     var SurveyAnswerGroup = require('../SurveyAnswerGroup.js');
     var TestUtils = React.addons.TestUtils;
@@ -45,7 +45,7 @@ describe('SurveyAnswerGroup', function () {
     expect(React.findDOMNode(answerGroup).querySelector('#choice1sometimes').checked).toEqual(true);
   });
 
-  it('selects the lowest answer if questionAnswer is 0', function () {
+  it('should select the lowest answer if questionAnswer is 0', function () {
     var React = require('react/addons');
     var SurveyAnswerGroup = require('../SurveyAnswerGroup.js');
     var TestUtils = React.addons.TestUtils;
