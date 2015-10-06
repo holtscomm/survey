@@ -30,6 +30,7 @@ export default class SurveyAnswerGroup extends React.Component {
               name={answerName}
               id={answerName + 'always'}
               value="2"
+              onChange={this.props.handleChangeCallback}
               required />
         </span>
         <span className="col-xs-4 question-choice">
@@ -39,6 +40,7 @@ export default class SurveyAnswerGroup extends React.Component {
               name={answerName}
               id={answerName + 'sometimes'}
               value="1"
+              onChange={this.props.handleChangeCallback}
               required />
         </span>
         <span className="col-xs-4 question-choice">
@@ -48,6 +50,7 @@ export default class SurveyAnswerGroup extends React.Component {
               name={answerName}
               id={answerName + 'rarely'}
               value="0"
+              onChange={this.props.handleChangeCallback}
               required />
         </span>
       </span>

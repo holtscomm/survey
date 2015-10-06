@@ -56,4 +56,25 @@ describe('SurveyAnswerGroup', function () {
 
     expect(React.findDOMNode(answerGroup).querySelector('#choice1rarely').checked).toEqual(true);
   });
+
+  it('should call a callback when an answer is selected with the answer provided', function () {
+    var React = require('react/addons');
+    var SurveyAnswerGroup = require('../SurveyAnswerGroup.js');
+    var TestUtils = React.addons.TestUtils;
+
+    var dummyCallback = jest.genMockFunction();
+
+    var answerGroup = TestUtils.renderIntoDocument(
+      <SurveyAnswerGroup questionNumber={1} questionAnswer={null} handleChangeCallback={dummyCallback} />
+    );
+
+    var inputs = TestUtils.scryRenderedDOMComponentsWithTag(
+      answerGroup,
+      'input'
+    );
+
+    TestUtils.Simulate.change(inputs[0])
+
+    expect(dummyCallback).toBeCalled();
+  })
 });
