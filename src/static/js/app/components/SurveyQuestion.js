@@ -3,13 +3,19 @@ import React from 'react';
 import SurveyAnswerGroup from './SurveyAnswerGroup';
 
 export default class SurveyQuestion extends React.Component {
-  state = {
-    answer: null
+  static propTypes = {
+    questionNumber: React.PropTypes.number.isRequired,
+    questionText: React.PropTypes.string.isRequired,
+    questionCategory: React.PropTypes.string.isRequired,
+    questionAnswer: React.PropTypes.number
   }
 
   handleChange = (e) => {
-    this.setState({
-      answer: parseInt(e.target.value)
+    this.props.passUpAnswer({
+      'num': this.props.questionNumber,
+      'text': this.props.questionText,
+      'category': this.props.questionCategory,
+      'answer': parseInt(e.target.value)
     });
   }
 
@@ -26,11 +32,4 @@ export default class SurveyQuestion extends React.Component {
       </div>
     );
   }
-}
-
-SurveyQuestion.propTypes = {
-  questionNumber: React.PropTypes.number.isRequired,
-  questionText: React.PropTypes.string.isRequired,
-  questionCategory: React.PropTypes.string.isRequired,
-  questionAnswer: React.PropTypes.number
 }
