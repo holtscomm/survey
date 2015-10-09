@@ -29,7 +29,7 @@ export default class SurveyAnswerGroup extends React.Component {
               type="radio"
               name={answerName}
               id={answerName + 'always'}
-              value="2"
+              value="5"
               onChange={this.props.handleChangeCallback}
               required />
         </span>
@@ -39,7 +39,7 @@ export default class SurveyAnswerGroup extends React.Component {
               type="radio"
               name={answerName}
               id={answerName + 'sometimes'}
-              value="1"
+              value="2"
               onChange={this.props.handleChangeCallback}
               required />
         </span>

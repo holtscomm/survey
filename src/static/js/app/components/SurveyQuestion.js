@@ -12,8 +12,7 @@ export default class SurveyQuestion extends React.Component {
 
   handleChange = (e) => {
     this.props.passUpAnswer({
-      'num': this.props.questionNumber,
-      'text': this.props.questionText,
+      'question_number': this.props.questionNumber,
       'category': this.props.questionCategory,
       'answer': parseInt(e.target.value)
     });

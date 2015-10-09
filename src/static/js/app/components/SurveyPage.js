@@ -4,19 +4,27 @@ import SurveyQuestion from './SurveyQuestion';
 
 export default class SurveyPage extends React.Component {
   state = {
-    questions: []
+    questions: {}
+  }
+
+  checkQuestionData() {
+    return this.state.questions;
   }
 
   gatherQuestionData = (questionObj) => {
     let questions = this.state.questions;
-    questions.push(questionObj);
+    questions[`${questionObj.question_number}`] = questionObj.category + ':' + questionObj.answer;
     this.setState({
       questions: questions
     });
   }
 
   giveQuestionData() {
-    return this.state.questions;
+    let questionData = this.checkQuestionData();
+    this.setState({
+      questions: {}
+    });
+    return questionData;
   }
 
   render() {

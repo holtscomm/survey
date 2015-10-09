@@ -25,6 +25,17 @@ class QuizAttemptTests(GaeTestCase):
         self.attempt.questions = questions
         self.attempt.put()
 
+        self.attempt2 = QuizAttempt(user_id=87752083)
+        questions = []
+        for i in range(0, 20):
+            questions.append(QuizAttemptAnswer(
+                question_number=i + 1,
+                answer=answers[i],
+                category=self.categories[i % 10]
+            ))
+        self.attempt2.questions = questions
+        self.attempt2.put()
+
     def test_graded_categories_returns_aggregated_data_for_categories(self):
         self.assertEqual(len(Question.CATEGORY_MAPPINGS), len(self.attempt.graded_categories))
 
@@ -33,11 +44,25 @@ class QuizAttemptTests(GaeTestCase):
         self.assertLessEqual(graded_cats[1][1], graded_cats[0][1])
         self.assertLessEqual(graded_cats[2][1], graded_cats[1][1])
 
+    def test_get_by_user_id_raises_value_error_if_None_passed_in(self):
+        with self.assertRaises(ValueError):
+            QuizAttempt.get_by_user_id(None)
+
     def test_get_by_user_id_returns_attempt_for_user_that_has_an_attempt(self):
         self.assertIsNotNone(QuizAttempt.get_by_user_id(1))
 
     def test_get_by_user_id_returns_None_when_no_attempts_exist(self):
         self.assertIsNone(QuizAttempt.get_by_user_id(100))
+
+    def test_get_by_user_id_returns_None_when_None_passed_in(self):
+        self.assertIsNone(QuizAttempt.get_by_user_id(None))
+
+    def test_get_by_user_id_coerces_to_int_if_string_passed_in(self):
+        with self.assertRaises(TypeError):
+            QuizAttempt.get_by_user_id([1])  # Raises a TypeError when it goes to convert a list to an int.
+
+    def test_get_by_user_id_returns_attempt_when_long_is_passed_in(self):
+        self.assertIsNotNone(QuizAttempt.get_by_user_id(87752083))
 
     def test_adding_more_questions_does_not_break_graded_categories_calculations(self):
         # Right now, Faith is the highest category.

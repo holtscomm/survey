@@ -49,6 +49,10 @@ class QuizAttempt(ndb.Model):
         Get first quiz attempt from a user id
         :rtype: QuizAttempt or None
         """
+        if not user_id:
+            raise ValueError('user_id must be provided')
+        if type(user_id) != int:
+            user_id = int(user_id)
         attempts = cls.query(cls.user_id == user_id).fetch()
 
         return attempts[0] if attempts else None

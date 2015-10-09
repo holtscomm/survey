@@ -7,22 +7,24 @@ class Survey extends React.Component {
   state = {
     questions: [],
     done: false,
-    nextPage: 2,
-    prevPage: 1
+    nextPage: 2
   }
 
   componentDidMount() {
-    this.getSurveyPage(1, this.state.prevPage);
+    this.getSurveyPage(1, 1);
   }
 
   getNextPageOrSubmit = (e) => {
-    this.submitAnswers();
-    this.getSurveyPage(1, this.state.nextPage);
-  }
+    if (Object.keys(this._surveyPage.checkQuestionData()).length !== 20) {
+      //alert('You must answer all the questions');
+      //return;
+    }
+    this.submitAnswers(1);
+    if (this.state.nextPage !== false) {
+      this.getSurveyPage(1, this.state.nextPage);
+    } else {
 
-  getPreviousPage = (e) => {
-    this.calculatePageAnswers();
-    this.getSurveyPage(1, this.state.prevPage);
+    }
   }
 
   getSurveyPage(userId, pageNum) {
@@ -38,14 +40,13 @@ class Survey extends React.Component {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(this.state.questions)
+      body: JSON.stringify(this._surveyPage.giveQuestionData())
     })
   }
 
   updateQuestionsInState(questionJson) {
     this.setState({
       questions: questionJson.data,
-      prevPage: questionJson.prevPage,
       nextPage: questionJson.nextPage,
       done: questionJson.done
     });
@@ -54,7 +55,6 @@ class Survey extends React.Component {
   render() {
     return (<div className='survey'>
         <SurveyPage questions={this.state.questions} ref={(c) => this._surveyPage = c} />
-        <button onClick={this.getPreviousPage}>Previous</button>
         <button onClick={this.getNextPageOrSubmit}>{this.state.lastPage ? 'Submit' : 'Next'}</button>
       </div>);
   }

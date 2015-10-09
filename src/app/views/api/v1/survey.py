@@ -4,6 +4,7 @@ APIs for surveys
 import json
 
 from app.domain.questions import get_survey_page_for_user_id, save_user_submitted_answers
+from app.models.quiz_attempt import QuizAttemptAnswer
 from app.views.api import JsonApiHandler
 
 
@@ -21,6 +22,24 @@ class SurveyPageApiHandler(JsonApiHandler):
         self.return_json_response(questions, additional_info=response_data)
 
     def post(self, user_id):
-        submitted = json.loads(self.request.POST.get('questions'))
-        save_user_submitted_answers(int(user_id), submitted)
+        submitted = json.loads(self.request.body)
+        save_user_submitted_answers(int(user_id), _normalize_data(submitted))
         self.return_json_response(True)
+
+
+def _normalize_data(json_answers):
+    """
+    Takes the json loads'd data from Javascript and converts it to what save_user_submitted_answers will expect.
+    :return: list of dictionaries
+    :rtype: list
+    """
+    answers = []
+    for question_number in json_answers.keys():
+        category_answer = json_answers[question_number].split(':')
+        answers.append(QuizAttemptAnswer(
+            question_number=int(question_number),
+            category=category_answer[0],
+            answer=int(category_answer[1])
+        ))
+
+    return sorted(answers, cmp=lambda x, y: cmp(x.question_number, y.question_number))
