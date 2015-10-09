@@ -5,7 +5,7 @@ import mock
 
 from app.domain.questions import get_survey_page, get_survey_page_for_user_id, save_user_submitted_answers
 from app.models.question import Question
-from app.models.quiz_attempt import QuizAttempt
+from app.models.quiz_attempt import QuizAttempt, QuizAttemptAnswer
 from test.fixtures.appengine import GaeTestCase
 
 
@@ -78,14 +78,8 @@ class GetSurveyPageForUserIdTests(GaeTestCase):
             self.question2
         ]
         attempt_mock.return_value.questions = [
-            {
-                "question_number": 1,
-                "answer": 0,
-            },
-            {
-                "question_number": 2,
-                "answer": 5,
-            }
+            QuizAttemptAnswer(question_number=1, answer=0),
+            QuizAttemptAnswer(question_number=2, answer=5)
         ]
         actual, _, _ = get_survey_page_for_user_id(1, 1)
         expected = [
@@ -139,14 +133,8 @@ class GetSurveyPageForUserIdTests(GaeTestCase):
         ]
 
         attempt_mock.return_value.questions = [
-            {
-                "question_number": 1,
-                "answer": 0,
-            },
-            {
-                "question_number": 2,
-                "answer": 5,
-            }
+            QuizAttemptAnswer(question_number=1, answer=0),
+            QuizAttemptAnswer(question_number=2, answer=5)
         ]
 
         actual, _, _ = get_survey_page_for_user_id(1, 1)
@@ -227,18 +215,8 @@ class GetSurveyPageForUserIdTests(GaeTestCase):
             1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
             1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
             1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-            {
-                "question_number": 41,
-                "text": "Fake text",
-                "answer": 0,
-                "category": "adm",
-            },
-            {
-                "question_number": 42,
-                "text": "Fake text",
-                "answer": 5,
-                "category": "fai",
-            }
+            QuizAttemptAnswer(question_number=41, answer=0),
+            QuizAttemptAnswer(question_number=42, answer=5)
         ]
 
         actual, _, _ = get_survey_page_for_user_id(3, 1)
@@ -290,93 +268,40 @@ class SaveUserSubmittedAnswersTests(GaeTestCase):
     def test_saves_all_answers_to_attempt_if_user_attempt_is_empty_for_those_questions(self, attempt_mock):
         attempt = QuizAttempt(user_id=1, questions=[])
         attempt_mock.return_value = attempt
-        save_user_submitted_answers(1, [{'question_number': 1}])
-        self.assertEqual([{'question_number': 1}], attempt.questions)
+        save_user_submitted_answers(1, [QuizAttemptAnswer(question_number=1, answer=5)])
+        self.assertEqual(1, len(attempt.questions))
 
     @mock.patch('app.domain.questions.QuizAttempt.get_by_user_id')
     def test_saves_answers_over_any_attempt_answers_that_already_exist(self, attempt_mock):
         attempt = QuizAttempt(user_id=1, questions=[
-            {
-                "question_number": 1,
-                "text": "Fake text",
-                "answer": 0,
-                "category": "adm"
-            },
-            {
-                "question_number": 2,
-                "text": "Fake text",
-                "answer": 5,
-                "category": "adm"
-            },
+            QuizAttemptAnswer(question_number=1, answer=0, category='adm'),
+            QuizAttemptAnswer(question_number=2, answer=5, category='adm'),
         ])
         attempt_mock.return_value = attempt
         save_user_submitted_answers(1, [
-            {
-                "question_number": 1,
-                "text": "Fake text",
-                "answer": 5,
-                "category": "adm"
-            },
-            {
-                "question_number": 2,
-                "text": "Fake text",
-                "answer": 2,
-                "category": "adm"
-            },
+            QuizAttemptAnswer(question_number=1, answer=5),
+            QuizAttemptAnswer(question_number=2, answer=2),
         ])
-        self.assertEqual(5, attempt.questions[0]['answer'])
-        self.assertEqual(2, attempt.questions[1]['answer'])
+        self.assertEqual(5, attempt.questions[0].answer)
+        self.assertEqual(2, attempt.questions[1].answer)
 
     @mock.patch('app.domain.questions.QuizAttempt.get_by_user_id')
     def test_extends_quiz_attempt_with_any_new_answers(self, attempt_mock):
         attempt = QuizAttempt(user_id=1, questions=[
-            {
-                "question_number": 1,
-                "answer": 0,
-            },
-            {
-                "question_number": 2,
-                "answer": 0,
-            },
-            {
-                "question_number": 3,
-                "answer": 0,
-            },
-            {
-                "question_number": 4,
-                "answer": 0,
-            },
-            {
-                "question_number": 5,
-                "answer": 0,
-            },
+            QuizAttemptAnswer(question_number=1, answer=0),
+            QuizAttemptAnswer(question_number=2, answer=0),
+            QuizAttemptAnswer(question_number=3, answer=0),
+            QuizAttemptAnswer(question_number=4, answer=0),
+            QuizAttemptAnswer(question_number=5, answer=0),
         ])
         attempt_mock.return_value = attempt
         save_user_submitted_answers(1, [
-            {
-                "question_number": 5,
-                "answer": 5
-            },
-            {
-                "question_number": 6,
-                "answer": 0,
-            },
-            {
-                "question_number": 7,
-                "answer": 5,
-            },
-            {
-                "question_number": 8,
-                "answer": 2,
-            },
-            {
-                "question_number": 9,
-                "answer": 2,
-            },
-            {
-                "question_number": 10,
-                "answer": 5,
-            },
+            QuizAttemptAnswer(question_number=5, answer=5),
+            QuizAttemptAnswer(question_number=6, answer=0),
+            QuizAttemptAnswer(question_number=7, answer=5),
+            QuizAttemptAnswer(question_number=8, answer=2),
+            QuizAttemptAnswer(question_number=9, answer=2),
+            QuizAttemptAnswer(question_number=10, answer=5),
         ])
-        self.assertEqual(5, attempt.questions[4]["answer"])
+        self.assertEqual(5, attempt.questions[4].answer)
         self.assertEqual(10, len(attempt.questions))
