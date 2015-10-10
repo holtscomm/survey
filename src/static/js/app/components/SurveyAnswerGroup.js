@@ -1,20 +1,18 @@
 import React from 'react';
 
 export default class SurveyAnswerGroup extends React.Component {
-  componentDidMount() {
-    let id = 'choice' + this.props.questionNumber;
-    if (this.props.questionAnswer == 5) {
-      id += 'always';
-    } else if (this.props.questionAnswer == 2) {
-      id += 'sometimes';
-    } else if (this.props.questionAnswer == 0) {
-      id += 'rarely';
-    } else {
-      id = null;
-    }
+  static propTypes = {
+    questionNumber: React.PropTypes.number.isRequired,
+    questionAnswer: React.PropTypes.number
+  }
 
-    if (id) {
-      React.findDOMNode(this).querySelector('#' + id).checked = true;
+  componentDidMount() {
+    if (this.props.questionAnswer == 5) {
+      this.refs.always.checked = true;
+    } else if (this.props.questionAnswer == 2) {
+      this.refs.sometimes.checked = true;
+    } else if (this.props.questionAnswer == 0) {
+      this.refs.rarely.checked = true;
     }
   }
 
@@ -28,7 +26,7 @@ export default class SurveyAnswerGroup extends React.Component {
             <input
               type="radio"
               name={answerName}
-              id={answerName + 'always'}
+              ref='always'
               value="5"
               onChange={this.props.handleChangeCallback}
               required />
@@ -38,7 +36,7 @@ export default class SurveyAnswerGroup extends React.Component {
             <input
               type="radio"
               name={answerName}
-              id={answerName + 'sometimes'}
+              ref='sometimes'
               value="2"
               onChange={this.props.handleChangeCallback}
               required />
@@ -48,7 +46,7 @@ export default class SurveyAnswerGroup extends React.Component {
             <input
               type="radio"
               name={answerName}
-              id={answerName + 'rarely'}
+              ref='rarely'
               value="0"
               onChange={this.props.handleChangeCallback}
               required />
@@ -57,8 +55,3 @@ export default class SurveyAnswerGroup extends React.Component {
     );
   }
 }
-
-SurveyAnswerGroup.propTypes = {
-  questionNumber: React.PropTypes.number.isRequired,
-  questionAnswer: React.PropTypes.number
-};

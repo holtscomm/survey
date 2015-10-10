@@ -10,7 +10,6 @@ class TemplatedView(RequestHandler):
     """
     Base view for all other views to extend
     """
-
     @cached_property
     def jinja2(self):
         """

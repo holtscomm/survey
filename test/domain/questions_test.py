@@ -3,10 +3,52 @@ Tests for domain methods in questions.py
 """
 import mock
 
-from app.domain.questions import get_survey_page, get_survey_page_for_user_id, save_user_submitted_answers
+from app.domain.questions import get_survey_page, get_survey_page_for_user_id, save_user_submitted_answers, \
+    get_first_survey_page_for_user_id
 from app.models.question import Question
 from app.models.quiz_attempt import QuizAttempt, QuizAttemptAnswer
 from test.fixtures.appengine import GaeTestCase
+
+
+class GetFirstSurveyPageForUserIdTests(GaeTestCase):
+
+    def test_user_id_is_required(self):
+        with self.assertRaises(ValueError):
+            get_first_survey_page_for_user_id(None)
+
+    @mock.patch('app.domain.questions.QuizAttempt.get_by_user_id')
+    def test_QuizAttempt_get_user_by_id_called_with_user_id_passed_in(self, attempt_mock):
+        get_first_survey_page_for_user_id(1234)
+        attempt_mock.assert_called_once_with(1234)
+
+    @mock.patch('app.domain.questions.QuizAttempt.get_by_user_id')
+    def test_QuizAttempt_with_0_questions_in_it_will_return_page_one(self, attempt_mock):
+        attempt_mock.return_value.questions = []
+        first_page = get_first_survey_page_for_user_id(1234)
+        self.assertEqual(1, first_page)
+
+    @mock.patch('app.domain.questions.QuizAttempt.get_by_user_id')
+    def test_QuizAttempt_with_20_questions_in_it_will_return_page_two(self, attempt_mock):
+        attempt_mock.return_value.questions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+        first_page = get_first_survey_page_for_user_id(1234)
+        self.assertEqual(2, first_page)
+
+    @mock.patch('app.domain.questions.QuizAttempt.get_by_user_id')
+    def test_QuizAttempt_with_24_questions_in_it_will_return_page_two(self, attempt_mock):
+        attempt_mock.return_value.questions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4]
+        first_page = get_first_survey_page_for_user_id(1234)
+        self.assertEqual(2, first_page)
+
+    @mock.patch('app.domain.questions.QuizAttempt.get_by_user_id')
+    def test_QuizAttempt_with_44_questions_in_it_will_return_page_three(self, attempt_mock):
+        attempt_mock.return_value.questions = [
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 0,
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 0,
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 0,
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 0,
+            1, 2, 3, 4]
+        first_page = get_first_survey_page_for_user_id(1234)
+        self.assertEqual(3, first_page)
 
 
 class GetSurveyPageTests(GaeTestCase):
