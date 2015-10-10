@@ -6,6 +6,25 @@ from app.utils import list_get_or_default
 QUESTIONS_PER_PAGE = 20
 
 
+def save_user_submitted_answers(user_id, submitted):
+    """
+    Save answers submitted to the API.
+    """
+    quiz_attempt = QuizAttempt.get_by_user_id(user_id)
+
+    if type(submitted) == list and len(submitted) > 0:
+        questions_start = submitted[0].question_number - 1
+        questions_end = questions_start + len(submitted)
+    else:
+        return
+
+    for question in quiz_attempt.questions[questions_start:questions_end]:
+        quiz_attempt.questions[question.question_number - 1].answer = submitted.pop(0).answer
+
+    quiz_attempt.questions.extend(submitted)
+    quiz_attempt.put()
+
+
 def get_survey_page(page_num):
     """
     Gets a page of the survey.
@@ -28,7 +47,7 @@ def get_survey_page_for_user_id(page_num, user_id):
     """
     survey_page = get_survey_page(page_num)
     try:
-        user_attempt = QuizAttempt.get_by_user_id(user_id)  # Just work with the first attempt for now.
+        user_attempt = QuizAttempt.get_by_user_id(user_id)
         user_answers = user_attempt.questions
     except AttributeError:
         user_answers = []
@@ -36,14 +55,21 @@ def get_survey_page_for_user_id(page_num, user_id):
     questions = []
     # Rectify the page with the user's answers and return a list.
     for question in survey_page:
+        try:
+            user_answer = user_answers[question.question_number - 1].answer
+        except IndexError:
+            user_answer = None
         questions.append({
             "question_number": question.question_number,
             "text": question.text,
-            "answer": list_get_or_default(user_answers, (question.question_number - 1) % 20, {}).get('answer', 0),
+            "answer": user_answer,
             "category": question.category
         })
 
-    return questions
+    prev_page = 1 if page_num == 1 else page_num - 1
+    next_page = False if page_num == 9 else page_num + 1
+
+    return questions, prev_page, next_page
 
 
 def _calculate_from_and_to_for_page_number(page_num):

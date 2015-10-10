@@ -9,8 +9,11 @@ class IndexView(TemplatedView):
 
     def get(self):
         """ GET """
+        user_id = self.request.GET.get('userId', 1)
+
         context = {
-            'quiz_attempts': QuizAttempt.get_by_user_id(1)
+            'user_id': user_id,
+            'quiz_attempt': QuizAttempt.get_by_user_id(user_id)
         }
 
         self.render_response("results.html", **context)

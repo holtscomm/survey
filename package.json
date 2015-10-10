@@ -16,6 +16,27 @@
     }
   },
   "devDependencies": {
-    "jspm": "^0.16.10"
+    "babel-jest": "^5.3.0",
+    "jest": "^0.1.40",
+    "jest-cli": "^0.5.8",
+    "jspm": "^0.16.10",
+    "node-sass": "^3.3.3",
+    "nodemon": "^1.7.1",
+    "react": "^0.13.3"
+  },
+  "scripts": {
+    "build-js": "jspm bundle-sfx ./src/static/js/app/survey ./src/static/js/out.js",
+    "build-css": "node-sass --include-path scss src/static/scss/global.scss src/static/css/global.css",
+    "watch-css": "nodemon -e scss -x \"npm run build-css\"",
+    "test": "BABEL_JEST_STAGE=0 jest"
+  },
+  "jest": {
+    "scriptPreprocessor": "node_modules/babel-jest",
+    "testPathDirs": [
+      "src/static/js/app"
+    ],
+    "unmockedModulePathPatterns": [
+      "node_modules/react"
+    ]
   }
 }

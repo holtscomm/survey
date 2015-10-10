@@ -1,8 +1,9 @@
 """
 Survey view
 """
+import uuid
+
 from . import TemplatedView
-from app.domain.questions import get_survey_page
 from app.models.quiz_attempt import QuizAttempt
 
 
@@ -11,24 +12,16 @@ class SurveyView(TemplatedView):
 
     def get(self):
         """ GET """
+        user_id = self.request.GET.get('userId', int(uuid.uuid4().int % 100000000))  # FIXME plz
+        attempt = QuizAttempt.get_by_user_id(user_id)
+        if not attempt:
+            # Start up a new QuizAttempt!
+            QuizAttempt(user_id=user_id).put()
+
         context = {
+            'user_id': user_id,
             'questions': None  # Eventually maybe this can be server-side-generated React?
             # https://github.com/markfinger/python-react ?
         }
 
         self.render_response("survey.html", **context)
-
-    def post(self):
-        """ POST """
-        # TODO: Move all of this into domain layer
-        question_list = []
-        for i in range(1, 11):
-            question_list.append({
-                'question_number': int(self.request.get('question-number-{}'.format(i), 0)),
-                'category': self.request.get('question-category-{}'.format(i)),
-                'answer': int(self.request.get('choice{}'.format(i), 0)),
-            })
-
-        quiz_attempt = QuizAttempt(user_id=1, questions=question_list)
-        quiz_attempt.put()
-        self.redirect('/')
