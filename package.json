@@ -26,7 +26,8 @@
     "react": "^0.14.0"
   },
   "scripts": {
-    "build-js": "jspm bundle-sfx ./src/static/js/app/survey ./src/static/js/out.js",
+    "build-js": "jspm bundle-sfx ./src/static/js/app/survey ./src/static/js/survey.js",
+    "watch-js": "nodemon --watch ./src/static/js/app --ignore '*/__tests__/*.js' -x \"npm run build-js\"",
     "build-css": "node-sass --include-path scss src/static/scss/global.scss src/static/css/global.css",
     "watch-css": "nodemon -e scss -x \"npm run build-css\"",
     "test": "BABEL_JEST_STAGE=0 jest"

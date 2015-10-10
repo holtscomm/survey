@@ -10,5 +10,5 @@ data/*
 coverage-report/*
 src/static/js/vendor/jspm_packages/*
 node_modules/*
-src/static/js/out.*
+src/static/js/survey.*
 npm-debug.log
