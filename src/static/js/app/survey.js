@@ -11,6 +11,7 @@ class Survey extends React.Component {
   }
 
   componentDidMount() {
+    // TODO: Make this load from the user id passed into the page
     this.getSurveyPage(1, 1);
   }
 

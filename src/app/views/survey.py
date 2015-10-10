@@ -15,7 +15,7 @@ class SurveyView(TemplatedView):
         user_id = self.request.GET.get('userId', int(uuid.uuid4().int % 100000000))  # FIXME plz
         attempt = QuizAttempt.get_by_user_id(user_id)
         if not attempt:
-            # For now, make a new QuizAttempt for user 1 just for testing.
+            # Start up a new QuizAttempt!
             QuizAttempt(user_id=user_id).put()
 
         context = {
