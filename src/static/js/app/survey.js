@@ -13,11 +13,12 @@ class Survey extends React.Component {
   }
 
   componentDidMount() {
-    this.getFirstPageAndUser();
+    let userId = document.getElementById('user-id').innerHTML;
+    this.getFirstPageForUser(userId);
   }
 
-  getFirstPageAndUser() {
-    fetch('/api/v1/survey/getFirstPage/')
+  getFirstPageForUser(userId) {
+    fetch(`/api/v1/survey/getFirstPage/?userId=${userId}`)
       .then((response) => response.json())
       .then((jsonData) => {
         this.setState({

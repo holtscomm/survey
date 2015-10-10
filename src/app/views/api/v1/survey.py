@@ -15,8 +15,7 @@ class SurveyGetFirstPageApiHandler(JsonApiHandler):
     """
 
     def get(self):
-        user_id = int(self.request.cookies.get('survey-user-id'))
-        self.response.delete_cookie('survey-user-id')
+        user_id = self.request.GET.get('userId', 1)
         first_page_to_return = get_first_survey_page_for_user_id(user_id)
         questions, prev_page, next_page = get_survey_page_for_user_id(first_page_to_return, user_id)
         response_data = {
