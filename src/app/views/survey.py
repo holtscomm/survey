@@ -18,6 +18,8 @@ class SurveyView(TemplatedView):
             # Start up a new QuizAttempt!
             QuizAttempt(user_id=user_id).put()
 
+        self.response.set_cookie('survey-user-id', value=str(user_id), path='/survey/')
+
         context = {
             'user_id': user_id,
             'questions': None  # Eventually maybe this can be server-side-generated React?

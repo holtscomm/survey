@@ -1,5 +1,6 @@
 import 'fetch';
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 import SurveyPage from './components/SurveyPage';
 
@@ -7,12 +8,23 @@ class Survey extends React.Component {
   state = {
     questions: [],
     done: false,
-    nextPage: 2
+    nextPage: 2,
+    userId: 0
   }
 
   componentDidMount() {
-    // TODO: Make this load from the user id passed into the page
-    this.getSurveyPage(1, 1);
+    this.getFirstPageAndUser();
+  }
+
+  getFirstPageAndUser() {
+    fetch('/api/v1/survey/getFirstPage/')
+      .then((response) => response.json())
+      .then((jsonData) => {
+        this.setState({
+          userId: jsonData.userId
+        });
+        this.updateQuestionsInState(jsonData);
+      });
   }
 
   getNextPageOrSubmit = (e) => {
@@ -20,11 +32,11 @@ class Survey extends React.Component {
       //alert('You must answer all the questions');
       //return;
     }
-    this.submitAnswers(1);
+    this.submitAnswers(this.state.userId);
     if (this.state.nextPage !== false) {
-      this.getSurveyPage(1, this.state.nextPage);
+      this.getSurveyPage(this.state.userId, this.state.nextPage);
     } else {
-
+      window.location.href = '/results/' + this.state.userId
     }
   }
 
@@ -61,4 +73,4 @@ class Survey extends React.Component {
   }
 }
 
-React.render(<Survey />, document.getElementById('world-ender'));
+ReactDOM.render(<Survey />, document.getElementById('world-ender'));

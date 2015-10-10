@@ -1,7 +1,7 @@
 """ Domain code for questions """
 from app.models.question import Question
 from app.models.quiz_attempt import QuizAttempt
-from app.utils import list_get_or_default
+
 
 QUESTIONS_PER_PAGE = 20
 
@@ -23,6 +23,19 @@ def save_user_submitted_answers(user_id, submitted):
 
     quiz_attempt.questions.extend(submitted)
     quiz_attempt.put()
+
+
+def get_first_survey_page_for_user_id(user_id):
+    """
+    Gets the first page a user id needs to start on. If they haven't answered any questions or up to 20 questions,
+    that's page 1. If they've answered 21-40 questions, that's page 2, and so on.
+    """
+    if not user_id:
+        raise ValueError('user_id is required')
+
+    quiz_attempt = QuizAttempt.get_by_user_id(user_id)
+
+    return (len(quiz_attempt.questions) / QUESTIONS_PER_PAGE) + 1
 
 
 def get_survey_page(page_num):

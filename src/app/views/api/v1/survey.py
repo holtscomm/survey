@@ -3,9 +3,28 @@ APIs for surveys
 """
 import json
 
-from app.domain.questions import get_survey_page_for_user_id, save_user_submitted_answers
+from app.domain.questions import get_survey_page_for_user_id, save_user_submitted_answers, \
+    get_first_survey_page_for_user_id
 from app.models.quiz_attempt import QuizAttemptAnswer
 from app.views.api import JsonApiHandler
+
+
+class SurveyGetFirstPageApiHandler(JsonApiHandler):
+    """
+    API that gets the first page for a user, somewhat implicitly for now.
+    """
+
+    def get(self):
+        user_id = int(self.request.cookies.get('survey-user-id'))
+        self.response.delete_cookie('survey-user-id')
+        first_page_to_return = get_first_survey_page_for_user_id(user_id)
+        questions, prev_page, next_page = get_survey_page_for_user_id(first_page_to_return, user_id)
+        response_data = {
+            'userId': user_id,
+            'prevPage': prev_page,
+            'nextPage': next_page,
+        }
+        self.return_json_response(questions, additional_info=response_data)
 
 
 class SurveyPageApiHandler(JsonApiHandler):
