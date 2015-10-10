@@ -13,6 +13,7 @@
                 You are user id: <span id='user-id'>{{ user_id }}</span>,
                 you can visit <a href="/results/?userId={{ user_id }}">this page</a> to see your results.
             </p>
+            <p>Bookmark <a href="/survey/?userId={{ user_id }}">this link</a> to come back and finish your survey any time.</p>
         </div>
     </div>
 </div>
@@ -34,8 +35,8 @@
 {% endblock %}
 
 {% block body_scripts %}
-{#  <script src="/static/js/out.js"></script>#}
-  <script>
-    System.import('app/survey');
-  </script>
+  <script src="/static/js/out.js"></script>
+{#  <script>#}
+{#    System.import('app/survey');#}
+{#  </script>#}
 {% endblock %}
