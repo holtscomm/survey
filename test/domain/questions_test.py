@@ -347,3 +347,20 @@ class SaveUserSubmittedAnswersTests(GaeTestCase):
         ])
         self.assertEqual(5, attempt.questions[4].answer)
         self.assertEqual(10, len(attempt.questions))
+
+    @mock.patch('app.domain.questions.QuizAttempt.get_by_user_id')
+    def test_answer_not_written_if_question_numbers_dont_match(self, attempt_mock):
+        attempt = QuizAttempt(user_id=1, questions=[
+            QuizAttemptAnswer(question_number=1, answer=0),
+            QuizAttemptAnswer(question_number=2, answer=0),
+            QuizAttemptAnswer(question_number=3, answer=0),
+        ])
+        attempt_mock.return_value = attempt
+        save_user_submitted_answers(1, [
+            QuizAttemptAnswer(question_number=1, answer=2),
+            QuizAttemptAnswer(question_number=3, answer=5),
+            QuizAttemptAnswer(question_number=4, answer=5),
+        ])
+        self.assertEqual(0, attempt.questions[1].answer)
+        self.assertEqual(5, attempt.questions[2].answer)
+        self.assertEqual(5, attempt.questions[3].answer)
