@@ -202,6 +202,44 @@ class GetSurveyPageForUserIdTests(GaeTestCase):
         ]
         self.assertEqual(expected, actual)
 
+    @mock.patch('app.domain.questions.QuizAttempt.get_by_user_id')
+    @mock.patch('app.domain.questions.Question.get_questions_by_number_range')
+    def test_no_answer_filled_in_if_question_has_not_been_answered_yet(self, questions_mock, attempt_mock):
+        question3 = Question(text="Something", question_number=3, category="adm")
+        questions_mock.return_value = [
+            self.question1,
+            self.question2,
+            question3
+        ]
+
+        attempt_mock.return_value.questions = [
+            QuizAttemptAnswer(question_number=1, answer=0),
+            QuizAttemptAnswer(question_number=3, answer=5)
+        ]
+
+        actual, _, _ = get_survey_page_for_user_id(1, 1)
+        expected = [
+            {
+                "question_number": 1,
+                "text": "Fake text",
+                "answer": 0,
+                "category": "adm"
+            },
+            {
+                "question_number": 2,
+                "text": "Fake text",
+                "answer": None,
+                "category": "fai",
+            },
+            {
+                "question_number": 3,
+                "text": "Something",
+                "answer": 5,
+                "category": "adm",
+            }
+        ]
+        self.assertEqual(expected, actual)
+
     @mock.patch('app.domain.questions.Question.get_questions_by_number_range')
     def test_correct_questions_returned_for_page_higher_than_one(self, questions_mock):
         question21 = Question()

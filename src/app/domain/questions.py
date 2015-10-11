@@ -70,7 +70,11 @@ def get_survey_page_for_user_id(page_num, user_id):
     # Rectify the page with the user's answers and return a list.
     for question in survey_page:
         try:
-            user_answer = user_answers[question.question_number - 1].answer
+            if user_answers[question.question_number - 1].question_number == question.question_number:
+                user_answer = user_answers[question.question_number - 1].answer
+            else:
+                user_answer = None
+                user_answers.insert(question.question_number - 1, None)
         except IndexError:
             user_answer = None
         questions.append({
