@@ -6,7 +6,7 @@ from .question import Question
 
 class QuizAttemptAnswer(ndb.Model):
     """
-    Model for use in QuizAttempt's structured property
+    Model for use in QuizAttempt's StructuredProperty
     """
     question_number = ndb.IntegerProperty(required=True)
     category = ndb.StringProperty(required=True)
