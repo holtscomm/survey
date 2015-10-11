@@ -54,9 +54,6 @@ class QuizAttemptTests(GaeTestCase):
     def test_get_by_user_id_returns_None_when_no_attempts_exist(self):
         self.assertIsNone(QuizAttempt.get_by_user_id(100))
 
-    def test_get_by_user_id_returns_None_when_None_passed_in(self):
-        self.assertIsNone(QuizAttempt.get_by_user_id(None))
-
     def test_get_by_user_id_coerces_to_int_if_string_passed_in(self):
         with self.assertRaises(TypeError):
             QuizAttempt.get_by_user_id([1])  # Raises a TypeError when it goes to convert a list to an int.

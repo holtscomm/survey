@@ -7,7 +7,7 @@ from app.views.api.v1.survey import _normalize_data
 
 
 class NormalizeDataTests(GaeTestCase):
-    def test_data_is_converted_to_list_of_namedtuples(self):
+    def test_data_is_converted_to_list_of_QuizAttemptAnswers(self):
         data = {
             '1': 'adm:2',
             '2': 'adm:5',

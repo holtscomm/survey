@@ -14,12 +14,13 @@ def save_user_submitted_answers(user_id, submitted):
 
     if type(submitted) == list and len(submitted) > 0:
         questions_start = submitted[0].question_number - 1
-        questions_end = questions_start + len(submitted)
+        questions_end = submitted[-1].question_number
     else:
         return
 
     for question in quiz_attempt.questions[questions_start:questions_end]:
-        quiz_attempt.questions[question.question_number - 1].answer = submitted.pop(0).answer
+        if question.question_number == submitted[0].question_number:
+            quiz_attempt.questions[question.question_number - 1].answer = submitted.pop(0).answer
 
     quiz_attempt.questions.extend(submitted)
     quiz_attempt.put()
@@ -69,7 +70,11 @@ def get_survey_page_for_user_id(page_num, user_id):
     # Rectify the page with the user's answers and return a list.
     for question in survey_page:
         try:
-            user_answer = user_answers[question.question_number - 1].answer
+            if user_answers[question.question_number - 1].question_number == question.question_number:
+                user_answer = user_answers[question.question_number - 1].answer
+            else:
+                user_answer = None
+                user_answers.insert(question.question_number - 1, None)
         except IndexError:
             user_answer = None
         questions.append({
