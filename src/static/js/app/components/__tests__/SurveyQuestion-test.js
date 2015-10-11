@@ -2,14 +2,16 @@ jest.dontMock('../SurveyQuestion.js');
 jest.dontMock('../SurveyAnswerGroup.js');
 
 describe('SurveyQuestion', function () {
-  it('should set state when handleChange is called', function () {
-    var React = require('react')
-    var TestUtils = require('react-addons-test-utils');
-    var SurveyQuestion = require('../SurveyQuestion.js');
+  var React = require('react')
+  var TestUtils = require('react-addons-test-utils');
+  var SurveyQuestion = require('../SurveyQuestion.js');
+
+  it('should call it\'s parent when handleChange is called', function () {
+    var dummyFunction = jest.genMockFunction();
 
     var surveyQuestion = TestUtils.renderIntoDocument(
       <SurveyQuestion
-        passUpAnswer={() => {}}
+        passUpAnswer={dummyFunction}
         key={1}
         questionText={'Some text'}
         questionNumber={1}
@@ -24,6 +26,10 @@ describe('SurveyQuestion', function () {
     );
 
     TestUtils.Simulate.change(answerInputs[0]);
-    expect()
-  })
+    expect(dummyFunction).toBeCalledWith({
+      'question_number': 1,
+      'category': 'adm',
+      'answer': 5
+    });
+  });
 });
