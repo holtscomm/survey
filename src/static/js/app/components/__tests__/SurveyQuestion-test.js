@@ -1,12 +1,13 @@
-jest.dontMock('../SurveyQuestion.js');
-jest.dontMock('../SurveyAnswerGroup.js');
+jest
+  .dontMock('../SurveyQuestion.js')
+  .dontMock('../SurveyAnswerGroup.js');
 
 describe('SurveyQuestion', function () {
   var React = require('react')
   var TestUtils = require('react-addons-test-utils');
   var SurveyQuestion = require('../SurveyQuestion.js');
 
-  it('should call it\'s parent when handleChange is called', function () {
+  it('should call it\'s prop function when handleChange is called', function () {
     var dummyFunction = jest.genMockFunction();
 
     var surveyQuestion = TestUtils.renderIntoDocument(
