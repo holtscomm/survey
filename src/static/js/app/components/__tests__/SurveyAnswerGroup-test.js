@@ -7,8 +7,9 @@ describe('SurveyAnswerGroup', function () {
   var SurveyAnswerGroup = require('../SurveyAnswerGroup.js');
 
   it('should start with nothing selected when questionAnswer is null', function () {
+    var handleOnChangeCallbackMock = jest.genMockFn();
     var answerGroup = TestUtils.renderIntoDocument(
-      <SurveyAnswerGroup questionNumber={1} questionAnswer={null} />
+      <SurveyAnswerGroup questionNumber={1} questionAnswer={null} handleOnChangeCallback={handleOnChangeCallbackMock} />
     );
 
     var inputs = TestUtils.scryRenderedDOMComponentsWithTag(
@@ -22,24 +23,27 @@ describe('SurveyAnswerGroup', function () {
   });
 
   it('should select the highest answer if questionAnswer is 5', function () {
+    var handleOnChangeCallbackMock = jest.genMockFn();
     var answerGroup = TestUtils.renderIntoDocument(
-      <SurveyAnswerGroup questionNumber={1} questionAnswer={5} />
+      <SurveyAnswerGroup questionNumber={1} questionAnswer={5} handleOnChangeCallback={handleOnChangeCallbackMock} />
     );
 
     expect(answerGroup.refs.always.checked).toEqual(true);
   });
 
   it('should select the middle answer if questionAnswer is 2', function () {
+    var handleOnChangeCallbackMock = jest.genMockFn();
     var answerGroup = TestUtils.renderIntoDocument(
-      <SurveyAnswerGroup questionNumber={1} questionAnswer={2} />
+      <SurveyAnswerGroup questionNumber={1} questionAnswer={2} handleOnChangeCallback={handleOnChangeCallbackMock} />
     );
 
     expect(answerGroup.refs.sometimes.checked).toEqual(true);
   });
 
   it('should select the lowest answer if questionAnswer is 0', function () {
+    var handleOnChangeCallbackMock = jest.genMockFn();
     var answerGroup = TestUtils.renderIntoDocument(
-      <SurveyAnswerGroup questionNumber={1} questionAnswer={0} />
+      <SurveyAnswerGroup questionNumber={1} questionAnswer={0} handleOnChangeCallback={handleOnChangeCallbackMock} />
     );
 
     expect(answerGroup.refs.rarely.checked).toEqual(true);
@@ -49,7 +53,7 @@ describe('SurveyAnswerGroup', function () {
     var dummyCallback = jest.genMockFunction();
 
     var answerGroup = TestUtils.renderIntoDocument(
-      <SurveyAnswerGroup questionNumber={1} questionAnswer={null} handleChangeCallback={dummyCallback} />
+      <SurveyAnswerGroup questionNumber={1} questionAnswer={null} handleOnChangeCallback={dummyCallback} />
     );
 
     var inputs = TestUtils.scryRenderedDOMComponentsWithTag(

@@ -8,7 +8,6 @@ describe('Survey', function () {
   var React = require('react');
   var TestUtils = require('react-addons-test-utils');
   var Survey = require('../Survey.js');
-  Survey.getFirstPageForUser = jest.genMockFunction();
 
   // Setup the body with what Survey is looking to get.
   document.body.innerHTML =
@@ -16,11 +15,11 @@ describe('Survey', function () {
       '  <span id="user-id">1234</span>' +
       '</div>';
 
-  describe.only('componentDidMount', function () {
+  describe('componentDidMount', function () {
     it('should get a userId from the DOM', function () {
       var survey = TestUtils.renderIntoDocument(<Survey />);
 
-      expect(Survey.getFirstPageForUser).toBeCalledWith(1234);
+      expect(survey.state.userId).toBe('1234');
     });
   });
 
@@ -29,10 +28,9 @@ describe('Survey', function () {
       var survey = TestUtils.renderIntoDocument(<Survey />);
 
       var nextButton = TestUtils.scryRenderedDOMComponentsWithTag(survey, 'button');
-      console.log(nextButton);
       TestUtils.Simulate.click(nextButton);
 
-      expect(Survey.updateQuestionsInState).toBeCalled();
+      expect(survey.state.pageHasErrors).toBe(true);
     });
   });
 });
