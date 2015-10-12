@@ -5,8 +5,9 @@ import SurveyPage from './SurveyPage';
 
 export default class Survey extends React.Component {
   state = {
-    questions: [],
     done: false,
+    pageHasErrors: false,
+    questions: [],
     nextPage: 2,
     userId: 0
   }
@@ -28,15 +29,21 @@ export default class Survey extends React.Component {
   }
 
   getNextPageOrSubmit = (e) => {
-    if (Object.keys(this._surveyPage.checkQuestionData()).length !== 20) {
-      //alert('You must answer all the questions');
-      //return;
+    if (Object.keys(this._surveyPage.getQuestions()).length !== 20) {
+      this.setState({
+        pageHasErrors: true
+      });
+      return;
+    } else {
+      this.setState({
+        pageHasErrors: false
+      });
     }
     this.submitAnswers(this.state.userId);
     if (this.state.nextPage !== false) {
       this.getSurveyPage(this.state.userId, this.state.nextPage);
     } else {
-      window.location.href = '/results/' + this.state.userId
+      // window.location.href = '/results/' + this.state.userId
     }
   }
 
@@ -67,8 +74,19 @@ export default class Survey extends React.Component {
 
   render() {
     return (<div className='survey'>
-        <SurveyPage questions={this.state.questions} ref={(c) => this._surveyPage = c} />
-        <button onClick={this.getNextPageOrSubmit}>{this.state.lastPage ? 'Submit' : 'Next'}</button>
-      </div>);
+      <SurveyPage
+        questions={this.state.questions}
+        ref={(c) => this._surveyPage = c}
+        hasErrors={this.state.pageHasErrors}
+      />
+      <div className='alert alert-danger' style={{display: this.state.pageHasErrors ? 'block' : 'none'}}>
+        You need to fill out all of the questions before continuing.
+      </div>
+      <button
+        className='btn btn-primary'
+        onClick={this.getNextPageOrSubmit}>
+          {this.state.lastPage ? 'Submit' : 'Next'}
+      </button>
+    </div>);
   }
 }
