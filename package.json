@@ -18,12 +18,15 @@
   },
   "devDependencies": {
     "babel-jest": "^5.3.0",
+    "fetch": "^0.3.6",
     "jest": "^0.1.40",
     "jest-cli": "^0.5.8",
     "jspm": "^0.16.10",
     "node-sass": "^3.3.3",
     "nodemon": "^1.7.1",
-    "react": "^0.14.0"
+    "react": "^0.14.0",
+    "react-addons-test-utils": "^0.14.0",
+    "react-dom": "^0.14.0"
   },
   "scripts": {
     "build-js": "jspm bundle-sfx ./src/static/js/app/survey ./src/static/js/survey.js",
@@ -38,7 +41,8 @@
       "src/static/js/app"
     ],
     "unmockedModulePathPatterns": [
-      "node_modules/react"
+      "node_modules/react",
+      "node_modules/react-dom"
     ]
   }
 }
