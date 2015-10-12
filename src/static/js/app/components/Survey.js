@@ -1,6 +1,6 @@
-import 'fetch';
 import React from 'react';
 
+import SurveyApi from '../api/SurveyApi';
 import SurveyPage from './SurveyPage';
 
 export default class Survey extends React.Component {
@@ -18,14 +18,10 @@ export default class Survey extends React.Component {
   }
 
   getFirstPageForUser(userId) {
-    fetch(`/api/v1/survey/getFirstPage/?userId=${userId}`)
-      .then((response) => response.json())
-      .then((jsonData) => {
-        this.setState({
-          userId: jsonData.userId
-        });
-        this.updateQuestionsInState(jsonData);
-      });
+    this.setState({
+      userId: userId
+    });
+    SurveyApi.getFirstPageForUserId(userId, this.updateQuestionsInState);
   }
 
   getNextPageOrSubmit = (e) => {
@@ -48,23 +44,14 @@ export default class Survey extends React.Component {
   }
 
   getSurveyPage(userId, pageNum) {
-    fetch(`/api/v1/survey/${userId}/${pageNum}/`)
-      .then((response) => response.json())
-      .then((jsonData) => this.updateQuestionsInState(jsonData));
+    SurveyApi.getSurveyPage(userId, pageNum, this.updateQuestionsInState);
   }
 
   submitAnswers(userId) {
-    fetch(`/api/v1/survey/post/${userId}/`, {
-      method: 'post',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(this._surveyPage.giveQuestionData())
-    })
+    SurveyApi.submitAnswers(userId, this._surveyPage.giveQuestionData());
   }
 
-  updateQuestionsInState(questionJson) {
+  updateQuestionsInState = (questionJson) => {
     this.setState({
       questions: questionJson.data,
       nextPage: questionJson.nextPage,
