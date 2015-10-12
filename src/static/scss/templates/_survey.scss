@@ -1,0 +1,41 @@
+.questions {
+
+  .questions-header {
+    font-size: 1.2em;
+    background-color: $gray-lighter;
+
+    .question-answer-description {
+      display: none;
+
+      @media (min-width: $screen-md-min) {
+        display: block;
+      }
+    }
+  }
+
+  .question-item {
+    padding: 20px 0;
+
+    .question-text {
+      padding-bottom: 15px;
+
+      @media (min-width: $screen-md-min) {
+        padding-bottom: 0;
+      }
+    }
+
+    .question-choices.has-error {
+      border: 1px solid $btn-danger-bg;
+    }
+
+    .question-choice {
+      text-align: center;
+
+      & > span {
+        @media (min-width: $screen-md-min) {
+          display: none;
+        }
+      }
+    }
+  }
+}
