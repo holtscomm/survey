@@ -24,12 +24,12 @@ export default class SurveyAnswerGroup extends React.Component {
 
   render() {
     let answerName = 'choice' + this.props.questionNumber;
-    let errorClass = this.props.hasErrors ? ' has-error' : '';
+    let errorClass = this.props.hasErrors ? ' survey-page--errors' : '';
     return (
       <span
         ref='choices'
-        className={'col-md-3 col-xs-12 question-choices' + errorClass}>
-        <span className='col-xs-4 question-choice'>
+        className={'survey-page__question-choices' + errorClass}>
+        <span className='survey-page__question-choice'>
             <span>Always</span>
             <input
               type='radio'
@@ -39,7 +39,7 @@ export default class SurveyAnswerGroup extends React.Component {
               onChange={this.handleOnChange}
               required />
         </span>
-        <span className='col-xs-4 question-choice'>
+        <span className='survey-page__question-choice'>
             <span>Sometimes</span>
             <input
               type='radio'
@@ -49,7 +49,7 @@ export default class SurveyAnswerGroup extends React.Component {
               onChange={this.handleOnChange}
               required />
         </span>
-        <span className='col-xs-4 question-choice'>
+        <span className='survey-page__question-choice'>
             <span>Rarely</span>
             <input
               type='radio'

@@ -60,13 +60,13 @@ export default class Survey extends React.Component {
   }
 
   render() {
-    return (<div className='survey'>
+    return (<div className='survey-page'>
       <SurveyPage
         questions={this.state.questions}
         ref={(c) => this._surveyPage = c}
         hasErrors={this.state.pageHasErrors}
       />
-      <div className='alert alert-danger' style={{display: this.state.pageHasErrors ? 'block' : 'none'}}>
+      <div className='survey-page__info' style={{display: this.state.pageHasErrors ? 'block' : 'none'}}>
         You need to fill out all of the questions before continuing.
       </div>
       <button

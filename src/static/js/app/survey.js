@@ -4,4 +4,4 @@ import ReactDOM from 'react-dom';
 
 import Survey from './components/Survey';
 
-ReactDOM.render(<Survey />, document.getElementById('world-ender'));
+ReactDOM.render(<Survey />, document.getElementById('survey'));
