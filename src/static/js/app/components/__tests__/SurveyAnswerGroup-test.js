@@ -1,14 +1,15 @@
 jest.dontMock('../SurveyAnswerGroup.js');
 
 describe('SurveyAnswerGroup', function () {
-  it('should start with nothing selected when questionAnswer is null', function () {
-    // TODO: Figure out how to reduce this duplication in every test:
-    var React = require('react/addons');
-    var SurveyAnswerGroup = require('../SurveyAnswerGroup.js');
-    var TestUtils = React.addons.TestUtils;
+  var React = require('react');
+  var ReactDOM = require('react-dom');
+  var TestUtils = require('react-addons-test-utils');
+  var SurveyAnswerGroup = require('../SurveyAnswerGroup.js');
 
+  it('should start with nothing selected when questionAnswer is null', function () {
+    var handleOnChangeCallbackMock = jest.genMockFn();
     var answerGroup = TestUtils.renderIntoDocument(
-      <SurveyAnswerGroup questionNumber={1} questionAnswer={null} />
+      <SurveyAnswerGroup questionNumber={1} questionAnswer={null} handleOnChangeCallback={handleOnChangeCallbackMock} />
     );
 
     var inputs = TestUtils.scryRenderedDOMComponentsWithTag(
@@ -17,55 +18,42 @@ describe('SurveyAnswerGroup', function () {
     );
 
     inputs.forEach(function (input) {
-      expect(React.findDOMNode(input).checked).toEqual(false);
+      expect(ReactDOM.findDOMNode(input).checked).toEqual(false);
     })
   });
 
   it('should select the highest answer if questionAnswer is 5', function () {
-    var React = require('react/addons');
-    var SurveyAnswerGroup = require('../SurveyAnswerGroup.js');
-    var TestUtils = React.addons.TestUtils;
-
+    var handleOnChangeCallbackMock = jest.genMockFn();
     var answerGroup = TestUtils.renderIntoDocument(
-      <SurveyAnswerGroup questionNumber={1} questionAnswer={5} />
+      <SurveyAnswerGroup questionNumber={1} questionAnswer={5} handleOnChangeCallback={handleOnChangeCallbackMock} />
     );
 
-    expect(React.findDOMNode(answerGroup).querySelector('#choice1always').checked).toEqual(true);
+    expect(answerGroup.refs.always.checked).toEqual(true);
   });
 
   it('should select the middle answer if questionAnswer is 2', function () {
-    var React = require('react/addons');
-    var SurveyAnswerGroup = require('../SurveyAnswerGroup.js');
-    var TestUtils = React.addons.TestUtils;
-
+    var handleOnChangeCallbackMock = jest.genMockFn();
     var answerGroup = TestUtils.renderIntoDocument(
-      <SurveyAnswerGroup questionNumber={1} questionAnswer={2} />
+      <SurveyAnswerGroup questionNumber={1} questionAnswer={2} handleOnChangeCallback={handleOnChangeCallbackMock} />
     );
 
-    expect(React.findDOMNode(answerGroup).querySelector('#choice1sometimes').checked).toEqual(true);
+    expect(answerGroup.refs.sometimes.checked).toEqual(true);
   });
 
   it('should select the lowest answer if questionAnswer is 0', function () {
-    var React = require('react/addons');
-    var SurveyAnswerGroup = require('../SurveyAnswerGroup.js');
-    var TestUtils = React.addons.TestUtils;
-
+    var handleOnChangeCallbackMock = jest.genMockFn();
     var answerGroup = TestUtils.renderIntoDocument(
-      <SurveyAnswerGroup questionNumber={1} questionAnswer={0} />
+      <SurveyAnswerGroup questionNumber={1} questionAnswer={0} handleOnChangeCallback={handleOnChangeCallbackMock} />
     );
 
-    expect(React.findDOMNode(answerGroup).querySelector('#choice1rarely').checked).toEqual(true);
+    expect(answerGroup.refs.rarely.checked).toEqual(true);
   });
 
   it('should call a callback when an answer is selected with the answer provided', function () {
-    var React = require('react/addons');
-    var SurveyAnswerGroup = require('../SurveyAnswerGroup.js');
-    var TestUtils = React.addons.TestUtils;
-
     var dummyCallback = jest.genMockFunction();
 
     var answerGroup = TestUtils.renderIntoDocument(
-      <SurveyAnswerGroup questionNumber={1} questionAnswer={null} handleChangeCallback={dummyCallback} />
+      <SurveyAnswerGroup questionNumber={1} questionAnswer={null} handleOnChangeCallback={dummyCallback} />
     );
 
     var inputs = TestUtils.scryRenderedDOMComponentsWithTag(

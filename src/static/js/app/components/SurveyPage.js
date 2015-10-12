@@ -7,7 +7,7 @@ export default class SurveyPage extends React.Component {
     questions: {}
   }
 
-  checkQuestionData() {
+  getQuestions() {
     return this.state.questions;
   }
 
@@ -20,7 +20,7 @@ export default class SurveyPage extends React.Component {
   }
 
   giveQuestionData() {
-    let questionData = this.checkQuestionData();
+    let questionData = this.getQuestions();
     this.setState({
       questions: {}
     });
@@ -28,20 +28,39 @@ export default class SurveyPage extends React.Component {
   }
 
   render() {
-    let questions = this.props.questions.map((question) => {
-      return (
+    let answeredQuestions = this.getQuestions();
+    let allQuestions = [];
+    this.props.questions.forEach((question) => {
+      let shouldHighlight = false;
+      if (this.props.hasErrors) {
+        // Check if this question has already been answered.
+        shouldHighlight = question.answer === null && answeredQuestions[question.question_number] === undefined;
+      }
+      if (question.answer !== null) {
+        // If it has been answered, add it to the answered questions.
+        // Any answer that was already there will be overwritten.
+        answeredQuestions[`${question.question_number}`] = question.category + ':' + question.answer;
+      }
+      // Whether it is answered or not, add it to the list of questions to render.
+      allQuestions.push(
         <SurveyQuestion
           key={question.question_number}
           passUpAnswer={this.gatherQuestionData}
           questionText={question.text}
           questionNumber={question.question_number}
           questionAnswer={question.answer}
-          questionCategory={question.category}/>
+          questionCategory={question.category}
+          hasErrors={shouldHighlight}/>
       );
     });
+    if (answeredQuestions.length > 0) {
+      this.setState({
+        questions: answeredQuestions
+      });
+    }
     return (
       <div className='survey-page'>
-        {questions}
+        {allQuestions}
       </div>
     )
   }
