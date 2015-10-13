@@ -22,7 +22,7 @@ export default class SurveyQuestion extends React.Component {
   render() {
     return (
       <div className='survey-page__question'>
-        <span className='survey-page__question-number'>{ this.props.questionNumber }.</span>
+        <span className='survey-page__question-number'>{ this.props.questionNumber }</span>
         <span className='survey-page__question-text'>{ this.props.questionText }</span>
         <SurveyAnswerGroup
           questionAnswer={this.props.questionAnswer}

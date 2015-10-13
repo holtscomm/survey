@@ -5,7 +5,7 @@ import SurveyPage from './SurveyPage';
 
 export default class Survey extends React.Component {
   state = {
-    done: false,
+    pageHasLoaded: false,
     pageHasErrors: false,
     questions: [],
     nextPage: 2,
@@ -55,7 +55,7 @@ export default class Survey extends React.Component {
     this.setState({
       questions: questionJson.data,
       nextPage: questionJson.nextPage,
-      done: questionJson.done
+      pageHasLoaded: true
     });
   }
 
@@ -70,9 +70,10 @@ export default class Survey extends React.Component {
         You need to fill out all of the questions before continuing.
       </div>
       <button
+        style={{display: this.state.pageHasLoaded ? 'block' : 'none'}}
         className='btn btn-primary'
         onClick={this.getNextPageOrSubmit}>
-          {this.state.lastPage ? 'Submit' : 'Next'}
+          {this.state.nextPage === false ? 'Submit' : 'Next'}
       </button>
     </div>);
   }
