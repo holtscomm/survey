@@ -14,14 +14,11 @@
   &__number {
     @include make-xs-column(2);
     @include make-md-column(1);
-
-    text-align: center;
   }
 
   &__text {
     @include make-xs-column(10);
     @include make-md-column(8);
-    text-align: center;
   }
 
   &__question-answer-description {
@@ -65,7 +62,7 @@
 
   &__question-choice {
     @include make-xs-column(4);
-
+    padding: 0;
     text-align: center;
 
     & > span {

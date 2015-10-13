@@ -60,7 +60,7 @@ export default class Survey extends React.Component {
   }
 
   render() {
-    return (<div className='survey-page'>
+    return (<div>
       <SurveyPage
         questions={this.state.questions}
         ref={(c) => this._surveyPage = c}

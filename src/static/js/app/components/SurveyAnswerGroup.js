@@ -30,34 +30,43 @@ export default class SurveyAnswerGroup extends React.Component {
         ref='choices'
         className={'survey-page__question-choices' + errorClass}>
         <span className='survey-page__question-choice'>
-            <span>Always</span>
-            <input
-              type='radio'
-              name={answerName}
-              ref='always'
-              value='5'
-              onChange={this.handleOnChange}
-              required />
+            <label htmlFor={answerName + 'always'}>
+              <input
+                type='radio'
+                id={answerName + 'always'}
+                name={answerName}
+                ref='always'
+                value='5'
+                onChange={this.handleOnChange}
+                required />
+              <span>Always</span>
+            </label>
         </span>
         <span className='survey-page__question-choice'>
-            <span>Sometimes</span>
-            <input
-              type='radio'
-              name={answerName}
-              ref='sometimes'
-              value='2'
-              onChange={this.handleOnChange}
-              required />
+            <label htmlFor={answerName + 'sometimes'}>
+              <input
+                type='radio'
+                id={answerName + 'sometimes'}
+                name={answerName}
+                ref='sometimes'
+                value='2'
+                onChange={this.handleOnChange}
+                required />
+              <span>Sometimes</span>
+            </label>
         </span>
         <span className='survey-page__question-choice'>
-            <span>Rarely</span>
-            <input
-              type='radio'
-              name={answerName}
-              ref='rarely'
-              value='0'
-              onChange={this.handleOnChange}
-              required />
+            <label htmlFor={answerName + 'rarely'}>
+              <input
+                type='radio'
+                id={answerName + 'rarely'}
+                name={answerName}
+                ref='rarely'
+                value='0'
+                onChange={this.handleOnChange}
+                required />
+              <span>Rarely</span>
+            </label>
         </span>
       </span>
     );
