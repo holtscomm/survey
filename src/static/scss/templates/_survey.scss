@@ -1,33 +1,6 @@
 .survey {
-
-}
-
-.survey-header {
-  @extend .container;
-  font-size: 1.2em;
-  background-color: $gray-lighter;
-
-  &__row {
-    @extend .row;
-  }
-
-  &__number {
-    @include make-xs-column(2);
-    @include make-md-column(1);
-  }
-
-  &__text {
-    @include make-xs-column(10);
-    @include make-md-column(7);
-  }
-
-  &__question-answer-description {
-    @include make-md-column(4);
-    display: none;
-
-    @media (min-width: $screen-md-min) {
-      display: block;
-    }
+  &__completed {
+    @extend .container;
   }
 }
 
@@ -75,6 +48,11 @@
         display: none;
       }
     }
+  }
+
+  &__next-btn {
+    @extend .btn;
+    @extend .btn-primary;
   }
 
   &--errors {

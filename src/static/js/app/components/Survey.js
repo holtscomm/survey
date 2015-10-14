@@ -39,7 +39,7 @@ export default class Survey extends React.Component {
     if (this.state.nextPage !== false) {
       this.getSurveyPage(this.state.userId, this.state.nextPage);
     } else {
-      // window.location.href = '/results/' + this.state.userId
+      window.location.href = '/results/' + this.state.userId;
     }
   }
 
@@ -66,15 +66,20 @@ export default class Survey extends React.Component {
         ref={(c) => this._surveyPage = c}
         hasErrors={this.state.pageHasErrors}
       />
+      <div className='survey__completed' style={{display: this.state.nextPage === false ? 'block' : 'none'}}>
+        <p>You have already completed the survey. View your results <a href={'/results/?userId=' + this.state.userId}>here</a>.</p>
+      </div>
       <div className='survey-page__info' style={{display: this.state.pageHasErrors ? 'block' : 'none'}}>
         You need to fill out all of the questions before continuing.
       </div>
-      <button
-        style={{display: this.state.pageHasLoaded ? 'block' : 'none'}}
-        className='btn btn-primary'
-        onClick={this.getNextPageOrSubmit}>
-          {this.state.nextPage === false ? 'Submit' : 'Next'}
-      </button>
+      <div className='container'>
+        <button
+          style={{display: this.state.pageHasLoaded && this.state.nextPage !== false ? 'block' : 'none'}}
+          className='survey-page__next-btn'
+          onClick={this.getNextPageOrSubmit}>
+            {this.state.nextPage === false ? 'Submit' : 'Next'}
+        </button>
+      </div>
     </div>);
   }
 }
