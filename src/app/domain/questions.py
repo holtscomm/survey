@@ -85,7 +85,7 @@ def get_survey_page_for_user_id(page_num, user_id):
         })
 
     prev_page = 1 if page_num == 1 else page_num - 1
-    next_page = False if page_num == 9 else page_num + 1
+    next_page = False if page_num >= 9 else page_num + 1
 
     return questions, prev_page, next_page
 

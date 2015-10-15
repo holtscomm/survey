@@ -1,5 +1,5 @@
 application: keith-walker-survey
-version: 2-all-questions-required
+version: 3-survey-styling
 runtime: python27
 api_version: 1
 threadsafe: false

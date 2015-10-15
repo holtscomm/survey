@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-md-12 questions">
+        <div class="col-md-12">
             <h1>Taking the Survey</h1>
             <p>Answer each question as honestly as you can.</p>
             <p>
@@ -17,21 +17,7 @@
         </div>
     </div>
 </div>
-    <div class="questions">
-        <div class="questions-header">
-            <div class="container">
-                <div class="row">
-                <!-- class="questions-header" data-spy="affix" data-offset-top="200"> -->
-                    <span class="col-md-1 col-xs-1">#</span>
-                    <span class="col-md-8 col-xs-11">Question Text</span>
-                    <span class="col-md-1 question-answer-description">Almost always true of me</span>
-                    <span class="col-md-1 question-answer-description">Sometimes or occasionally true of me</span>
-                    <span class="col-md-1 question-answer-description">Rarely if at all true of me</span>
-                </div>
-            </div>
-        </div>
-        <div class="container" id="world-ender"></div>
-    </div>
+    <div class="survey" id="survey"></div>
 {% endblock %}
 
 {% block body_scripts %}

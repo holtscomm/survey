@@ -24,40 +24,52 @@ export default class SurveyAnswerGroup extends React.Component {
 
   render() {
     let answerName = 'choice' + this.props.questionNumber;
-    let errorClass = this.props.hasErrors ? ' has-error' : '';
+    let errorClass = this.props.hasErrors ? ' survey-page--errors' : '';
     return (
       <span
         ref='choices'
-        className={'col-md-3 col-xs-12 question-choices' + errorClass}>
-        <span className='col-xs-4 question-choice'>
-            <span>Always</span>
-            <input
-              type='radio'
-              name={answerName}
-              ref='always'
-              value='5'
-              onChange={this.handleOnChange}
-              required />
+        className={'survey-page__question-choices' + errorClass}>
+        <span className='survey-page__question-choice'>
+            <label htmlFor={answerName + 'always'}>
+              <input
+                type='radio'
+                id={answerName + 'always'}
+                name={answerName}
+                className='survey-page__question-choice--always'
+                ref='always'
+                value='5'
+                onChange={this.handleOnChange}
+                required />
+              <span>Always</span>
+            </label>
         </span>
-        <span className='col-xs-4 question-choice'>
-            <span>Sometimes</span>
-            <input
-              type='radio'
-              name={answerName}
-              ref='sometimes'
-              value='2'
-              onChange={this.handleOnChange}
-              required />
+        <span className='survey-page__question-choice'>
+            <label htmlFor={answerName + 'sometimes'}>
+              <input
+                type='radio'
+                id={answerName + 'sometimes'}
+                name={answerName}
+                className='survey-page__question-choice--sometimes'
+                ref='sometimes'
+                value='2'
+                onChange={this.handleOnChange}
+                required />
+              <span>Sometimes</span>
+            </label>
         </span>
-        <span className='col-xs-4 question-choice'>
-            <span>Rarely</span>
-            <input
-              type='radio'
-              name={answerName}
-              ref='rarely'
-              value='0'
-              onChange={this.handleOnChange}
-              required />
+        <span className='survey-page__question-choice'>
+            <label htmlFor={answerName + 'rarely'}>
+              <input
+                type='radio'
+                id={answerName + 'rarely'}
+                name={answerName}
+                className='survey-page__question-choice--rarely'
+                ref='rarely'
+                value='0'
+                onChange={this.handleOnChange}
+                required />
+              <span>Rarely</span>
+            </label>
         </span>
       </span>
     );

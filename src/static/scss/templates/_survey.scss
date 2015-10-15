@@ -1,0 +1,66 @@
+.survey {
+  &__completed {
+    @extend .container;
+  }
+}
+
+.survey-page {
+  @extend .container;
+
+  &__info {
+    @extend .alert;
+    @extend .alert-danger;
+  }
+
+  &__question {
+    @extend .row;
+    padding: 10px 0;
+    height: 60px;
+  }
+
+  &__question-number {
+    @include make-xs-column(2);
+    @include make-md-column(1);
+    padding: 0;
+    font-size: 1.8em;
+    text-align: center;
+  }
+
+  &__question-text {
+    @include make-xs-column(10);
+    @include make-md-column(7);
+    border-left: thin solid black;
+    min-height: 40px;
+  }
+
+  &__question-choices {
+    @include make-xs-column(12);
+    @include make-md-column(4);
+    margin-top: 5px;
+  }
+
+  &__question-choice {
+    @include make-xs-column(4);
+    padding: 0;
+    text-align: center;
+
+    & > span {
+      @media (min-width: $screen-md-min) {
+        display: none;
+      }
+    }
+  }
+
+  &__next-area {
+    @extend .container;
+  }
+
+  &__next-btn {
+    @extend .btn;
+    @extend .btn-primary;
+  }
+
+  &--errors {
+    border: 1px solid $btn-danger-bg;
+  }
+}

@@ -1,0 +1,40 @@
+/* HTML5 Boilerplate accessible hidden styles */
+[type="radio"] {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px; margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+/* One radio button per line */
+label {
+  display: block;
+  cursor: pointer;
+  line-height: 3;
+  font-size: 1.1em;
+}
+
+[type="radio"] + span {
+  display: table-cell;
+  width: 1000px;
+}
+
+[type="radio"]:hover + span {
+  background: $gray-lighter;
+  transition: 0.2s ease all;
+}
+
+/* the checked style using the :checked pseudo class */
+[type="radio"]:checked + span {
+  background: darken($btn-success-bg, 18%);
+  color: $btn-primary-color;
+  transition: 0.5s ease all;
+}
+
+/* never forget focus styling */
+[type="radio"]:focus + span {
+  // TODO
+}

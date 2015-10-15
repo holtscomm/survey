@@ -5,7 +5,7 @@ import SurveyPage from './SurveyPage';
 
 export default class Survey extends React.Component {
   state = {
-    done: false,
+    pageHasLoaded: false,
     pageHasErrors: false,
     questions: [],
     nextPage: 2,
@@ -39,7 +39,7 @@ export default class Survey extends React.Component {
     if (this.state.nextPage !== false) {
       this.getSurveyPage(this.state.userId, this.state.nextPage);
     } else {
-      // window.location.href = '/results/' + this.state.userId
+      window.location.href = '/results/' + this.state.userId;
     }
   }
 
@@ -55,25 +55,31 @@ export default class Survey extends React.Component {
     this.setState({
       questions: questionJson.data,
       nextPage: questionJson.nextPage,
-      done: questionJson.done
+      pageHasLoaded: true
     });
   }
 
   render() {
-    return (<div className='survey'>
+    return (<div>
       <SurveyPage
         questions={this.state.questions}
         ref={(c) => this._surveyPage = c}
         hasErrors={this.state.pageHasErrors}
       />
-      <div className='alert alert-danger' style={{display: this.state.pageHasErrors ? 'block' : 'none'}}>
-        You need to fill out all of the questions before continuing.
+      <div className='survey__completed' style={{display: this.state.nextPage === false ? 'block' : 'none'}}>
+        <p>You have already completed the survey. View your results <a href={'/results/?userId=' + this.state.userId}>here</a>.</p>
       </div>
-      <button
-        className='btn btn-primary'
-        onClick={this.getNextPageOrSubmit}>
-          {this.state.lastPage ? 'Submit' : 'Next'}
-      </button>
+      <div className='survey-page__next-area'>
+        <div className='survey-page__info' style={{display: this.state.pageHasErrors ? 'block' : 'none'}}>
+          You need to fill out all of the questions before continuing.
+        </div>
+        <button
+          style={{display: this.state.pageHasLoaded && this.state.nextPage !== false ? 'block' : 'none'}}
+          className='survey-page__next-btn'
+          onClick={this.getNextPageOrSubmit}>
+            {this.state.nextPage === false ? 'Submit' : 'Next'}
+        </button>
+      </div>
     </div>);
   }
 }
