@@ -37,6 +37,9 @@
     @include make-xs-column(12);
     @include make-md-column(4);
     margin-top: 5px;
+    @media (min-width: $screen-md-min) {
+      margin-top: 0;
+    }
   }
 
   &__question-choice {
