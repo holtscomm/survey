@@ -35,12 +35,11 @@ export default class SurveyAnswerGroup extends React.Component {
                 type='radio'
                 id={answerName + 'always'}
                 name={answerName}
-                className='survey-page__question-choice--always'
                 ref='always'
                 value='5'
                 onChange={this.handleOnChange}
                 required />
-              <span>Always</span>
+              <span>Usually</span>
             </label>
         </span>
         <span className='survey-page__question-choice'>
@@ -49,7 +48,6 @@ export default class SurveyAnswerGroup extends React.Component {
                 type='radio'
                 id={answerName + 'sometimes'}
                 name={answerName}
-                className='survey-page__question-choice--sometimes'
                 ref='sometimes'
                 value='2'
                 onChange={this.handleOnChange}
@@ -63,7 +61,6 @@ export default class SurveyAnswerGroup extends React.Component {
                 type='radio'
                 id={answerName + 'rarely'}
                 name={answerName}
-                className='survey-page__question-choice--rarely'
                 ref='rarely'
                 value='0'
                 onChange={this.handleOnChange}
