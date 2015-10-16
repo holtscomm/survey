@@ -46,7 +46,12 @@
     @include make-xs-column(4);
     padding: 0;
     text-align: center;
-    
+
+    @media (min-width: $screen-md-min) {
+      & > label {
+        margin-bottom: 0;
+      }
+    }
   }
 
   &__next-area {

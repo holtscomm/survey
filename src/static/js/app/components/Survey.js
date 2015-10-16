@@ -17,6 +17,12 @@ export default class Survey extends React.Component {
     this.getFirstPageForUser(userId);
   }
 
+  componentDidUpdate() {
+    if (!this.state.pageHasErrors) {
+      window.scrollTo(0, this.refs.surveyTop.offsetTop);
+    }
+  }
+
   getFirstPageForUser(userId) {
     this.setState({
       userId: userId
@@ -60,7 +66,7 @@ export default class Survey extends React.Component {
   }
 
   render() {
-    return (<div>
+    return (<div ref='surveyTop'>
       <SurveyPage
         questions={this.state.questions}
         ref={(c) => this._surveyPage = c}
