@@ -65,6 +65,10 @@ export default class Survey extends React.Component {
     });
   }
 
+  getSafeMarkupForNextButton = () => {
+    return {__html: this.state.nextPage === false ? 'Submit' : 'Next &rarr;'}
+  }
+
   render() {
     return (<div ref='surveyTop'>
       <SurveyPage
@@ -82,8 +86,8 @@ export default class Survey extends React.Component {
         <button
           style={{display: this.state.pageHasLoaded && this.state.nextPage !== false ? 'block' : 'none'}}
           className='survey-page__next-btn'
-          onClick={this.getNextPageOrSubmit}>
-            {this.state.nextPage === false ? 'Submit' : 'Next'}
+          onClick={this.getNextPageOrSubmit}
+          dangerouslySetInnerHTML={this.getSafeMarkupForNextButton()}>
         </button>
       </div>
     </div>);
