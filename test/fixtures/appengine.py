@@ -1,151 +1,170 @@
-""" Contains Test Fixtures for Google AppEngine dependencies """
-from google.appengine.api.search.simple_search_stub import SearchServiceStub
-import unittest
-from datetime import datetime, timedelta
-from webapp2 import cached_property
-from minimock import Mock, mock, restore as minimock_restore
+"""
+Test Fixtures for Google AppEngine dependencies
+"""
+import os
+
+from google.appengine.datastore.datastore_stub_util import TimeBasedHRConsistencyPolicy, PseudoRandomHRConsistencyPolicy
 from google.appengine.ext import testbed
-from google.appengine.api import urlfetch, datastore_types
-from google.appengine.api.namespace_manager import get_namespace, set_namespace
-from google.appengine.ext.testbed import TASKQUEUE_SERVICE_NAME
 
-SEARCH_SERVICE_NAME = 'search'
+from .base_test_case import TestCase
 
-class GaeTestCase(unittest.TestCase):
-    """ Defines TestCase for testing App Engine code. See here for more info:
-            http://code.google.com/appengine/docs/python/tools/localunittesting.html
+
+__all__ = ['GaeTestCase']
+
+
+# Don't require standard naming conventions
+# pylint: disable=C0103
+class GaeTestCase(TestCase):
+    """
+    Base test case class for GAE tests
     """
 
-    def setUp(self):
-        self._old_namespace = get_namespace()
+    # Datastore configuration - may be overridden by child tests
+    # Assumes file structure with XX/test/lib/vtest/appengine_helper.py, XX/src:
+    APP_ROOT_PATH = os.path.join(os.path.dirname(__file__), '../../src')
+    REQUIRE_DATASTORE_INDEXES = True
+
+    # GaeTestCase.setUp: Arguments number differs from overridden method
+    # pylint: disable=W0221
+    def setUp(self, consistent=True, urlfetch=False):
+        """
+        Set up the GAE test environment
+        """
+        super(GaeTestCase, self).setUp()
+
+        # Create and activate testbed
         self.testbed = testbed.Testbed()
         self.testbed.activate()
-        self.testbed.setup_env()
-        self.testbed.init_datastore_v3_stub()
+
+        # Declare which service stubs to use - these stubs provide test functionality that does not require ues of
+        # the real GAE services under test.  E.g., using the datastore stub will test against an in-memory datastore.
+        # See https://developers.google.com/appengine/docs/python/tools/localunittesting
+        self.testbed.init_taskqueue_stub(_all_queues_valid=True, root_path=self.APP_ROOT_PATH)
+        self.testbed.init_app_identity_stub()
         self.testbed.init_memcache_stub()
-        self.testbed.init_taskqueue_stub(_all_queues_valid=True)
-        self.testbed.init_urlfetch_stub(enable=False)
+        self.testbed.init_capability_stub()
+        self.testbed.init_files_stub()
+        self.testbed.init_blobstore_stub()
+        self.testbed.init_search_stub()
+
+        # Urlfetch stub
+        # =============
+        if urlfetch:
+            self.testbed.init_urlfetch_stub()  # SM: enable=False
+        else:
+            self.mock_function_in_setup('urllib2.urlopen',
+                                 side_effect=ValueError('urllib2 urlopen is not allowed in unit tests'))
+            self.mock_function_in_setup('httplib.HTTPConnection.request',
+                                 side_effect=ValueError('HTTPConnection request is not allowed in unit tests'))
+
+        # Datastore stub
+        # ==============
+        if consistent:
+            policy = PseudoRandomHRConsistencyPolicy(probability=1)  # always used for SR
+        else:
+            policy = TimeBasedHRConsistencyPolicy()
+        self.testbed.init_datastore_v3_stub(consistency_policy=policy,
+                                            require_indexes=self.REQUIRE_DATASTORE_INDEXES,
+                                            root_path=self.APP_ROOT_PATH)
 
     def tearDown(self):
-        """ Tears down the test environment. """
+        """
+        Tear down the GAE test environment
+        """
         self.testbed.deactivate()
-        minimock_restore()
-        set_namespace(self._old_namespace)
         super(GaeTestCase, self).tearDown()
 
-    def get_queued_tasks(self, queue_name='default'):
-        taskqueue_stub = self.testbed.get_stub(TASKQUEUE_SERVICE_NAME)
-        return taskqueue_stub.GetTasks(queue_name)
+    # Stub getters
+    # ============
 
-    def flush_queue(self, queue_name='default'):
-        taskqueue_stub = self.testbed.get_stub(TASKQUEUE_SERVICE_NAME)
-        taskqueue_stub.FlushQueue(queue_name)
+    def get_taskqueue_stub(self):
+        """ Get the taskqueue stub """
+        taskqueue_stub = self.testbed.get_stub('taskqueue')
+        if taskqueue_stub:
+            return taskqueue_stub
+        else:
+            raise ValueError('Taskqueue stub not initialized.')
 
-    def mock_urlfetch(self):
-        """ Mock appengine's urlfetch.
-            self.response can then be modified to whatever urlfetch should return.
-            self.response.raises will be raised to whichever exception it is set to.
+    def get_app_identity_stub(self):
+        """ Get the app identity stub """
+        app_identity_stub = self.testbed.get_stub('app_identity_service')
+        if app_identity_stub:
+            return app_identity_stub
+        else:
+            raise ValueError('App identity stub not initialized.')
 
-            Instructions:
-                Call self.mock_urlfetch() in setUp()
-                Then self.response to whatever you want returned from the urlfetch for that test:
-                    Eg. self.response.content = 'this is a urlfetch response'
-                        self.response.raises = urlfetch.DownloadError
+    def get_memcache_stub(self):
+        """ Get the memcache stub """
+        memcache_stub = self.testbed.get_stub('memcache')
+        if memcache_stub:
+            return memcache_stub
+        else:
+            raise ValueError('Memcache stub not initialized.')
 
-        """
-        # disables urlfetch to ensure we don't inadvertently go over the wire
-        self.testbed.init_urlfetch_stub(enable=False)
+    def get_capability_stub(self):
+        """ Get the capablity stub """
+        capability_stub = self.testbed.get_stub('capability_service')
+        if capability_stub:
+            return capability_stub
+        else:
+            return ValueError('Capability stub not initialized.')
 
-        self.response = UrlFetchResponseMock()
+    def get_files_stub(self):
+        """ Get the files stub """
+        files_stub = self.testbed.get_stub('file')
+        if files_stub:
+            return files_stub
+        else:
+            raise ValueError('Files stub not initialized.')
 
-        # pylint: disable=E0702
-        # Raising NoneType while only classes, instances or string are allowed
-        # pylint: disable=W0613
-        # Unused argument 'args' and 'kwargs'
-        def fetch_mock(*args, **kwargs):
-            if self.response.raises:
-                raise self.response.raises
-            return self.response
-        
-        # pylint: disable=W0612
-        # Unused variable 'google'
-        import google.appengine.api.urlfetch
-        urlfetch.fetch = Mock('urlfetch.fetch', returns_func=fetch_mock, tracker=None)
+    def get_blobstore_stub(self):
+        """ Get the blobstore stub """
+        blobstore_stub = self.testbed.get_stub('blobstore')
+        if blobstore_stub:
+            return blobstore_stub
+        else:
+            raise ValueError('Blobstore stub not initialized.')
 
-    def prepare_share_datetime(self, form, days_until_publication):
-        # Mimic the time-processing performed in SM.Share.js
-        now = datetime.utcnow() + timedelta (days=days_until_publication)
-        now_hour = now.hour
-        now_am_pm = 'AM'
-        if now_hour > 11:
-            now_am_pm = 'PM'
-        if now_hour > 12:
-            now_hour = now_hour-12
-        now_minute = now.minute
+    def get_search_stub(self):
+        """ Get the search stub """
+        search_stub = self.testbed.get_stub('search')
+        if search_stub:
+            return search_stub
+        else:
+            raise ValueError('Search stub not initialized.')
 
-        form.schedule_time.hour.data = now_hour
-        form.schedule_time.minute.data = now_minute
-        form.schedule_time.am_pm.data = now_am_pm
-        # This timestamp is already in utc - no need to specify a timezone with which to convert to utc
-        form.schedule_time.timezone_offset.data = 0
-        form.schedule_date.data = datetime.strftime(now, "%Y-%m-%d")
+    def get_urlfetch_stub(self):
+        """ Get the urlfetch stub """
+        urlfetch_stub = self.testbed.get_stub('urlfetch')
+        if urlfetch_stub:
+            return urlfetch_stub
+        else:
+            raise ValueError('Urlfetch stub not initialized.')
 
-    def run_deferred_tasks(self, queue_name='default'):
-        import base64
-        from google.appengine.ext import deferred
-        tasks = self.get_queued_tasks(queue_name=queue_name)
-        for task in tasks:
-            deferred.run(base64.b64decode(task['body']))
-        # flush tasks from queue after they are run
-        self.flush_queue(queue_name=queue_name)
-
-    def assertArgsAreRequired(self, method, **kwargs):
-        """
-        Asserts each of the arguments provided in kwargs are a required argument for the provided method.
-        """
-        for key, value in kwargs.iteritems():
-            # test if arg is None
-            kwargs[key] = None
-            self.assertRaises(ValueError, method, **kwargs)
-            # test if arg is empty string
-            kwargs[key] = ""
-            self.assertRaises(ValueError, method, **kwargs)
-            # restore to original value
-            kwargs[key] = value
+    def get_datastore_stub(self):
+        """ Get the datastore stub """
+        datastore_stub = self.testbed.get_stub('datastore_v3')
+        if datastore_stub:
+            return datastore_stub
+        else:
+            raise ValueError('Datastore stub not initialized.')
 
 
-class UrlFetchResponseMock(object):
-
-    def __init__(self):
-        self.raises = None
-        self.content = ''
-        self.content_was_truncated = False
-        self.status_code = 200
-
-        header_date = datetime.now().strftime('%a, %d %b %Y %H:%m:%S')
-        self.headers = {
-            'content-length': '100',
-            'vary': 'Accept-Encoding',
-            'server': 'Google Frontend',
-            'cache-control': 'private',
-            'date': header_date,
-            'content-type': 'application/json'
-        }
+class GaeTestCaseEventualConsistency(GaeTestCase):
+    """
+    Use this test case when you want to simulate high-replication datastore eventual consistency randomness.
+    """
+    # Arguments number differs from overridden method
+    # pylint:disable=W0221
+    def setUp(self):
+        super(GaeTestCaseEventualConsistency, self).setUp(consistent=False)
 
 
-class UrlShorteningClientMock(object):
-    results = {
-        'http://www.vendasta.com/': 'bit.ly/2gASp4',
-        'http://www.python.org/': 'bit.ly/1njFvk'
-    }
-
-    def __init__(self, raise_exception=False):
-        self.raise_exception = raise_exception
-
-    # pylint: disable=W0613
-    # Unused argument 'long_urls'
-    def shorten_urls(self, long_urls):
-        if self.raise_exception:
-            # if for some reason results gets used after exception it will cause an AttributeError
-            self.results = None
-            raise SMExceptionBitlyApiClient('Error')
+class OtwGaeTestCase(GaeTestCase):
+    """
+    Use this test case when you want to enable the urlfetch stub in order to perform over-the-wire testing.
+    """
+    # Arguments number differs from overridden method
+    # pylint:disable=W0221
+    def setUp(self):
+        super(OtwGaeTestCase, self).setUp(urlfetch=True)
