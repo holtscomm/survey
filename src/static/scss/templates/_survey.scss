@@ -60,7 +60,9 @@
 
   &__next-btn {
     @extend .btn;
-    @extend .btn-primary;
+    @extend .btn-default;
+    @extend .btn-lg;
+    float: right;
   }
 
   &--errors {

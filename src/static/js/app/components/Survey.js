@@ -4,17 +4,17 @@ import SurveyApi from '../api/SurveyApi';
 import SurveyPage from './SurveyPage';
 
 export default class Survey extends React.Component {
+  userId = 0;
   state = {
     pageHasLoaded: false,
     pageHasErrors: false,
     questions: [],
-    nextPage: 2,
-    userId: 0
+    nextPage: 2
   }
 
   componentDidMount() {
-    let userId = document.getElementById('user-id').innerHTML;
-    this.getFirstPageForUser(userId);
+    this.userId = document.getElementById('user-id').innerHTML;
+    this.getFirstPageForUser(this.userId);
   }
 
   componentDidUpdate() {
@@ -24,9 +24,6 @@ export default class Survey extends React.Component {
   }
 
   getFirstPageForUser(userId) {
-    this.setState({
-      userId: userId
-    });
     SurveyApi.getFirstPageForUserId(userId, this.updateQuestionsInState);
   }
 
@@ -41,11 +38,11 @@ export default class Survey extends React.Component {
         pageHasErrors: false
       });
     }
-    this.submitAnswers(this.state.userId);
+    this.submitAnswers(this.userId);
     if (this.state.nextPage !== false) {
-      this.getSurveyPage(this.state.userId, this.state.nextPage);
+      this.getSurveyPage(this.userId, this.state.nextPage);
     } else {
-      window.location.href = '/results/' + this.state.userId;
+      window.location.href = '/results?userId=' + this.userId;
     }
   }
 
@@ -65,25 +62,39 @@ export default class Survey extends React.Component {
     });
   }
 
+  getSafeMarkupForNextButton = () => {
+    return {__html: this.state.nextPage === false ? 'Submit' : 'Next &rarr;'}
+  }
+
   render() {
+    let completedStyles = {
+      display: this.state.nextPage === false && this.state.questions.length === 0 ? 'block' : 'none'
+    };
+    let errorsStyles = {
+      display: this.state.pageHasErrors ? 'block' : 'none'
+    }
+    let nextPageBtnStyles = {
+      display: this.state.pageHasLoaded &&
+        this.state.questions.length > 0 ? 'block' : 'none'
+    };
     return (<div ref='surveyTop'>
       <SurveyPage
         questions={this.state.questions}
         ref={(c) => this._surveyPage = c}
         hasErrors={this.state.pageHasErrors}
       />
-      <div className='survey__completed' style={{display: this.state.nextPage === false ? 'block' : 'none'}}>
-        <p>You have already completed the survey. View your results <a href={'/results/?userId=' + this.state.userId}>here</a>.</p>
+    <div className='survey__completed' style={completedStyles}>
+        <p>You have already completed the survey. View your results <a href={'/results/?userId=' + this.userId}>here</a>.</p>
       </div>
       <div className='survey-page__next-area'>
-        <div className='survey-page__info' style={{display: this.state.pageHasErrors ? 'block' : 'none'}}>
+        <div className='survey-page__info' style={errorsStyles}>
           You need to fill out all of the questions before continuing.
         </div>
         <button
-          style={{display: this.state.pageHasLoaded && this.state.nextPage !== false ? 'block' : 'none'}}
+          style={nextPageBtnStyles}
           className='survey-page__next-btn'
-          onClick={this.getNextPageOrSubmit}>
-            {this.state.nextPage === false ? 'Submit' : 'Next'}
+          onClick={this.getNextPageOrSubmit}
+          dangerouslySetInnerHTML={this.getSafeMarkupForNextButton()}>
         </button>
       </div>
     </div>);
