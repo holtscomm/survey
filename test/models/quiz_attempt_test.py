@@ -44,6 +44,10 @@ class QuizAttemptTests(GaeTestCase):
         self.assertLessEqual(graded_cats[1][1], graded_cats[0][1])
         self.assertLessEqual(graded_cats[2][1], graded_cats[1][1])
 
+    def test_top_categories_returns_list_of_three_items_if_no_ties(self):
+        top_cats = self.attempt.top_categories
+        self.assertEqual(3, len(top_cats))
+
     def test_get_by_user_id_raises_value_error_if_None_passed_in(self):
         with self.assertRaises(ValueError):
             QuizAttempt.get_by_user_id(None)

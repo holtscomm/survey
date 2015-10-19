@@ -43,6 +43,13 @@ class QuizAttempt(ndb.Model):
 
         return sorted(categories, cmp=lambda x, y: cmp(x[1], y[1]), reverse=True)
 
+    @property
+    def top_categories(self):
+        """
+        Top X categories. Just three for now, but acts strangely when there are ties.
+        """
+        return self.graded_categories[:3]
+
     @classmethod
     def get_by_user_id(cls, user_id):
         """

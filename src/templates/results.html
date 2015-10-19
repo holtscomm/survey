@@ -6,16 +6,26 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1>Quiz results for {{ user_id }}</h1>
+            <h1>Your Survey Results</h1>
             {% if not user_id %}
                 <p>Add ?userId=yourUserId to the end of this URL to see your results.</p>
             {% endif %}
             {% if quiz_attempt %}
-                <ul>
-                {% for category in quiz_attempt.graded_categories if category[1] > 0 %}
-                    <li>{{ category[0] }}</li>
+                <p>Gifts in order of highest score:</p>
+                <ol>
+                {% for category in quiz_attempt.top_categories %}
+                    <li>({{ category[1] }}) {{ category[0] }}</li>
                 {% endfor %}
-                </ul>
+                </ol>
+                <p>This inventory is only a <strong>tool</strong> for discovery of gifts, <strong>not</strong> a definite indicator (See #2 below)</p>
+                <ol>
+                    <li>Express your availability to have God lead you according to His Word</li>
+                    <li>Explore possibilities</li>
+                    <li>Experiment</li>
+                    <li>Examine your heart</li>
+                    <li>Evaluate your effectiveness</li>
+                    <li>Expect confirmation from the Body</li>
+                </ol>
             {% else %}
                 <p>None taken yet!</p>
             {% endif %}
