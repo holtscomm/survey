@@ -18,7 +18,8 @@ export default class Survey extends React.Component {
   }
 
   componentDidUpdate() {
-    if (!this.state.pageHasErrors) {
+    if (!this.state.pageHasErrors && this.state.nextPage !== 2) {
+      console.log('moving the window!');
       window.scrollTo(0, this.refs.surveyTop.offsetTop);
     }
   }
@@ -63,6 +64,8 @@ export default class Survey extends React.Component {
   }
 
   getSafeMarkupForNextButton = () => {
+    // This is the way they would have you do it:
+    // https://facebook.github.io/react/tips/dangerously-set-inner-html.html
     return {__html: this.state.nextPage === false ? 'Submit' : 'Next &rarr;'}
   }
 
