@@ -19,7 +19,6 @@ export default class Survey extends React.Component {
 
   componentDidUpdate() {
     if (!this.state.pageHasErrors && this.state.nextPage !== 2) {
-      console.log('moving the window!');
       window.scrollTo(0, this.refs.surveyTop.offsetTop);
     }
   }
