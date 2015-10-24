@@ -3,15 +3,25 @@ Survey System
 
 This is a survey system that runs on Google App Engine. To get up and running, do the following (OS X specific):
 
-1. Clone the repo
-2. Install Node (`brew install node` works nicely)
-3. `npm install -g bower`
-4. `bower install`
-5. `npm install`
-6. `jspm install`
-7. Add the project to your GoogleAppEngineLauncher and run!
+To get things up and running, here's "all" you have to do:
 
-If you aren't on OS X... this is more difficult. You could probably get up and running using Bower and Compass through other means. I think they have Windows executables. Once you're there though, you're set.
+1. Clone the repository
+2. In your cloned directory, run the following commands in sequential order:
+  1. `npm install -g bower` (if you don't have it)
+  2. `bower install` (for static assets)
+  3. `npm install` (for Javascript-related things and some command-line tools)
+  4. `npm install -g jspm` (if you don't have it)
+  5. `jspm install` (for the main application code to work)
+  6. `npm run build-js` (to compile the Javascript app)
+  7. `npm run build-css` (to compile the styles for the app)
+3. Start a Google App Engine server from the `./src` directory of the repo.
+4. Navigate to `http://localhost:8080` (your port may vary)!
+
+Those steps will work best on \*nix. Here's what I found worked for me on Windows (10):
+
+1. Download and install NodeJS from [here](https://nodejs.org/en/)
+2. Open the `Node.js command prompt` that should have come with your installation.
+3. Follow the steps above!
 
 ### Bootstrapping
 
