@@ -17,7 +17,7 @@ questions = """
 
 9. I am able to share my experiences with Christ in ways that seem meaningful to all sorts of people.
 
-10. When I am in conversation I feel compelled to speak about gospel of salvation.
+10. When I am in conversation I feel compelled to speak about the gospel of salvation.
 
 11. I have lost track of time when praying for others.
 
@@ -27,7 +27,7 @@ questions = """
 
 14. God has enabled me to give liberally to worthy causes.
 
-15. God has used me to when He has imparted healing to people who are spiritually, emotionally or physically sick.
+15. God has used me to impart healing to people who are spiritually, emotionally or physically sick.
 
 16. I feel constrained to pray for and help those who need the healing touch of God.
 
@@ -49,7 +49,7 @@ questions = """
 
 25. I enjoy helping others work out steps for becoming flourishing disciples of Jesus.
 
-26. People take correction and advise from me because they know I'm on their side.
+26. People take correction and advice from me because they know I'm on their side.
 
 27. I can identify ideas, plans or activities that are not true to the Bible.
 
@@ -121,7 +121,7 @@ questions = """
 
 61. I am willing to make decisions even at the risk of being misunderstood by others.
 
-62. I can organize people and resources for an effective outcomes and impacts.
+62. I can organize people and resources for effective outcomes and impacts.
 
 63. I adapt well to different lifestyles and cultures in order to establish a Christian witness.
 
@@ -151,7 +151,7 @@ questions = """
 
 76. I've been told that I have the gift of healing.
 
-77. God has given me a special ability to translate messages other languages.
+77. God has given me a special ability to translate messages from languages.
 
 78. I can interpret other languages in an orderly and sense-making way.
 
@@ -199,7 +199,7 @@ questions = """
 
 100. I desire to use the best of available knowledge to minister to the needs of others.
 
-101. I have experienced God using me to perform a powerful act has altered the ordinary course of nature.
+101. I have experienced God using me to perform a powerful act that has altered the ordinary course of nature.
 
 102. God has been glorified by a miraculously changing of circumstances that I have been involved with.
 
@@ -225,7 +225,7 @@ questions = """
 
 113. I have spoken in tongues.
 
-114. When I speak in tongues, I believe it meant to be edifying to the Lord's Body through interpretation.
+114. When I speak in tongues, I believe it is meant to be edifying to the Lord's Body through interpretation.
 
 115. I can intuitively arrive at solutions to complicated problems.
 
@@ -277,7 +277,7 @@ questions = """
 
 139. I help in lots of small ways behind the scenes.
 
-140. I am just fine when others get credit; I'd prefer let others get the attention.
+140. I am just fine when others get credit; I'd prefer to let others get the attention.
 
 141. I can sense when other people are hurting inside.
 
@@ -351,7 +351,7 @@ questions = """
 
 176. I would rather research and read than many other things.
 
-177. I have felt the lack the words to praise God as I wish I could.
+177. I have felt the lack of words to praise God as I wish I could.
 
 178. When I first prayed in tongues, no one pressured me to do so.
 
