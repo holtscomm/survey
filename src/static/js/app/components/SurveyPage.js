@@ -3,9 +3,14 @@ import React from 'react';
 import SurveyQuestion from './SurveyQuestion';
 
 export default class SurveyPage extends React.Component {
+  static propTypes = {
+    questions: React.PropTypes.array,
+    hasErrors: React.PropTypes.bool
+  };
+
   state = {
     questions: {}
-  }
+  };
 
   getQuestions() {
     return this.state.questions;
@@ -17,7 +22,7 @@ export default class SurveyPage extends React.Component {
     this.setState({
       questions: questions
     });
-  }
+  };
 
   giveQuestionData() {
     let questionData = this.getQuestions();

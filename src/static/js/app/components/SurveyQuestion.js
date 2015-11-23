@@ -9,7 +9,7 @@ export default class SurveyQuestion extends React.Component {
     questionText: React.PropTypes.string.isRequired,
     questionCategory: React.PropTypes.string.isRequired,
     questionAnswer: React.PropTypes.number
-  }
+  };
 
   handleChange = (e) => {
     this.props.passUpAnswer({
@@ -17,7 +17,7 @@ export default class SurveyQuestion extends React.Component {
       'category': this.props.questionCategory,
       'answer': parseInt(e.target.value)
     });
-  }
+  };
 
   render() {
     return (

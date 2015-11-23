@@ -10,7 +10,7 @@ export default class Survey extends React.Component {
     pageHasErrors: false,
     questions: [],
     nextPage: 2
-  }
+  };
 
   componentDidMount() {
     this.userId = document.getElementById('user-id').innerHTML;
@@ -44,7 +44,7 @@ export default class Survey extends React.Component {
     } else {
       window.location.href = '/results?userId=' + this.userId;
     }
-  }
+  };
 
   getSurveyPage(userId, pageNum) {
     SurveyApi.getSurveyPage(userId, pageNum, this.updateQuestionsInState);
@@ -60,13 +60,13 @@ export default class Survey extends React.Component {
       nextPage: questionJson.nextPage,
       pageHasLoaded: true
     });
-  }
+  };
 
   getSafeMarkupForNextButton = () => {
     // This is the way they would have you do it:
     // https://facebook.github.io/react/tips/dangerously-set-inner-html.html
     return {__html: this.state.nextPage === false ? 'Submit' : 'Next &rarr;'}
-  }
+  };
 
   render() {
     let completedStyles = {
@@ -74,31 +74,33 @@ export default class Survey extends React.Component {
     };
     let errorsStyles = {
       display: this.state.pageHasErrors ? 'block' : 'none'
-    }
+    };
     let nextPageBtnStyles = {
       display: this.state.pageHasLoaded &&
         this.state.questions.length > 0 ? 'block' : 'none'
     };
-    return (<div ref='surveyTop'>
-      <SurveyPage
-        questions={this.state.questions}
-        ref={(c) => this._surveyPage = c}
-        hasErrors={this.state.pageHasErrors}
-      />
-    <div className='survey__completed' style={completedStyles}>
-        <p>You have already completed the survey. View your results <a href={'/results/?userId=' + this.userId}>here</a>.</p>
-      </div>
-      <div className='survey-page__next-area'>
-        <div className='survey-page__info' style={errorsStyles}>
-          You need to fill out all of the questions before continuing.
+    return (
+      <div ref='surveyTop'>
+        <SurveyPage
+          questions={this.state.questions}
+          ref={(c) => this._surveyPage = c}
+          hasErrors={this.state.pageHasErrors}
+        />
+      <div className='survey__completed' style={completedStyles}>
+          <p>You have already completed the survey. View your results <a href={'/results/?userId=' + this.userId}>here</a>.</p>
         </div>
-        <button
-          style={nextPageBtnStyles}
-          className='survey-page__next-btn'
-          onClick={this.getNextPageOrSubmit}
-          dangerouslySetInnerHTML={this.getSafeMarkupForNextButton()}>
-        </button>
+        <div className='survey-page__next-area'>
+          <div className='survey-page__info' style={errorsStyles}>
+            You need to fill out all of the questions before continuing.
+          </div>
+          <button
+            style={nextPageBtnStyles}
+            className='survey-page__next-btn'
+            onClick={this.getNextPageOrSubmit}
+            dangerouslySetInnerHTML={this.getSafeMarkupForNextButton()}>
+          </button>
+        </div>
       </div>
-    </div>);
+    );
   }
 }

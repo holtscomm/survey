@@ -1,4 +1,4 @@
-// Not used directly within jsx, but the transpiled code will use it.
+// React isn't used directly within jsx, but the transpiled code will use it.
 import React from 'react';
 import ReactDOM from 'react-dom';
 
