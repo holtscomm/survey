@@ -47,6 +47,7 @@ class QuizAttempt(ndb.Model):
     def top_categories(self):
         """
         Top X categories. Just three for now, but acts strangely when there are ties.
+        More succinctly: The top three can rotate right now, if there are ties.
         """
         return self.graded_categories[:3]
 
@@ -54,6 +55,7 @@ class QuizAttempt(ndb.Model):
     def get_by_user_id(cls, user_id):
         """
         Get first quiz attempt from a user id
+        :param user_id: id of the user to get a quiz attempt for
         :rtype: QuizAttempt or None
         """
         if not user_id:
