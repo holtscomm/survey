@@ -31,6 +31,32 @@ class Question(ndb.Model):
         "wis": "Wisdom"
     }
 
+    @classmethod
+    def build_key(cls, question_number):
+        """
+        Build a key for a new Question.
+        :param question_number:
+        :return:
+        """
+        return ndb.Key(cls, question_number)
+
+    @classmethod
+    def create(cls, text, category, question_number):
+        """
+        Create a new question.
+        :param text:
+        :param category:
+        :param question_number:
+        :return:
+        """
+        question = Question(
+            key=cls.build_key(question_number),
+            text=text,
+            category=category,
+            question_number=question_number
+        )
+        question.put()
+
     @property
     def pretty_category(self):
         """ Return the full (pretty) category name. """
