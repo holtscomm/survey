@@ -21,6 +21,35 @@ class QuizAttempt(ndb.Model):
     questions = ndb.StructuredProperty(QuizAttemptAnswer, repeated=True)
     created = ndb.DateTimeProperty(auto_now_add=True)
     updated = ndb.DateTimeProperty(auto_now=True)
+    quiz_type = ndb.StringProperty(default='fullform')
+
+    @classmethod
+    def build_key(cls, user_id, quiz_type='fullform'):
+        """
+        Build the key.
+        :param user_id:
+        :param quiz_type:
+        :return:
+        """
+        return ndb.Key(cls, str(user_id) + quiz_type)
+
+    @classmethod
+    def create(cls, user_id, quiz_type='fullform'):
+        """
+        Create a new quiz attempt and return the put entity.
+        :param user_id:
+        :param quiz_type:
+        :return:
+        """
+        attempt_key = cls.build_key(user_id, quiz_type)
+        attempt = QuizAttempt(
+                key=attempt_key,
+                user_id=user_id,
+                quiz_type=quiz_type
+        )
+        attempt.put()
+
+        return attempt
 
     @property
     def graded_categories(self):
@@ -52,16 +81,16 @@ class QuizAttempt(ndb.Model):
         return self.graded_categories[:3]
 
     @classmethod
-    def get_by_user_id(cls, user_id):
+    def get_by_user_id(cls, user_id, quiz_type='fullform'):
         """
         Get first quiz attempt from a user id
         :param user_id: id of the user to get a quiz attempt for
+        :param quiz_type: type of quiz
         :rtype: QuizAttempt or None
         """
         if not user_id:
             raise ValueError('user_id must be provided')
         if type(user_id) != int:
             user_id = int(user_id)
-        attempts = cls.query(cls.user_id == user_id).fetch()
 
-        return attempts[0] if attempts else None
+        return cls.build_key(user_id, quiz_type).get()
