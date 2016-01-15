@@ -117,3 +117,11 @@ class QuizAttemptTests(GaeTestCase):
         QuizAttempt.create(1, 'short_a')
         my_key = QuizAttempt.build_key(1, 'short_a')
         self.assertEqual('short_a', my_key.get().quiz_type)
+
+    def test_get_all_attempts_for_user_id_requires_user_id(self):
+        with self.assertRaises(ValueError):
+            QuizAttempt.get_all_attempts_for_user_id(None)
+
+    def test_get_all_attempts_for_user_id_returns_three_results_if_user_has_three_attempts(self):
+        attempts = QuizAttempt.get_all_attempts_for_user_id(1)
+        self.assertEqual(3, len(attempts))

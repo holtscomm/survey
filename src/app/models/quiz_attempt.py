@@ -94,3 +94,15 @@ class QuizAttempt(ndb.Model):
             user_id = int(user_id)
 
         return cls.build_key(user_id, quiz_type).get()
+
+    @classmethod
+    def get_all_attempts_for_user_id(cls, user_id):
+        """
+        Get all (up to three) attempts for the different quizzes.
+        :param user_id:
+        :return:
+        """
+        if not user_id:
+            raise ValueError('user_id must be provided')
+        if type(user_id) != int:
+            user_id = int(user_id)
