@@ -77,6 +77,10 @@ class QuizAttemptTests(GaeTestCase):
     def test_get_by_user_id_returns_attempt_when_long_is_passed_in(self):
         self.assertIsNotNone(QuizAttempt.get_by_user_id(87752083))
 
+    def test_get_by_user_id_raises_ValueError_if_quiz_type_not_in_allowed_list(self):
+        with self.assertRaises(ValueError):
+            QuizAttempt.get_by_user_id(1, 'not_real')
+
     def test_adding_more_questions_does_not_break_graded_categories_calculations(self):
         # Right now, Faith is the highest category.
         self.assertEqual('Faith', self.attempt.graded_categories[0][0])
@@ -122,6 +126,12 @@ class QuizAttemptTests(GaeTestCase):
         with self.assertRaises(ValueError):
             QuizAttempt.get_all_attempts_for_user_id(None)
 
+    def test_get_all_attempts_for_user_id_returns_empty_list_if_user_has_no_attempts(self):
+        self.assertEqual([], QuizAttempt.get_all_attempts_for_user_id(1234))
+
     def test_get_all_attempts_for_user_id_returns_three_results_if_user_has_three_attempts(self):
+        QuizAttempt.create(user_id=1, quiz_type='short_a')
+        QuizAttempt.create(user_id=1, quiz_type='short_b')
+
         attempts = QuizAttempt.get_all_attempts_for_user_id(1)
         self.assertEqual(3, len(attempts))
