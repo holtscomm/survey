@@ -17,13 +17,25 @@ class QuizAttempt(ndb.Model):
     """
     Stores information about a quiz attempt for a user.
     """
-    QUIZ_TYPES = ['fullform', 'short_a', 'short_b']
+    QUIZ_TYPES = {
+        'fullform': 'Full',
+        'short_a': 'Short A',
+        'short_b': 'Short B'
+    }
 
     user_id = ndb.IntegerProperty()
     questions = ndb.StructuredProperty(QuizAttemptAnswer, repeated=True)
     created = ndb.DateTimeProperty(auto_now_add=True)
     updated = ndb.DateTimeProperty(auto_now=True)
     quiz_type = ndb.StringProperty(default='fullform')
+
+    @property
+    def quiz_type_display(self):
+        """
+        Return the display version of the quiz type.
+        :return:
+        """
+        return self.QUIZ_TYPES[self.quiz_type]
 
     @classmethod
     def build_key(cls, user_id, quiz_type='fullform'):
@@ -111,4 +123,4 @@ class QuizAttempt(ndb.Model):
         if type(user_id) != int:
             user_id = int(user_id)
 
-        return filter(None, [cls.get_by_user_id(user_id, quiz_type) for quiz_type in cls.QUIZ_TYPES])
+        return filter(None, [cls.get_by_user_id(user_id, quiz_type) for quiz_type in cls.QUIZ_TYPES.keys()])

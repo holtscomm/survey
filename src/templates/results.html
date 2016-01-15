@@ -10,13 +10,16 @@
             {% if not user_id %}
                 <p>Add ?userId=yourUserId to the end of this URL to see your results.</p>
             {% endif %}
-            {% if quiz_attempt %}
-                <p>Gifts in order of highest score:</p>
-                <ol>
-                {% for category in quiz_attempt.top_categories %}
-                    <li>({{ category[1] }}) {{ category[0] }}</li>
+            {% if quiz_attempts %}
+                {% for quiz_attempt in quiz_attempts %}
+                    <h2>{{ quiz_attempt.quiz_type_display }}</h2>
+                    <ol>
+                    {% for category in quiz_attempt.top_categories %}
+                        <li>({{ category[1] }}) {{ category[0] }}</li>
+                    {% endfor %}
+                    </ol>
                 {% endfor %}
-                </ol>
+                <h3>Note</h3>
                 <p>This inventory is only a <strong>tool</strong> for discovery of gifts, <strong>not</strong> a definite indicator (See #2 below)</p>
                 <ol>
                     <li>Express your availability to have God lead you according to His Word</li>
@@ -29,6 +32,7 @@
             {% else %}
                 <p>None taken yet!</p>
             {% endif %}
+
         </div>
     </div>
 </div>
