@@ -71,6 +71,15 @@ class Question(ndb.Model):
         return cls.query().fetch(limit=limit)
 
     @classmethod
+    def get_by_question_number(cls, question_number):
+        """
+        Get a question by question number (i.e. 3)
+        :param question_number:
+        :return:
+        """
+        return cls.build_key(question_number).get()
+
+    @classmethod
     def get_questions_by_number_range(cls, from_number, to_number):
         """ Gets questions by a range of question_numbers (21 - 40). Returned in ascending order. """
         if not from_number:

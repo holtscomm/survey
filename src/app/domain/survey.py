@@ -6,6 +6,11 @@ QUESTIONS_PER_PAGE = 15
 
 
 def survey_for_type(quiz_type='fullform'):
+    """
+    Helper function that returns a survey object for the quiz_type passed in.
+    :param quiz_type:
+    :return:
+    """
     if quiz_type == 'short_a':
         return ShortASurvey
     elif quiz_type == 'short_b':
@@ -15,10 +20,12 @@ def survey_for_type(quiz_type='fullform'):
 
 
 class Survey(object):
-    def __init__(self, user_id, quiz_type='fullform', max_pages=9):
+    """
+    Base Survey object. Has 180 questions, as opposed to the shorter ones which have 90.
+    """
+    def __init__(self, user_id, quiz_type='fullform', max_pages=12):
         if not user_id:
             raise ValueError('user_id is required')
-
         self.user_id = user_id
         self.quiz_type = quiz_type
         self.max_pages = max_pages
@@ -124,9 +131,7 @@ class ShortASurvey(Survey):
         from_num, to_num = self._calculate_from_and_to_for_page_number(page_num)
 
         questions = self.QUESTIONS[from_num - 1:to_num]
-        return [
-            Question.build_key(q_num).get() for q_num in questions
-        ]
+        return [Question.get_by_question_number(q_num) for q_num in questions]
 
 
 class ShortBSurvey(ShortASurvey):
