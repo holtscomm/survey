@@ -259,21 +259,21 @@ class ShortASurveyTests(unittest.TestCase):
         ]
 
         self.questions_in = [
-            {'question_number': 1},
-            {'question_number': 2},
-            {'question_number': 3},
-            {'question_number': 4},
-            {'question_number': 5},
-            {'question_number': 6},
-            {'question_number': 7},
-            {'question_number': 8},
-            {'question_number': 9},
-            {'question_number': 10},
-            {'question_number': 11},
-            {'question_number': 12},
-            {'question_number': 13},
-            {'question_number': 14},
-            {'question_number': 15}
+            QuizAttemptAnswer(question_number=1),
+            QuizAttemptAnswer(question_number=2),
+            QuizAttemptAnswer(question_number=3),
+            QuizAttemptAnswer(question_number=4),
+            QuizAttemptAnswer(question_number=5),
+            QuizAttemptAnswer(question_number=6),
+            QuizAttemptAnswer(question_number=7),
+            QuizAttemptAnswer(question_number=8),
+            QuizAttemptAnswer(question_number=9),
+            QuizAttemptAnswer(question_number=10),
+            QuizAttemptAnswer(question_number=11),
+            QuizAttemptAnswer(question_number=12),
+            QuizAttemptAnswer(question_number=13),
+            QuizAttemptAnswer(question_number=14),
+            QuizAttemptAnswer(question_number=15),
         ]
 
     def test_normalize_question_numbers_out_returns_1_to_15_for_page_one(self):
@@ -289,7 +289,7 @@ class ShortASurveyTests(unittest.TestCase):
     def test_normalize_question_numbers_in_returns_1_to_15_for_page_one(self):
         normalized = ShortASurvey(1)._normalize_question_numbers(self.questions_in, 1, False)
         self.assertEqual([2, 5, 8, 10, 13, 20, 22, 23, 25, 28, 30, 31, 32, 34, 35],
-                         [q['question_number'] for q in normalized])
+                         [q.question_number for q in normalized])
 
     def test_normalize_question_numbers_returns_questions_untouched_when_list_is_empty(self):
         self.assertEqual([], ShortASurvey(1)._normalize_question_numbers([], 1))
