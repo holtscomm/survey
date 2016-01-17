@@ -45,7 +45,7 @@ export default class Survey extends React.Component {
     if (this.state.nextPage !== false) {
       this.getSurveyPage(this.userId, this.state.nextPage);
     } else {
-      window.location.href = '/results?userId=' + this.userId;
+      window.location.href = '/results/?userId=' + this.userId;
     }
   };
 
