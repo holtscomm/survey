@@ -189,8 +189,8 @@ class SurveyTests(GaeTestCase):
     @mock.patch('app.domain.survey.Survey._get_questions_for_survey_page')
     def test_nextPage_is_false_when_no_more_pages_to_return(self, get_survey_page_mock):
         get_survey_page_mock.return_value = []
-        _, prev_p, next_p = self.survey.get_survey_page(9)
-        self.assertEqual(8, prev_p)
+        _, prev_p, next_p = self.survey.get_survey_page(12)
+        self.assertEqual(11, prev_p)
         self.assertEqual(False, next_p)
 
     @mock.patch('app.domain.survey.ShortASurvey._get_questions_for_survey_page')
@@ -199,6 +199,28 @@ class SurveyTests(GaeTestCase):
         _, prev_p, next_p = ShortASurvey(1).get_survey_page(90 / 15)
         self.assertEqual(5, prev_p)
         self.assertEqual(False, next_p)
+
+    def test_normalize_question_numbers_returns_question_list_unchanged(self):
+        questions = [
+            {'question_number': 1},
+            {'question_number': 2},
+            {'question_number': 3},
+            {'question_number': 4},
+            {'question_number': 5},
+            {'question_number': 6},
+            {'question_number': 7},
+            {'question_number': 8},
+            {'question_number': 9},
+            {'question_number': 10},
+            {'question_number': 11},
+            {'question_number': 12},
+            {'question_number': 13},
+            {'question_number': 14},
+            {'question_number': 15}
+        ]
+        normalized = self.survey._normalize_question_numbers(questions, 1)
+        self.assertEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+                         [q['question_number'] for q in normalized])
 
 
 class SurveyForTypeTests(unittest.TestCase):
@@ -213,3 +235,61 @@ class SurveyForTypeTests(unittest.TestCase):
 
     def test_Survey_returned_for_no_type(self):
         self.assertEqual(Survey, survey_for_type())
+
+
+class ShortASurveyTests(unittest.TestCase):
+    def setUp(self):
+        super(ShortASurveyTests, self).setUp()
+        self.questions = [
+            {'question_number': 1},
+            {'question_number': 3},
+            {'question_number': 4},
+            {'question_number': 6},
+            {'question_number': 7},
+            {'question_number': 9},
+            {'question_number': 11},
+            {'question_number': 12},
+            {'question_number': 14},
+            {'question_number': 15},
+            {'question_number': 16},
+            {'question_number': 17},
+            {'question_number': 18},
+            {'question_number': 19},
+            {'question_number': 21}
+        ]
+
+        self.questions_in = [
+            {'question_number': 1},
+            {'question_number': 2},
+            {'question_number': 3},
+            {'question_number': 4},
+            {'question_number': 5},
+            {'question_number': 6},
+            {'question_number': 7},
+            {'question_number': 8},
+            {'question_number': 9},
+            {'question_number': 10},
+            {'question_number': 11},
+            {'question_number': 12},
+            {'question_number': 13},
+            {'question_number': 14},
+            {'question_number': 15}
+        ]
+
+    def test_normalize_question_numbers_out_returns_1_to_15_for_page_one(self):
+        normalized = ShortASurvey(1)._normalize_question_numbers(self.questions, 1)
+        self.assertEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+                         [q['question_number'] for q in normalized])
+
+    def test_normalize_question_numbers_out_returns_16_to_30_for_page_two(self):
+        normalized = ShortASurvey(1)._normalize_question_numbers(self.questions, 2)
+        self.assertEqual([16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
+                         [q['question_number'] for q in normalized])
+
+    def test_normalize_question_numbers_in_returns_1_to_15_for_page_one(self):
+        normalized = ShortASurvey(1)._normalize_question_numbers(self.questions_in, 1, False)
+        self.assertEqual([2, 5, 8, 10, 13, 20, 22, 23, 25, 28, 30, 31, 32, 34, 35],
+                         [q['question_number'] for q in normalized])
+
+    def test_normalize_question_numbers_returns_questions_untouched_when_list_is_empty(self):
+        self.assertEqual([], ShortASurvey(1)._normalize_question_numbers([], 1))

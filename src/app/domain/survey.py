@@ -59,6 +59,8 @@ class Survey(object):
             "category": question.category
         } for question in survey_page]
 
+        questions = self._normalize_question_numbers(questions, page_num, out=True)
+
         prev_page = 1 if page_num == 1 else page_num - 1
         next_page = False if page_num >= self.max_pages else page_num + 1
 
@@ -76,6 +78,9 @@ class Survey(object):
             questions_end = submitted[-1].question_number
         else:
             return
+
+        page_num = (questions_start / QUESTIONS_PER_PAGE) + 1
+        submitted = self._normalize_question_numbers(submitted, page_num, out=False)
 
         for question in quiz_attempt.questions[questions_start:questions_end]:
             if question.question_number == submitted[0].question_number:
@@ -109,6 +114,16 @@ class Survey(object):
 
         return from_number, to_number
 
+    def _normalize_question_numbers(self, questions, page_num, out=True):
+        """
+        Convert short question numbers to regular numbers, or vice versa.
+        :param questions:
+        :param page_num:
+        :param out:
+        :return:
+        """
+        return questions
+
 
 class ShortASurvey(Survey):
     QUESTIONS = [
@@ -126,6 +141,30 @@ class ShortASurvey(Survey):
         """
         max_pages = len(self.QUESTIONS) / QUESTIONS_PER_PAGE
         super(ShortASurvey, self).__init__(user_id, quiz_type=quiz_type, max_pages=max_pages)
+
+    def _normalize_question_numbers(self, questions, page_num, out=True):
+        """
+        Convert short question numbers to regular numbers, or vice versa.
+        :param questions:
+        :param page_num:
+        :param out:
+        :return:
+        """
+        if len(questions) == 0:
+            return questions
+
+        from_num, to_num = self._calculate_from_and_to_for_page_number(page_num)
+        index = 0
+        for new_question_number in range(from_num, to_num + 1):
+            if not out:
+                # The questions come in as QuizAttemptAnswers so we have to access their attribute.
+                questions[index].question_number = self.QUESTIONS[new_question_number - 1]
+            else:
+                # The questions go out as regular dictionaries to we have to set the index.
+                questions[index]['question_number'] = new_question_number
+            index += 1
+
+        return questions
 
     def _get_questions_for_survey_page(self, page_num):
         from_num, to_num = self._calculate_from_and_to_for_page_number(page_num)
