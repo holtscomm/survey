@@ -11,7 +11,7 @@
                 <p>Add ?userId=yourUserId to the end of this URL to see your results.</p>
             {% endif %}
             {% if quiz_attempts %}
-                {% for quiz_attempt in quiz_attempts %}
+                {% for quiz_attempt in quiz_attempts|sort(attribute='quiz_type') %}
                     <h2>{{ quiz_attempt.quiz_type_display }}</h2>
                     <ol>
                     {% for category in quiz_attempt.top_categories %}
