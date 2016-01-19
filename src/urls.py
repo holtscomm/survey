@@ -6,7 +6,7 @@ from webapp2 import Route
 
 ROUTES = [
     Route('/', handler='app.views.main.MainView'),
-    Route('/survey/', handler='app.views.survey.SurveyView'),
+    Route('/survey/', handler='app.views.survey.SurveyFullformView'),
     Route('/survey/a/', handler='app.views.survey.SurveyShortAView'),
     Route('/survey/b/', handler='app.views.survey.SurveyShortBView'),
     Route('/results/', handler='app.views.results.IndexView'),

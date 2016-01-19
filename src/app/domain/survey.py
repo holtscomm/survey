@@ -137,6 +137,7 @@ class ShortASurvey(Survey):
     def __init__(self, user_id, quiz_type='short_a'):
         """
         :param user_id:
+        :param quiz_type:
         :return:
         """
         max_pages = len(self.QUESTIONS) / QUESTIONS_PER_PAGE

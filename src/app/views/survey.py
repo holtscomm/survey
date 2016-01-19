@@ -26,7 +26,7 @@ class SurveyBaseView(TemplatedView):
         self.render_response(self.template, **context)
 
 
-class SurveyView(SurveyBaseView):
+class SurveyFullformView(SurveyBaseView):
     """ Full survey """
     def get(self):
         self.template = "survey.html"
@@ -34,7 +34,7 @@ class SurveyView(SurveyBaseView):
             'request_path': '/survey/',
             'quiz_type': 'fullform'
         }
-        super(SurveyView, self).get(**context)
+        super(SurveyFullformView, self).get(**context)
 
 
 class SurveyShortAView(SurveyBaseView):
