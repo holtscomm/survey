@@ -115,18 +115,28 @@ class SurveyTests(GaeTestCase):
         self.survey._get_questions_for_survey_page("1")
         calculate_page_number_mock.assert_called_once_with(1)
 
-    @mock.patch('app.domain.survey.Question.get_questions_by_number_range')
-    def test_page_num_1_returns_questions_1_to_20(self, get_questions_by_number_range_mock):
-        self.survey._get_questions_for_survey_page(1)
-        get_questions_by_number_range_mock.assert_called_once_with(1, 15)
+    def test_page_num_1_returns_questions_1_to_15(self):
+        actual_from, actual_to = self.survey._calculate_from_and_to_for_page_number(1)
+        self.assertEqual(1, actual_from)
+        self.assertEqual(15, actual_to)
+
+    def test_page_num_2_returns_questions_16_to_30(self):
+        actual_from, actual_to = self.survey._calculate_from_and_to_for_page_number(2)
+        self.assertEqual(16, actual_from)
+        self.assertEqual(30, actual_to)
+
+    def test_page_num_4_returns_questions_60_to_75(self):
+        actual_from, actual_to = self.survey._calculate_from_and_to_for_page_number(5)
+        self.assertEqual(61, actual_from)
+        self.assertEqual(75, actual_to)
 
     @mock.patch('app.domain.survey.Question.get_questions_by_number_range')
-    def test_page_num_2_returns_questions_21_to_40(self, get_questions_by_number_range_mock):
+    def test_page_num_2_returns_questions_16_to_30(self, get_questions_by_number_range_mock):
         self.survey._get_questions_for_survey_page(2)
         get_questions_by_number_range_mock.assert_called_once_with(16, 30)
 
     @mock.patch('app.domain.survey.Question.get_questions_by_number_range')
-    def test_page_num_4_returns_questions_61_to_80(self, get_questions_by_number_range_mock):
+    def test_page_num_4_returns_questions_46_to_60(self, get_questions_by_number_range_mock):
         self.survey._get_questions_for_survey_page(4)
         get_questions_by_number_range_mock.assert_called_once_with(46, 60)
 
