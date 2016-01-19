@@ -33,8 +33,4 @@ def import_questions():
                 question_category = category
 
         # Create the new question.
-        question = Question()
-        question.text = text.strip()
-        question.category = question_category
-        question.question_number = int(question_number.strip())
-        question.put()
+        Question.create(text.strip(), question_category, int(question_number.strip()))

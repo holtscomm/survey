@@ -11,6 +11,9 @@ export default class Survey extends React.Component {
     questions: [],
     nextPage: 2
   };
+  static defaultProps = {
+    quizType: ''
+  };
 
   componentDidMount() {
     this.userId = document.getElementById('user-id').innerHTML;
@@ -24,11 +27,11 @@ export default class Survey extends React.Component {
   }
 
   getFirstPageForUser(userId) {
-    SurveyApi.getFirstPageForUserId(userId, this.updateQuestionsInState);
+    SurveyApi.getFirstPageForUserId(userId, this.props.quizType, this.updateQuestionsInState);
   }
 
   getNextPageOrSubmit = (e) => {
-    if (Object.keys(this._surveyPage.getQuestions()).length !== 20) {
+    if (Object.keys(this._surveyPage.getQuestions()).length !== 15) {
       this.setState({
         pageHasErrors: true
       });
@@ -42,16 +45,16 @@ export default class Survey extends React.Component {
     if (this.state.nextPage !== false) {
       this.getSurveyPage(this.userId, this.state.nextPage);
     } else {
-      window.location.href = '/results?userId=' + this.userId;
+      window.location.href = '/results/?userId=' + this.userId;
     }
   };
 
   getSurveyPage(userId, pageNum) {
-    SurveyApi.getSurveyPage(userId, pageNum, this.updateQuestionsInState);
+    SurveyApi.getSurveyPage(userId, pageNum, this.props.quizType, this.updateQuestionsInState);
   }
 
   submitAnswers(userId) {
-    SurveyApi.submitAnswers(userId, this._surveyPage.giveQuestionData());
+    SurveyApi.submitAnswers(userId, this._surveyPage.giveQuestionData(), this.props.quizType);
   }
 
   updateQuestionsInState = (questionJson) => {

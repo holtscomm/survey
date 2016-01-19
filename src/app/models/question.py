@@ -31,6 +31,32 @@ class Question(ndb.Model):
         "wis": "Wisdom"
     }
 
+    @classmethod
+    def build_key(cls, question_number):
+        """
+        Build a key for a new Question.
+        :param question_number:
+        :return:
+        """
+        return ndb.Key(cls, question_number)
+
+    @classmethod
+    def create(cls, text, category, question_number):
+        """
+        Create a new question.
+        :param text:
+        :param category:
+        :param question_number:
+        :return:
+        """
+        question = Question(
+            key=cls.build_key(question_number),
+            text=text,
+            category=category,
+            question_number=question_number
+        )
+        question.put()
+
     @property
     def pretty_category(self):
         """ Return the full (pretty) category name. """
@@ -43,6 +69,15 @@ class Question(ndb.Model):
             return cls.query().order(cls.question_number).fetch(limit=limit)
 
         return cls.query().fetch(limit=limit)
+
+    @classmethod
+    def get_by_question_number(cls, question_number):
+        """
+        Get a question by question number (i.e. 3)
+        :param question_number:
+        :return:
+        """
+        return cls.build_key(question_number).get()
 
     @classmethod
     def get_questions_by_number_range(cls, from_number, to_number):

@@ -13,7 +13,7 @@ class IndexView(TemplatedView):
 
         context = {
             'user_id': user_id,
-            'quiz_attempt': QuizAttempt.get_by_user_id(user_id)
+            'quiz_attempts': QuizAttempt.get_all_attempts_for_user_id(user_id)
         }
 
         self.render_response("results.html", **context)

@@ -4,4 +4,4 @@ import ReactDOM from 'react-dom';
 
 import Survey from './components/Survey';
 
-ReactDOM.render(<Survey />, document.getElementById('survey'));
+ReactDOM.render(<Survey quizType={window.quizType} />, document.getElementById('survey'));

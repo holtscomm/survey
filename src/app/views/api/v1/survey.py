@@ -3,8 +3,7 @@ APIs for surveys
 """
 import json
 
-from app.domain.questions import get_survey_page_for_user_id, save_user_submitted_answers, \
-    get_first_survey_page_for_user_id
+from app.domain.survey import survey_for_type
 from app.models.quiz_attempt import QuizAttemptAnswer
 from app.views.api import JsonApiHandler
 
@@ -13,11 +12,12 @@ class SurveyGetFirstPageApiHandler(JsonApiHandler):
     """
     API that gets the first page for a user, somewhat implicitly for now.
     """
-
     def get(self):
         user_id = self.request.GET.get('userId', 1)
-        first_page_to_return = get_first_survey_page_for_user_id(user_id)
-        questions, prev_page, next_page = get_survey_page_for_user_id(first_page_to_return, user_id)
+        quiz_type = self.request.GET.get('quizType', 'fullform')
+
+        survey = survey_for_type(quiz_type)(int(user_id))
+        questions, prev_page, next_page = survey.get_survey_page(survey.first_page)
         response_data = {
             'userId': user_id,
             'prevPage': prev_page,
@@ -30,9 +30,9 @@ class SurveyPageApiHandler(JsonApiHandler):
     """
     API for getting pages of surveys
     """
-
     def get(self, user_id, page_num):
-        questions, prev_page, next_page = get_survey_page_for_user_id(int(page_num), int(user_id))
+        quiz_type = self.request.GET.get('quizType', 'fullform')
+        questions, prev_page, next_page = survey_for_type(quiz_type)(int(user_id)).get_survey_page(int(page_num))
         response_data = {
             'prevPage': prev_page,
             'nextPage': next_page,
@@ -40,8 +40,9 @@ class SurveyPageApiHandler(JsonApiHandler):
         self.return_json_response(questions, additional_info=response_data)
 
     def post(self, user_id):
+        quiz_type = self.request.GET.get('quizType', 'fullform')
         submitted = json.loads(self.request.body)
-        save_user_submitted_answers(int(user_id), _normalize_data(submitted))
+        survey_for_type(quiz_type)(int(user_id)).save_user_submitted_answers(_normalize_data(submitted))
         self.return_json_response(True)
 
 
