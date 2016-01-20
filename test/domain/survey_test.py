@@ -125,7 +125,7 @@ class SurveyTests(GaeTestCase):
         self.assertEqual(16, actual_from)
         self.assertEqual(30, actual_to)
 
-    def test_page_num_4_returns_questions_60_to_75(self):
+    def test_page_num_5_returns_questions_60_to_75(self):
         actual_from, actual_to = self.survey._calculate_from_and_to_for_page_number(5)
         self.assertEqual(61, actual_from)
         self.assertEqual(75, actual_to)
