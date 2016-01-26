@@ -81,7 +81,12 @@ class Question(ndb.Model):
 
     @classmethod
     def get_questions_by_number_range(cls, from_number, to_number):
-        """ Gets questions by a range of question_numbers (21 - 40). Returned in ascending order. """
+        """
+        Gets questions by a range of question_numbers (21 - 40). Returned in ascending order.
+        :param from_number:
+        :param to_number:
+        :return:
+        """
         if not from_number:
             raise ValueError('from_number is required')
         if not to_number:
