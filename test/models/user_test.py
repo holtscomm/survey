@@ -52,9 +52,9 @@ class UserTests(GaeTestCase):
         retrieved = User.get_or_create_by_user_id(user.user_id)
         self.assertIsNotNone(retrieved)
 
-    def test_get_or_create_user_by_id_returns_none_if_user_does_not_exist(self):
+    def test_get_or_create_user_by_id_creates_user_if_user_does_not_exist(self):
         retrieved = User.get_or_create_by_user_id(123456)
-        self.assertIsNone(retrieved)
+        self.assertEqual(123456, retrieved.user_id)
 
     def test_get_or_create_user_by_id_coerces_user_id_to_an_int(self):
         user = User.create(user_id=1234, first_name='Graham')

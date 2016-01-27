@@ -69,6 +69,6 @@ class User(ndb.Model):
         user = cls.get_by_user_id(user_id)
 
         if not user:
-            user = cls.create(user_id)
+            user = cls.create(user_id=user_id)
 
         return user
