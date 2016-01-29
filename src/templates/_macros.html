@@ -1,0 +1,41 @@
+{% macro blurb_for_gift(gift_name) -%}
+    {% if gift_name == "Administration (Leadership)" %}
+        The ability to clarify and communicate the purpose and direction (“vision”) of a ministry in a way that attracts others to get involved. The ability to motivate others by example to work together in accomplishing a ministry goal. The ability to recognize the gifts of others and recruit them to a ministry. The ability to organize and manage people, resources, and time for effective ministry. The ability to coordinate many details and execute the plans of leadership.
+    {% elif gift_name == "Apostleship (Missionary)" %}
+        The ability to start new churches and oversee their development. The ability to adapt to a different culture in order to reach unbelievers and help believers from that culture.
+    {% elif gift_name == "Counsellor (Exhorter)" %}
+        The ability to motivate God’s people to apply and act on biblical principles, especially when they are discouraged or wavering in their faith. The ability to bring out the best in others and challenge them to develop their potential.
+    {% elif gift_name == "Discernment" %}
+        The ability to distinguish right from wrong, truth from error, and to give an immediate evaluation based on God’s Word. The ability to discern whether the source of an experience is Satan, self, or God’s Spirit.
+    {% elif gift_name == "Evangelist" %}
+        The ability to communicate the good News of Jesus Christ to unbelievers in a positive, non-threatening way. The ability to sense opportunities to share Christ and lead people to respond with faith.
+    {% elif gift_name == "Faith" %}
+        The ability to trust God for what cannot be seen and to act on God’s promise, regardless of what the circumstances indicate. The willingness to risk failure in pursuit of a God-given vision, expecting God to handle the obstacles.
+    {% elif gift_name == "Giving" %}
+        The ability to generously contribute material resources and/or money beyond the 10% tithe so that the Body may grow and be strengthened. The ability to earn and manage money so it may be given to support the ministry of others.
+    {% elif gift_name == "Healing" %}
+        The ability to pray in faith specifically for people who need physical, emotional, or spiritual healing and see God answer. The ability to sense when God is prompting you to pray this kind of prayer.
+    {% elif gift_name == "Interpretation of Tongues" %}
+        The ability to interpret prayers that are in a language understood only by God and the one who is given the gift of interpretation at that time.
+    {% elif gift_name == "Knowledge" %}
+        The ability to discover, collect, analyze, and organize information that is vital to individual believers or the entire church family. The ability to comprehend a large amount of information and provide it when needed for effective decision-making.
+    {% elif gift_name == "Miracles" %}
+        The ability to pray in faith specifically for God’s supernatural intervention into an impossible situation and see God answer. The ability to sense when God is prompting you to pray this kind of prayer.
+    {% elif gift_name == "Prophecy (Preacher/Proclaimer)" %}
+        The ability to publicly communicate God’s Word in an inspired way that convinces unbelievers and both challenges and comforts believers. The ability to persuasively declare God’s will.
+    {% elif gift_name == "Sheperding (Pastor/Teacher)" %}
+        The ability to care for the spiritual needs of a group of believers and equip them for ministry. The ability to nurture a small group in spiritual growth and assume responsibility for their welfare.
+    {% elif gift_name == "Serving (Helps)" %}
+        The ability to recognize unmet needs in the church family, and take the initiative to provide practical assistance quickly, cheerfully, and without a need for recognition.
+    {% elif gift_name == "Showing Mercy (Compassion)" %}
+        The ability to detect hurt and empathize with those who are suffering in the church family. The ability to provide compassionate and cheerful support to those experiencing distress crisis, or pain.
+    {% elif gift_name == "Teaching" %}
+        The ability to educate God’s people by clearly explaining and applying the Bible in a way that causes them to learn. The ability to equip and train other believers for ministry.
+    {% elif gift_name == "Tongues" %}
+        The ability to pray in a language understood only by God or one who is given the gift of interpretation at that time.
+    {% elif gift_name == "Wisdom" %}
+        The ability to understand God’s perspective on life situations and share those insights in a simple, understandable way. The ability to explain what to do and how to do it.
+    {% else %}
+    No burbly blurby yet.
+    {% endif %}
+{%- endmacro %}
