@@ -27,7 +27,7 @@ class SurveyFullformView(SurveyBaseView):
     """ Full survey """
     def get(self):
         context = {
-            'request_path': '/survey/',
+            'request_path': '/gifts/',
             'quiz_type': 'fullform'
         }
         super(SurveyFullformView, self).get(**context)
@@ -37,7 +37,7 @@ class SurveyShortAView(SurveyBaseView):
     """ Short form A survey """
     def get(self):
         context = {
-            'request_path': '/survey/a/',
+            'request_path': '/gifts/a/',
             'quiz_type': 'short_a'
         }
         super(SurveyShortAView, self).get(**context)
@@ -47,7 +47,7 @@ class SurveyShortBView(SurveyBaseView):
     """ Short form B survey """
     def get(self):
         context = {
-            'request_path': '/survey/b/',
+            'request_path': '/gifts/b/',
             'quiz_type': 'short_b'
         }
         super(SurveyShortBView, self).get(**context)

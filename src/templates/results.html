@@ -1,21 +1,23 @@
 {% extends 'base.html' %}
 
+{% from '_macros.html' import blurb_for_gift with context %}
+
 {% block home_active %}class='active'{% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1>Your Survey Results</h1>
-            {% if not user_id %}
-                <p>Add ?userId=yourUserId to the end of this URL to see your results.</p>
-            {% endif %}
+            <h1>Survey Results{% if user %} for {{ user.first_name }} {{ user.last_name }}{% endif %}</h1>
             {% if quiz_attempts %}
                 {% for quiz_attempt in quiz_attempts|sort(attribute='quiz_type') %}
                     <h2>{{ quiz_attempt.quiz_type_display }}</h2>
                     <ol>
                     {% for category in quiz_attempt.top_categories %}
-                        <li>({{ category[1] }}) {{ category[0] }}</li>
+                        <li class="gift">
+                            <span class="gift__gift-name">{{ category[0] }}</span> ({{ category[1] }})
+                        </li>
+                        {{ blurb_for_gift(category[0]) }}
                     {% endfor %}
                     </ol>
                 {% endfor %}

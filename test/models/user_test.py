@@ -61,3 +61,7 @@ class UserTests(GaeTestCase):
         actual = User.get_or_create_by_user_id('1234')
         self.assertIsNotNone(actual)
         self.assertEqual(user.first_name, actual.first_name)
+
+    def test_get_or_create_user_by_id_creates_user_if_None_passed_in(self):
+        user = User.get_or_create_by_user_id(None)
+        self.assertIsNotNone(user)
