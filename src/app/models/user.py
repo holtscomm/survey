@@ -16,6 +16,14 @@ class User(ndb.Model):
     email = ndb.StringProperty()
     paid = ndb.BooleanProperty(default=False)
 
+    @staticmethod
+    def _generate_user_id():
+        """
+        Generate a new user id.
+        :return:
+        """
+        return int(uuid.uuid4().int % 1000000000)
+
     @classmethod
     def build_key(cls, user_id):
         """
@@ -36,7 +44,7 @@ class User(ndb.Model):
         :param user_id:
         :return:
         """
-        user_id = user_id or int(uuid.uuid4().int % 100000000)
+        user_id = user_id or cls._generate_user_id()
         user = User(
             key=cls.build_key(user_id),
             user_id=user_id,
@@ -64,6 +72,8 @@ class User(ndb.Model):
         :param user_id:
         :return:
         """
+        if not user_id:
+            user_id = cls._generate_user_id()
         if not isinstance(user_id, int):
             user_id = int(user_id)
         user = cls.get_by_user_id(user_id)
