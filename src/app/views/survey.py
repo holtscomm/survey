@@ -16,9 +16,9 @@ class SurveyBaseView(TemplatedView):
             # Start up a new QuizAttempt!
             QuizAttempt.create(user_id=user.user_id, quiz_type=context['quiz_type'])
 
+        context['user'] = user
         context['user_id'] = user.user_id
-        context['questions'] = None  # Eventually maybe this can be server-side-generated React?
-        # https://github.com/markfinger/python-react ?
+
         print context
         self.render_response('survey.html', **context)
 
@@ -51,3 +51,13 @@ class SurveyShortBView(SurveyBaseView):
             'quiz_type': 'short_b'
         }
         super(SurveyShortBView, self).get(**context)
+
+
+class SurveyTrialView(SurveyBaseView):
+    """ Trial survey """
+    def get(self):
+        context = {
+            'request_path': '/gifts/trial/',
+            'quiz_type': 'trial'
+        }
+        super(SurveyTrialView, self).get(**context)

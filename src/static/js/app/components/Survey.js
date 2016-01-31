@@ -45,7 +45,11 @@ export default class Survey extends React.Component {
     if (this.state.nextPage !== false) {
       this.getSurveyPage(this.userId, this.state.nextPage);
     } else {
-      window.location.href = '/results/?userId=' + this.userId;
+      if (this.props.quizType === 'trial') {
+        window.location.href = 'http://keithdwalker.ca/gift-pay/';
+      } else {
+        window.location.href = `/results/?userId=${this.userId}`;
+      }
     }
   };
 
