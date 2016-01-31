@@ -3,7 +3,7 @@
 {% block survey_active %}active{% endblock %}
 
 {% block content %}
-    {% if user.paid %}
+    {% if user.paid or quiz_type == 'trial' %}
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -45,7 +45,4 @@
         window.quizType = '{{ quiz_type }}';
     </script>
     <script src="/static/js/survey.js"></script>
-{#  <script>#}
-{#    System.import('app/survey');#}
-{#  </script>#}
 {% endblock %}
