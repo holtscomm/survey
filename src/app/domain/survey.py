@@ -15,6 +15,8 @@ def survey_for_type(quiz_type='fullform'):
         return ShortASurvey
     elif quiz_type == 'short_b':
         return ShortBSurvey
+    elif quiz_type == 'trial':
+        return TrialSurvey
     else:
         return Survey
 
@@ -190,3 +192,17 @@ class ShortBSurvey(ShortASurvey):
         :return:
         """
         super(ShortBSurvey, self).__init__(user_id, quiz_type=quiz_type)
+
+
+class TrialSurvey(ShortBSurvey):
+    QUESTIONS = [
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+    ]
+
+    def __init__(self, user_id, quiz_type='trial'):
+        """
+        :param user_id:
+        :param quiz_type:
+        :return:
+        """
+        super(TrialSurvey, self).__init__(user_id, quiz_type=quiz_type)

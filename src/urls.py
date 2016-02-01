@@ -9,6 +9,7 @@ ROUTES = [
     Route('/gifts/', handler='app.views.survey.SurveyFullformView'),
     Route('/gifts/a/', handler='app.views.survey.SurveyShortAView'),
     Route('/gifts/b/', handler='app.views.survey.SurveyShortBView'),
+    Route('/gifts/trial/', handler='app.views.survey.SurveyTrialView'),
     Route('/results/', handler='app.views.results.IndexView'),
     Route('/api/v1/survey/<user_id:\d+>/<page_num:\d+>/', handler='app.views.api.v1.survey.SurveyPageApiHandler'),
     Route('/api/v1/survey/getFirstPage/', handler='app.views.api.v1.survey.SurveyGetFirstPageApiHandler'),

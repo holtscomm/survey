@@ -20,7 +20,8 @@ class QuizAttempt(ndb.Model):
     QUIZ_TYPES = {
         'fullform': 'Full',
         'short_a': 'Short A',
-        'short_b': 'Short B'
+        'short_b': 'Short B',
+        'trial': 'Trial'
     }
 
     user_id = ndb.IntegerProperty()

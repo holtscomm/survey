@@ -3,30 +3,41 @@
 {% block survey_active %}active{% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h1>Taking the Survey</h1>
-            <p>Answer each question as honestly as you can.</p>
-            <p>
-                <strong>Did you know?</strong>
-                You are user id: <span id='user-id'>{{ user_id }}</span>,
-                you can visit <a href="/results/?userId={{ user_id }}">this page</a> to see your results.
-            </p>
-            <p>Bookmark <a href="{{ request_path }}?userId={{ user_id }}">this link</a> to come back and finish your survey any time.</p>
-        </div>
-        <div class="col-md-12">
-            <div class="row question-descriptions">
-                <span class="col-xs-12 col-md-2 col-md-offset-1 col-xs-offset-0">SD = Strongly Disagree</span>
-                <span class="col-xs-12 col-md-2">D = Disagree</span>
-                <span class="col-xs-12 col-md-2">N = Neutral</span>
-                <span class="col-xs-12 col-md-2">A = Agree</span>
-                <span class="col-xs-12 col-md-2">SA = Strongly Agree</span>
+    {% if user.paid or quiz_type == 'trial' %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Taking the Survey</h1>
+                <p>Answer each question as honestly as you can.</p>
+                <p>
+                    <strong>Did you know?</strong>
+                    You are user id: <span id='user-id'>{{ user_id }}</span>,
+                    you can visit <a href="/results/?userId={{ user_id }}">this page</a> to see your results.
+                </p>
+                <p>Bookmark <a href="{{ request_path }}?userId={{ user_id }}">this link</a> to come back and finish your survey any time.</p>
+            </div>
+            <div class="col-md-12">
+                <div class="row question-descriptions">
+                    <span class="col-xs-12 col-md-2 col-md-offset-1 col-xs-offset-0">SD = Strongly Disagree</span>
+                    <span class="col-xs-12 col-md-2">D = Disagree</span>
+                    <span class="col-xs-12 col-md-2">N = Neutral</span>
+                    <span class="col-xs-12 col-md-2">A = Agree</span>
+                    <span class="col-xs-12 col-md-2">SA = Strongly Agree</span>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="survey" id="survey"></div>
+    <div class="survey" id="survey"></div>
+    {% else %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Taking the Survey</h1>
+                <p>You must pay for the gifts survey before you can do one. Read more about it <a href="http://keithdwalker.ca/resources/spiritual-gifts/">here</a>!</p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
 {% endblock %}
 
 {% block body_scripts %}
@@ -34,7 +45,4 @@
         window.quizType = '{{ quiz_type }}';
     </script>
     <script src="/static/js/survey.js"></script>
-{#  <script>#}
-{#    System.import('app/survey');#}
-{#  </script>#}
 {% endblock %}
