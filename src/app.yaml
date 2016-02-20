@@ -1,5 +1,5 @@
 application: keith-walker-survey
-version: 1-5-0-no-more-free-surveys
+version: 1-6-0-quiz-type-on-results-page
 runtime: python27
 api_version: 1
 threadsafe: false

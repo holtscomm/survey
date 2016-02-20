@@ -7,14 +7,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>Taking the Survey</h1>
+                <h1>{{ quiz_attempt.quiz_type_display }} Survey</h1>
                 <p>Answer each question as honestly as you can.</p>
-                <p>
-                    <strong>Did you know?</strong>
-                    You are user id: <span id='user-id'>{{ user_id }}</span>,
-                    you can visit <a href="/results/?userId={{ user_id }}">this page</a> to see your results.
-                </p>
                 <p>Bookmark <a href="{{ request_path }}?userId={{ user_id }}">this link</a> to come back and finish your survey any time.</p>
+                <span style="display: none" id="user-id">{{ user_id }}</span>
             </div>
             <div class="col-md-12">
                 <div class="row question-descriptions">

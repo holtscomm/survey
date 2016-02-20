@@ -18,10 +18,10 @@ class QuizAttempt(ndb.Model):
     Stores information about a quiz attempt for a user.
     """
     QUIZ_TYPES = {
-        'fullform': 'Full',
-        'short_a': 'Short A',
-        'short_b': 'Short B',
-        'trial': 'Trial'
+        u'fullform': u'Full',
+        u'short_a': u'Short A',
+        u'short_b': u'Short B',
+        u'trial': u'Trial'
     }
 
     user_id = ndb.IntegerProperty()

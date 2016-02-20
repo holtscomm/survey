@@ -18,6 +18,7 @@ class SurveyBaseView(TemplatedView):
 
         context['user'] = user
         context['user_id'] = user.user_id
+        context['quiz_attempt'] = attempt
 
         print context
         self.render_response('survey.html', **context)
