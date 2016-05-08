@@ -2,10 +2,13 @@
 APIs for surveys
 """
 import json
+import logging
+import urlparse
 
 from app.domain.survey import survey_for_type
 from app.models.quiz_attempt import QuizAttemptAnswer
 from app.views.api import JsonApiHandler
+from domain.purchase import Purchase
 
 
 class SurveyGetFirstPageApiHandler(JsonApiHandler):
@@ -39,7 +42,7 @@ class SurveyPageApiHandler(JsonApiHandler):
         }
         self.return_json_response(questions, additional_info=response_data)
 
-    def post(self, user_id):
+    def post(self, user_id=None):
         quiz_type = self.request.GET.get('quizType', 'fullform')
         submitted = json.loads(self.request.body)
         survey_for_type(quiz_type)(user_id).save_user_submitted_answers(_normalize_data(submitted))
@@ -62,3 +65,12 @@ def _normalize_data(json_answers):
         ))
 
     return sorted(answers, cmp=lambda x, y: cmp(x.question_number, y.question_number))
+
+
+class SurveyPurchaseApiHandler(JsonApiHandler):
+    """
+    API for purchasing surveys
+    """
+    def post(self):
+        logging.info(Purchase(urlparse.parse_qs(self.request.body)))
+
