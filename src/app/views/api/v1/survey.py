@@ -72,5 +72,7 @@ class SurveyPurchaseApiHandler(JsonApiHandler):
     API for purchasing surveys
     """
     def post(self):
-        logging.info(Purchase(urlparse.parse_qs(self.request.body)))
+        new_purchase = Purchase(urlparse.parse_qs(self.request.body))
+        logging.info('Someone bought the survey! %s %s %s %s %s', new_purchase.email, new_purchase.first_name,
+                     new_purchase.last_name, new_purchase.product, new_purchase.purchase_date)
 
