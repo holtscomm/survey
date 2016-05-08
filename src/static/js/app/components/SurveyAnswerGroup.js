@@ -43,7 +43,8 @@ export default class SurveyAnswerGroup extends React.Component {
               value='1'
               onChange={this.handleOnChange}
               required />
-            <span>SD</span>
+            <span className="hidden-xs hidden-sm">Strongly Disagree</span>
+            <span className="hidden-md hidden-lg">SD</span>
           </label>
         </span>
         <span className='survey-page__question-choice'>
@@ -56,7 +57,8 @@ export default class SurveyAnswerGroup extends React.Component {
               value='2'
               onChange={this.handleOnChange}
               required />
-            <span>D</span>
+            <span className="hidden-xs hidden-sm">Disagree</span>
+            <span className="hidden-md hidden-lg">D</span>
           </label>
         </span>
         <span className='survey-page__question-choice'>
@@ -69,7 +71,8 @@ export default class SurveyAnswerGroup extends React.Component {
               value='3'
               onChange={this.handleOnChange}
               required />
-            <span>N</span>
+            <span className="hidden-xs hidden-sm">Neutral</span>
+            <span className="hidden-md hidden-lg">N</span>
           </label>
         </span>
         <span className='survey-page__question-choice'>
@@ -82,7 +85,8 @@ export default class SurveyAnswerGroup extends React.Component {
               value='4'
               onChange={this.handleOnChange}
               required />
-            <span>A</span>
+            <span className="hidden-xs hidden-sm">Agree</span>
+            <span className="hidden-md hidden-lg">A</span>
           </label>
         </span>
         <span className='survey-page__question-choice'>
@@ -95,7 +99,8 @@ export default class SurveyAnswerGroup extends React.Component {
               value='5'
               onChange={this.handleOnChange}
               required />
-            <span>SA</span>
+            <span className="hidden-xs hidden-sm">Strongly Agree</span>
+            <span className="hidden-md hidden-lg">SA</span>
           </label>
         </span>
       </span>

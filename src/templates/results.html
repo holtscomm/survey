@@ -8,7 +8,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1>Survey Results{% if user %} for {{ user.first_name }} {{ user.last_name }}{% endif %}</h1>
+            <h1>Survey Results{% if user.first_name %} for {{ user.first_name }} {{ user.last_name }}{% endif %}</h1>
             {% if quiz_attempts %}
                 {% for quiz_attempt in quiz_attempts|sort(attribute='quiz_type') %}
                     <h2>{{ quiz_attempt.quiz_type_display }}</h2>
