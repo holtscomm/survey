@@ -8,7 +8,7 @@ import urlparse
 from app.domain.survey import survey_for_type
 from app.models.quiz_attempt import QuizAttemptAnswer
 from app.views.api import JsonApiHandler
-from domain.purchase import Purchase
+from app.domain.purchase import Purchase
 
 
 class SurveyGetFirstPageApiHandler(JsonApiHandler):
