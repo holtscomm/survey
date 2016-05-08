@@ -1,5 +1,5 @@
 from app.models.question import Question
-from .keith_walker_gift_survey_questions import questions
+from app.migrations.keith_walker_gift_survey_questions import questions
 
 category_mappings = {
     "adm": [1, 2, 21, 22, 41, 42, 61, 62, 81, 82],

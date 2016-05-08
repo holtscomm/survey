@@ -16,7 +16,7 @@ class SurveyGetFirstPageApiHandler(JsonApiHandler):
         user_id = self.request.GET.get('userId', 1)
         quiz_type = self.request.GET.get('quizType', 'fullform')
 
-        survey = survey_for_type(quiz_type)(int(user_id))
+        survey = survey_for_type(quiz_type)(user_id)
         questions, prev_page, next_page = survey.get_survey_page(survey.first_page)
         response_data = {
             'userId': user_id,
@@ -32,7 +32,7 @@ class SurveyPageApiHandler(JsonApiHandler):
     """
     def get(self, user_id, page_num):
         quiz_type = self.request.GET.get('quizType', 'fullform')
-        questions, prev_page, next_page = survey_for_type(quiz_type)(int(user_id)).get_survey_page(int(page_num))
+        questions, prev_page, next_page = survey_for_type(quiz_type)(user_id).get_survey_page(int(page_num))
         response_data = {
             'prevPage': prev_page,
             'nextPage': next_page,
@@ -42,7 +42,7 @@ class SurveyPageApiHandler(JsonApiHandler):
     def post(self, user_id):
         quiz_type = self.request.GET.get('quizType', 'fullform')
         submitted = json.loads(self.request.body)
-        survey_for_type(quiz_type)(int(user_id)).save_user_submitted_answers(_normalize_data(submitted))
+        survey_for_type(quiz_type)(user_id).save_user_submitted_answers(_normalize_data(submitted))
         self.return_json_response(True)
 
 

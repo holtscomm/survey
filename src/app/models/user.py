@@ -10,7 +10,7 @@ class User(ndb.Model):
     """
     Describes a user of the system.
     """
-    user_id = ndb.IntegerProperty(required=True)
+    user_id = ndb.StringProperty(required=True)
     first_name = ndb.StringProperty()
     last_name = ndb.StringProperty()
     email = ndb.StringProperty()
@@ -22,7 +22,7 @@ class User(ndb.Model):
         Generate a new user id.
         :return:
         """
-        return int(uuid.uuid4().int % 1000000000)
+        return 'USR-' + uuid.uuid4().hex.upper()
 
     @classmethod
     def build_key(cls, user_id):
@@ -74,8 +74,6 @@ class User(ndb.Model):
         """
         if not user_id:
             user_id = cls._generate_user_id()
-        if not isinstance(user_id, int):
-            user_id = int(user_id)
         user = cls.get_by_user_id(user_id)
 
         if not user:

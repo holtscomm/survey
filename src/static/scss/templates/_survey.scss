@@ -28,14 +28,12 @@
 
   &__question-text {
     @include make-xs-column(10);
-    @include make-md-column(7);
     border-left: thin solid black;
     min-height: 40px;
   }
 
   &__question-choices {
     @include make-xs-column(12);
-    @include make-md-column(4);
     margin-top: 5px;
     @media (min-width: $screen-md-min) {
       margin-top: 0;

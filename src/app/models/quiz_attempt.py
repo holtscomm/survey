@@ -18,13 +18,13 @@ class QuizAttempt(ndb.Model):
     Stores information about a quiz attempt for a user.
     """
     QUIZ_TYPES = {
-        u'fullform': u'Full',
-        u'short_a': u'Short A',
-        u'short_b': u'Short B',
-        u'trial': u'Trial'
+        'fullform': 'Full',
+        'short_a': 'Short A',
+        'short_b': 'Short B',
+        'trial': 'Trial'
     }
 
-    user_id = ndb.IntegerProperty()
+    user_id = ndb.StringProperty()
     questions = ndb.StructuredProperty(QuizAttemptAnswer, repeated=True)
     created = ndb.DateTimeProperty(auto_now_add=True)
     updated = ndb.DateTimeProperty(auto_now=True)
@@ -46,7 +46,7 @@ class QuizAttempt(ndb.Model):
         :param quiz_type:
         :return:
         """
-        return ndb.Key(cls, str(user_id) + quiz_type)
+        return ndb.Key(cls, user_id + quiz_type)
 
     @classmethod
     def create(cls, user_id, quiz_type='fullform'):
@@ -107,8 +107,6 @@ class QuizAttempt(ndb.Model):
             raise ValueError('user_id must be provided')
         if quiz_type not in cls.QUIZ_TYPES:
             raise ValueError('quiz_type must be one of {}'.format(cls.QUIZ_TYPES))
-        if type(user_id) != int:
-            user_id = int(user_id)
 
         return cls.build_key(user_id, quiz_type).get()
 
@@ -121,7 +119,5 @@ class QuizAttempt(ndb.Model):
         """
         if not user_id:
             raise ValueError('user_id must be provided')
-        if type(user_id) != int:
-            user_id = int(user_id)
 
         return filter(None, [cls.get_by_user_id(user_id, quiz_type) for quiz_type in cls.QUIZ_TYPES.keys()])

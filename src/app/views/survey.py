@@ -16,9 +16,11 @@ class SurveyBaseView(TemplatedView):
             # Start up a new QuizAttempt!
             QuizAttempt.create(user_id=user.user_id, quiz_type=context['quiz_type'])
 
-        context['user'] = user
-        context['user_id'] = user.user_id
-        context['quiz_attempt'] = attempt
+        context.update({
+            'user': user,
+            'user_id': user.user_id,
+            'quiz_attempt': attempt
+        })
 
         print context
         self.render_response('survey.html', **context)
