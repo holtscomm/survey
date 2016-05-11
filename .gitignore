@@ -13,3 +13,5 @@ node_modules/*
 src/static/js/survey.*
 npm-debug.log
 keith-walker-survey-83a1562532b1.json
+*.egg-info
+*.dist-info
