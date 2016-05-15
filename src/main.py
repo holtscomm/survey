@@ -1,6 +1,6 @@
 import os
 
-import set_sys_path  # Must be done first to set up path
+# import set_sys_path  # Must be done first to set up path
 
 from webapp2 import WSGIApplication
 from urls import ROUTES

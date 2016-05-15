@@ -40,7 +40,7 @@
         <pathelement path="${appenginedir}/lib/fancy_urllib"/>
         <pathelement path="${toolsdir}"/>
         <pathelement path="${toolsdir}/coverage-3.5.1"/>
-        <pathelement path="${toolsdir}/minimock"/>
+        <pathelement path="${toolsdir}/mock"/>
     </path>
 
     <property name="tests.pythonpath" value="${toString:tests.pythonpath.ref}" />
