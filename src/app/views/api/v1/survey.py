@@ -5,6 +5,7 @@ import json
 import logging
 import urlparse
 
+from app.domain.email import Emailer
 from app.domain.survey import survey_for_type
 from app.models.quiz_attempt import QuizAttemptAnswer
 from app.views.api import JsonApiHandler
@@ -75,4 +76,6 @@ class SurveyPurchaseApiHandler(JsonApiHandler):
         new_purchase = Purchase(urlparse.parse_qs(self.request.body))
         logging.info('Someone bought the survey! %s %s %s %s %s', new_purchase.email, new_purchase.first_name,
                      new_purchase.last_name, new_purchase.product, new_purchase.purchase_date)
+        e = Emailer()
+        e.send_new_purchase_email(new_purchase.email, new_purchase.full_name)
 

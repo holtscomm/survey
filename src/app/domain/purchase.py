@@ -7,6 +7,15 @@ class Purchase(object):
         self.purchase_body = purchase_body
 
     @property
+    def full_name(self):
+        if self.first_name != '' and self.last_name == '':
+            return self.first_name
+        elif self.first_name == '' and self.last_name != '':
+            return self.last_name
+        else:
+            return self.first_name + ' ' + self.last_name
+
+    @property
     def product(self):
         return self.purchase_body['cart_details[0][name]'][0]
 
