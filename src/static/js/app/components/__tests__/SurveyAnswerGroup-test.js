@@ -28,25 +28,43 @@ describe('SurveyAnswerGroup', function () {
       <SurveyAnswerGroup questionNumber={1} questionAnswer={5} handleOnChangeCallback={handleOnChangeCallbackMock} />
     );
 
-    expect(answerGroup.refs.always.checked).toEqual(true);
+    expect(answerGroup.refs.stronglyAgree.checked).toEqual(true);
   });
 
-  it('should select the middle answer if questionAnswer is 2', function () {
+  it('should select the second highest answer if questionAnswer is 4', function () {
+    var handleOnChangeCallbackMock = jest.genMockFn();
+    var answerGroup = TestUtils.renderIntoDocument(
+      <SurveyAnswerGroup questionNumber={1} questionAnswer={4} handleOnChangeCallback={handleOnChangeCallbackMock} />
+    );
+
+    expect(answerGroup.refs.agree.checked).toEqual(true);
+  });
+
+  it('should select the middle answer if questionAnswer is 3', function () {
+    var handleOnChangeCallbackMock = jest.genMockFn();
+    var answerGroup = TestUtils.renderIntoDocument(
+      <SurveyAnswerGroup questionNumber={1} questionAnswer={3} handleOnChangeCallback={handleOnChangeCallbackMock} />
+    );
+
+    expect(answerGroup.refs.neutral.checked).toEqual(true);
+  });
+
+  it('should select the second lowest answer if questionAnswer is 2', function () {
     var handleOnChangeCallbackMock = jest.genMockFn();
     var answerGroup = TestUtils.renderIntoDocument(
       <SurveyAnswerGroup questionNumber={1} questionAnswer={2} handleOnChangeCallback={handleOnChangeCallbackMock} />
     );
 
-    expect(answerGroup.refs.sometimes.checked).toEqual(true);
+    expect(answerGroup.refs.disagree.checked).toEqual(true);
   });
 
-  it('should select the lowest answer if questionAnswer is 0', function () {
+  it('should select the highest answer if questionAnswer is 1', function () {
     var handleOnChangeCallbackMock = jest.genMockFn();
     var answerGroup = TestUtils.renderIntoDocument(
-      <SurveyAnswerGroup questionNumber={1} questionAnswer={0} handleOnChangeCallback={handleOnChangeCallbackMock} />
+      <SurveyAnswerGroup questionNumber={1} questionAnswer={1} handleOnChangeCallback={handleOnChangeCallbackMock} />
     );
 
-    expect(answerGroup.refs.rarely.checked).toEqual(true);
+    expect(answerGroup.refs.stronglyDisagree.checked).toEqual(true);
   });
 
   it('should call a callback when an answer is selected with the answer provided', function () {
