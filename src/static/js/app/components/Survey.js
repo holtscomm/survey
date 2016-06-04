@@ -32,6 +32,7 @@ export default class Survey extends React.Component {
 
   getNextPageOrSubmit = (e) => {
     if (Object.keys(this._surveyPage.getQuestions()).length !== 15) {
+      console.log("running");
       this.setState({
         pageHasErrors: true
       });
@@ -46,7 +47,7 @@ export default class Survey extends React.Component {
       this.getSurveyPage(this.userId, this.state.nextPage);
     } else {
       if (this.props.quizType === 'trial') {
-        window.location.href = 'http://keithdwalker.ca/gift-pay/';
+        window.location.href = 'http://keithdwalker.ca/resources/discover-your-spiritual-gifts/';
       } else {
         window.location.href = `/results/?userId=${this.userId}`;
       }
