@@ -5,11 +5,12 @@ import json
 import logging
 import urlparse
 
-from app.domain.email import Emailer
+from google.appengine.ext import deferred
+
 from app.domain.survey import survey_for_type
 from app.models.quiz_attempt import QuizAttemptAnswer
 from app.views.api import JsonApiHandler
-from app.domain.purchase import Purchase
+from app.domain.purchase import Purchase, create_new_premium_user, send_email_with_survey_link
 
 
 class SurveyGetFirstPageApiHandler(JsonApiHandler):
@@ -76,6 +77,8 @@ class SurveyPurchaseApiHandler(JsonApiHandler):
         new_purchase = Purchase(urlparse.parse_qs(self.request.body))
         logging.info('Someone bought the survey! %s %s %s %s %s', new_purchase.email, new_purchase.first_name,
                      new_purchase.last_name, new_purchase.product, new_purchase.purchase_date)
-        e = Emailer()
-        e.send_new_purchase_email(new_purchase.email, new_purchase.full_name)
+        logging.info('Deferring task to create new purchase and send email')
+        user = create_new_premium_user(new_purchase)
+        deferred.defer(send_email_with_survey_link, user.email, new_purchase.full_name, new_purchase.product,
+                       user.user_id)
 
