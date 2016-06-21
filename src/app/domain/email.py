@@ -23,13 +23,10 @@ class Emailer(object):
         message.add_to('{} <{}>'.format(full_name, to_address))
         message.set_subject('Your Spiritual Gifts Survey is waiting')
         message.set_html("""
-            <h1>Your Spritual Gifts Survey Link</h1>
-            <p>Click <a href="{survey_link}" target="_blank">here</a> to go to your survey.</p>
-            <p>If you'd like more information about the spiritual gifts you can read more about them
-            <a href="{gift_info_link}">here</a>.</p>
+            <h1>Your Spiritual Gifts Survey Link</h1>
+            <p>Click <a href="{survey_link}" target="_blank">here to go to your survey</a>.</p>
             <p>Thanks again for your purchase and have a great day!</p>
-        """.format(survey_link=survey_link,
-                   gift_info_link='http://keithdwalker.ca/resources/spiritual-gifts-definitions-and-scriptures/'))
+        """.format(survey_link=survey_link))
         message.set_text("Copy this link into your browser to go to the survey: {}".format(survey_link))
         message.set_from("Spiritual Gifts Survey <giftsurvey@holtscomm.ca>")
         self.sendgrid_client.send(message)
