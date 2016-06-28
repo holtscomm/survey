@@ -57,7 +57,7 @@ export default class SurveyPage extends React.Component {
           questionCategory={question.category}
           hasErrors={shouldHighlight}/>
       );
-      allQuestions.push(<hr />);
+      allQuestions.push(<hr key={question.question_number + 'hr'}/>);
     });
     if (answeredQuestions.length > 0) {
       this.setState({
