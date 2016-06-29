@@ -10,10 +10,8 @@ To get things up and running, here's "all" you have to do:
   1. `npm install -g bower` (if you don't have it)
   2. `bower install` (for static assets)
   3. `npm install` (for Javascript-related things and some command-line tools)
-  4. `npm install -g jspm` (if you don't have it)
-  5. `jspm install` (for the main application code to work)
-  6. `npm run build-js` (to compile the Javascript app)
-  7. `npm run build-css` (to compile the styles for the app)
+  4. `npm run build-js` (to compile the Javascript app)
+  5. `npm run build-css` (to compile the styles for the app)
 3. Start a Google App Engine server from the `./src` directory of the repo.
 4. Navigate to `http://localhost:8080` (your port may vary)!
 
@@ -42,6 +40,7 @@ Note: The Interactive Console is at http://localhost:8000/console for local inst
 Since this is a React app you'll need some form of transpiling in order for things to run. The survey uses jspm and babel for this. Use the following command to keep your JS up to date:
 
 `npm run build-js` or `npm run watch-js` (if you're going to be making changes)
+Alternatively, you can install and run webpack directly. `npm install -g webpack`, then `webpack` to compile once and `webpack --watch` to watch and recompile iteratively.
 
 ### CSS
 
@@ -49,4 +48,4 @@ We use SASS for compiling stylesheets, so use the following command to compile o
 
 `npm run build-css` or `npm run watch-css`
 
-The `build-css` command uses node-sass to compile so there aren't any Ruby dependencies anymore.
+The `build-css` command uses node-sass to compile so there aren't any Ruby dependencies.
