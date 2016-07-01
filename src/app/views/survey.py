@@ -1,6 +1,8 @@
 """
 Survey view
 """
+import logging
+
 from app.models.user import User
 from . import TemplatedView
 from app.models.quiz_attempt import QuizAttempt
@@ -22,7 +24,7 @@ class SurveyBaseView(TemplatedView):
             'quiz_attempt': attempt
         })
 
-        print context
+        logging.info(context)
         self.render_response('survey.html', **context)
 
 
