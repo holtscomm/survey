@@ -5,6 +5,9 @@ urls
 from webapp2 import Route
 
 ROUTES = [
+    Route('/superadmin/', handler='app.views.superadmin.MainView'),
+    Route('/superadmin/generate/', handler='app.views.superadmin.GenerateView'),
+
     Route('/', handler='app.views.main.MainView'),
     Route('/gifts/', handler='app.views.survey.SurveyFullformView'),
     Route('/gifts/a/', handler='app.views.survey.SurveyShortAView'),

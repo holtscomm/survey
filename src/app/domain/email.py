@@ -1,4 +1,6 @@
 """ Email domain object """
+import logging
+
 import sendgrid
 
 from settings import SENDGRID_API_KEY, APP_URL
@@ -29,4 +31,7 @@ class Emailer(object):
         """.format(survey_link=survey_link))
         message.set_text("Copy this link into your browser to go to the survey: {}".format(survey_link))
         message.set_from("Spiritual Gifts Survey <giftsurvey@holtscomm.ca>")
-        self.sendgrid_client.send(message)
+        try:
+            self.sendgrid_client.send(message)
+        except Exception as e:
+            logging.info('Request to sendgrid failed, are you connected to the Internet?')

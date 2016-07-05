@@ -2,7 +2,7 @@
 Main view
 """
 
-from . import TemplatedView
+from app.views import TemplatedView
 
 class MainView(TemplatedView):
 

@@ -30,14 +30,6 @@ class QuizAttempt(ndb.Model):
     updated = ndb.DateTimeProperty(auto_now=True)
     quiz_type = ndb.StringProperty(default='fullform')
 
-    @property
-    def quiz_type_display(self):
-        """
-        Return the display version of the quiz type.
-        :return:
-        """
-        return self.QUIZ_TYPES[self.quiz_type]
-
     @classmethod
     def build_key(cls, user_id, quiz_type='fullform'):
         """
@@ -65,6 +57,28 @@ class QuizAttempt(ndb.Model):
         attempt.put()
 
         return attempt
+
+    @property
+    def quiz_completed(self):
+        return any([
+            self.quiz_type in ['short_a', 'short_b'] and len(self.questions) == 90,
+            self.quiz_type == 'fullform' and len(self.questions) == 180
+        ])
+
+    @property
+    def quiz_link(self):
+        return '/gifts/{}?userId={}'.format(
+            '' if self.quiz_type == 'fullform' else 'trial/' if self.quiz_type == 'trial' else self.quiz_type.split('_')[1] + '/',
+            self.user_id
+        )
+
+    @property
+    def quiz_type_display(self):
+        """
+        Return the display version of the quiz type.
+        :return:
+        """
+        return self.QUIZ_TYPES[self.quiz_type]
 
     @property
     def graded_categories(self):
@@ -121,3 +135,7 @@ class QuizAttempt(ndb.Model):
             raise ValueError('user_id must be provided')
 
         return filter(None, [cls.get_by_user_id(user_id, quiz_type) for quiz_type in cls.QUIZ_TYPES.keys()])
+
+    @classmethod
+    def get_all_attempts(cls):
+        return cls.query()

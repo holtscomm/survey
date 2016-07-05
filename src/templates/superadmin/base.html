@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Survey Superadmin{% endblock %}</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Vidaloka' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/static/css/global.css">
+
+
+    {% block header_styles %}{% endblock %}
+    {% block header_scripts %}{% endblock %}
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/superadmin/">Survey Superadmin!</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a class="navbar-link" href="/superadmin/generate/">Survey Generation</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+{% block content %}{% endblock %}
+
+<nav class="navbar navbar-default navbar-bottom">
+    <div class="container">
+        &copy; 2016 Holtslander Communications and Keith Walker
+    </div>
+</nav>
+
+<script src="/static/vendor/jquery/dist/jquery.min.js"></script>
+<script src="/static/vendor/bootstrap-sass/assets/javascripts/bootstrap.min.js"></script>
+{% block body_scripts %}{% endblock %}
+</body>
+</html>

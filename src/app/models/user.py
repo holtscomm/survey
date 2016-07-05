@@ -15,6 +15,7 @@ class User(ndb.Model):
     last_name = ndb.StringProperty()
     email = ndb.StringProperty()
     paid = ndb.BooleanProperty(default=False)
+    created = ndb.DateTimeProperty(auto_now_add=True)
 
     @staticmethod
     def _generate_user_id():
@@ -80,3 +81,12 @@ class User(ndb.Model):
             user = cls.create(user_id=user_id)
 
         return user
+
+    @classmethod
+    def get_paid_survey_users(cls):
+        """ Get paid survey users """
+        return cls.query(cls.paid == True)
+
+    @classmethod
+    def get_paid_survey_users_last_30_days(cls):
+        return cls.get_paid_survey_users().filter()
