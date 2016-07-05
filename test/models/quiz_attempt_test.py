@@ -1,4 +1,5 @@
 """ Tests for quiz attempts """
+import unittest
 from app.models.question import Question
 from app.models.quiz_attempt import QuizAttempt, QuizAttemptAnswer
 
@@ -135,3 +136,17 @@ class QuizAttemptTests(GaeTestCase):
 
         attempts = QuizAttempt.get_all_attempts_for_user_id(1)
         self.assertEqual(3, len(attempts))
+
+
+class QuizAttemptGetQuizLinkTests(unittest.TestCase):
+    def test_full_link_has_nothing_in_url(self):
+        q = QuizAttempt(quiz_type='fullform', user_id='USR-123')
+        self.assertEqual('/gifts/?userId=USR-123', q.quiz_link)
+
+    def test_short_a_adds_short_a_to_url(self):
+        q = QuizAttempt(quiz_type='short_a', user_id='USR-123')
+        self.assertEqual('/gifts/a/?userId=USR-123', q.quiz_link)
+
+    def test_trial_has_trial_in_url(self):
+        q = QuizAttempt(quiz_type='trial', user_id='USR-123')
+        self.assertEqual('/gifts/trial/?userId=USR-123', q.quiz_link)

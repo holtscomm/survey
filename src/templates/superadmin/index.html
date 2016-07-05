@@ -1,0 +1,31 @@
+{% extends 'superadmin/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                Paid survey users: {{ paid_survey_users }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <tr>
+                        <td>User ID</td>
+                        <td>Completed?</td>
+                        <td>Quiz Type</td>
+                        <td>Results page</td>
+                    </tr>
+                    {% for attempt in quiz_attempt_data %}
+                        <tr>
+                            <td><a href="{{ attempt.quiz_link }}">{{ attempt.user_id }}</a></td>
+                            <td>{{ attempt.quiz_completed }}</td>
+                            <td>{{ attempt.quiz_type_display }}</td>
+                            <td><a href="/results/?userId={{ attempt.user_id }}">here</a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

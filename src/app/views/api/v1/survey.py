@@ -82,3 +82,5 @@ class SurveyPurchaseApiHandler(JsonApiHandler):
         deferred.defer(send_email_with_survey_link, user.email, new_purchase.full_name, new_purchase.product,
                        user.user_id)
 
+        self.return_json_response({'user_id': user.user_id})
+

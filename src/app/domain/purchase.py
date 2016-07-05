@@ -1,4 +1,6 @@
 """ purchase.py """
+import datetime
+
 from app.domain.email import Emailer
 from app.models.user import User
 
@@ -19,11 +21,11 @@ class Purchase(object):
 
     @property
     def product(self):
-        return self.purchase_body['cart_details[0][name]'][0]
+        return (self.purchase_body.get('cart_details[0][name]') or self.purchase_body.get('cart_details[0][name][]'))[0]
 
     @property
     def purchase_date(self):
-        return self.purchase_body['date'][0]
+        return self.purchase_body.get('date', datetime.datetime.utcnow())
 
     @property
     def email(self):
