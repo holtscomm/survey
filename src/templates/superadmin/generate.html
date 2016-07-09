@@ -42,6 +42,7 @@
                     return false;
                 }
 
+                // Emulate a request to the API: don't need to write any new code to make this work!
                 $.post('/api/v1/survey/purchase/', {
                     'cart_details[0][name]': type,
                     email: $email.val(),
