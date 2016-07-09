@@ -139,3 +139,7 @@ class QuizAttempt(ndb.Model):
     @classmethod
     def get_all_attempts(cls):
         return cls.query()
+
+    @classmethod
+    def get_non_trial_attempts(cls):
+        return cls.get_all_attempts().filter(cls.quiz_type != 'trial')
