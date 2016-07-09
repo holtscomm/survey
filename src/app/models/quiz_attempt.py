@@ -138,8 +138,10 @@ class QuizAttempt(ndb.Model):
 
     @classmethod
     def get_all_attempts(cls):
+        """ Get all quiz attempt entities """
         return cls.query()
 
     @classmethod
     def get_non_trial_attempts(cls):
+        """ Get all non trial attempts """
         return cls.get_all_attempts().filter(cls.quiz_type != 'trial')

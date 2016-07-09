@@ -89,4 +89,5 @@ class User(ndb.Model):
 
     @classmethod
     def get_paid_survey_users_last_30_days(cls):
+        """ Get paid survey users in the last 30 days (still todo, just for superadmin stats) """
         return cls.get_paid_survey_users().filter()
