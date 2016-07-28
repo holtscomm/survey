@@ -57,6 +57,15 @@ class User(ndb.Model):
         user.put()
         return user
 
+    @property
+    def full_name(self):
+        if self.first_name != '' and self.last_name == '':
+            return self.first_name
+        elif self.first_name == '' and self.last_name != '':
+            return self.last_name
+        else:
+            return self.first_name + ' ' + self.last_name
+
     @classmethod
     def get_by_user_id(cls, user_id):
         """
