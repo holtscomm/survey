@@ -4,67 +4,21 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>Generate a paid survey:</h1>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" class="form-control"/>
-                </div>
-                <div class="form-group">
-                    <label for="firstName">First Name:</label>
-                    <input type="text" id="firstName" class="form-control"/>
-                </div>
-                <div class="form-group">
-                    <label for="lastName">Last Name:</label>
-                    <input type="text" id="lastName" class="form-control"/>
-                </div>
-                <p>Clicking on a button below will generate that type of survey for the email and name you entered above.</p>
-                <button id="full" class="btn btn-primary" role="button">Full survey!</button>
-                <button id="shorta" class="btn btn-primary" role="button">Short form A survey!</button>
-                <button id="shortb" class="btn btn-primary" role="button">Short form B survey!</button>
-
-                <div id="doneDiv"></div>
+            <table class="table">
+                <tr>
+                    <th>#</th>
+                    <th>Text</th>
+                    <th>Category</th>
+                </tr>
+                {% for question in questions %}
+                    <tr>
+                        <td>{{ question.question_number }}</td>
+                        <td>{{ question.text }}</td>
+                        <td>{{ question.pretty_category }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
             </div>
         </div>
     </div>
-{% endblock %}
-
-{% block body_scripts %}
-    <script type="text/javascript">
-        // TODO: Move this into a webpack entry point, once I have internet to look up how that works. Haha.
-        $(document).ready(function () {
-            function createSurvey(type, surveyLink) {
-                var $email = $('#email');
-                var $firstName = $('#firstName');
-                var $lastName = $('#lastName');
-
-                if ($email.val() === '' || $firstName.val() === '' || $lastName.val() === '') {
-                    alert('One or more of the required fields (all of them) is empty');
-                    return false;
-                }
-
-                // Emulate a request to the API: don't need to write any new code to make this work!
-                $.post('/api/v1/survey/purchase/', {
-                    'cart_details[0][name]': type,
-                    email: $email.val(),
-                    'user_info[first_name]': $firstName.val(),
-                    'user_info[last_name]': $lastName.val()
-                }).done(function (response) {
-                    var userId = JSON.parse(response).data.user_id;
-                    $('#doneDiv').html('<br /><p class="bg-success">Done: new user id is <a target="_blank" href="/gifts'
-                            + surveyLink + '/?userId=' + userId + '">' + userId + '</a>.<br />' +
-                        'A task has been dispatched to send an email to ' + $email.val() + '.</p>');
-                });
-            }
-
-            $('#full').on('click', function () {
-                createSurvey('fullform', '');
-            });
-            $('#shorta').on('click', function () {
-                createSurvey('short_a', '/a');
-            });
-            $('#shortb').on('click', function () {
-                createSurvey('short_b', '/b');
-            });
-        })
-    </script>
 {% endblock %}

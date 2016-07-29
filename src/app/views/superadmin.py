@@ -1,6 +1,7 @@
 """ superadmin.py """
 from google.appengine.ext import ndb
 
+from app.models.question import Question
 from app.models.quiz_attempt import QuizAttempt
 from app.models.user import User
 from app.views import TemplatedView
@@ -34,3 +35,12 @@ class MainView(TemplatedView):
 class GenerateView(TemplatedView):
     def get(self):
         self.render_response('superadmin/generate.html')
+
+
+class PrintQuestionsView(TemplatedView):
+    def get(self):
+        context = {
+            'questions': Question.get_all_questions(ordered=True)
+        }
+
+        self.render_response('superadmin/print_questions.html', **context)
