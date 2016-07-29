@@ -9,6 +9,7 @@ from webapp2 import Route
 ROUTES = [
     RedirectRoute('/superadmin/', name='superadmin-main', handler='app.views.superadmin.MainView'),
     RedirectRoute('/superadmin/generate/', name='generate-surveys', handler='app.views.superadmin.GenerateView', strict_slash=True),
+    RedirectRoute('/superadmin/questions/', name='view-questions', handler='app.views.superadmin.PrintQuestionsView', strict_slash=True),
 
     Route('/', handler='app.views.main.MainView'),
     RedirectRoute('/gifts/', name='full-gift-survey', handler='app.views.survey.SurveyFullformView', strict_slash=True),
