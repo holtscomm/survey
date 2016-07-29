@@ -59,6 +59,10 @@ class User(ndb.Model):
 
     @property
     def full_name(self):
+        """
+        Calculates and returns the full name of a User.
+        :return: "First Last" or "First" or "Last"
+        """
         if self.first_name != '' and self.last_name == '':
             return self.first_name
         elif self.first_name == '' and self.last_name != '':
