@@ -1,9 +1,13 @@
 const webpack = require('webpack');
 
 module.exports = {
-    entry: './src/static/js/app/survey.js',
+    entry: {
+        survey: './src/static/js/app/survey.js',
+        generate: './src/static/js/app/generate-survey.js'
+    },
     output: {
-        filename: 'src/static/js/survey.js'
+        path: 'src/static/js',
+        filename: '[name].js'
     },
     module: {
         loaders: [
