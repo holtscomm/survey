@@ -20,6 +20,7 @@
                 <h2>Hot links</h2>
                 <ul>
                     <li><a href="/superadmin/generate/">Generate paid survey</a></li>
+                    <li><a href="/superadmin/questions/">View a printable version of all the questions</a></li>
                 </ul>
             </div>
         </div>
@@ -35,9 +36,9 @@
                     </tr>
                     {% for attempt in quiz_attempt_data %}
                         <tr>
-                            <td><a href="{{ attempt.quiz_link }}">{{ attempt.user_id }}</a></td>
+                            <td>{{ attempt.user_id }}</td>
                             <td>{{ attempt.quiz_completed }}</td>
-                            <td>{{ attempt.quiz_type_display }}</td>
+                            <td><a href="{{ attempt.quiz_link }}">{{ attempt.quiz_type_display }}</a></td>
                             <td><a href="/results/?userId={{ attempt.user_id }}">here</a></td>
                         </tr>
                     {% endfor %}
