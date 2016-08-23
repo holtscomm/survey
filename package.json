@@ -25,6 +25,8 @@
     "webpack": "^1.13.1"
   },
   "scripts": {
+    "preinstall": "bower install",
+    "postinstall": "npm run build-css && npm run build-js",
     "build-js": "webpack",
     "watch-js": "webpack --watch",
     "build-css": "node-sass --include-path scss src/static/scss/main.scss src/static/css/global.css",
