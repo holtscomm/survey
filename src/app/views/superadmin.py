@@ -1,6 +1,7 @@
 """ superadmin.py """
 from google.appengine.ext import ndb
 
+import settings
 from app.models.question import Question
 from app.models.quiz_attempt import QuizAttempt
 from app.models.user import User
@@ -26,7 +27,8 @@ class MainView(TemplatedView):
             # 'paid_survey_users_last_30_days': len(User.get_paid_survey_users_last_30_days().fetch())
             'quiz_attempt_data': all_quiz_attempts,
             'all_users': all_users,
-            'paid_quiz_attempts': paid_quiz_attempts
+            'paid_quiz_attempts': paid_quiz_attempts,
+            'env': 'local' if settings.is_devappserver() else 'not-local'
         }
 
         self.render_response('superadmin/index.html', **context)
@@ -44,3 +46,10 @@ class PrintQuestionsView(TemplatedView):
         }
 
         self.render_response('superadmin/print_questions.html', **context)
+
+
+class ImportQuestionsView(TemplatedView):
+    def get(self):
+        from app.migrations.question_migration import import_questions
+        import_questions()
+        self.response.out.write('Migration done. <button onclick="history.back()">Go back</button>')

@@ -49,7 +49,7 @@ class Question(ndb.Model):
         :param question_number:
         :return:
         """
-        question = Question(
+        question = cls(
             key=cls.build_key(question_number),
             text=text,
             category=category,
