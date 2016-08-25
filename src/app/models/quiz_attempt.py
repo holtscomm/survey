@@ -125,6 +125,22 @@ class QuizAttempt(ndb.Model):
         return cls.build_key(user_id, quiz_type).get()
 
     @classmethod
+    @ndb.tasklet
+    def get_all_attempts_for_user_id_async(cls, user_id):
+        """
+        Get all quiz attempts for each quiz type, asynchronously.
+        :param user_id:
+        :return:
+        """
+        if not user_id:
+            raise ValueError('user_id must be provided')
+
+        quiz_keys = [cls.build_key(user_id, quiz_type) for quiz_type in cls.QUIZ_TYPES.keys()]
+        all_quizzes = yield ndb.get_multi_async(quiz_keys)
+        all_quizzes = filter(None, all_quizzes)
+        raise ndb.Return(all_quizzes)
+
+    @classmethod
     def get_all_attempts_for_user_id(cls, user_id):
         """
         Get all (up to three) attempts for the different quizzes.
@@ -134,7 +150,7 @@ class QuizAttempt(ndb.Model):
         if not user_id:
             raise ValueError('user_id must be provided')
 
-        return filter(None, [cls.get_by_user_id(user_id, quiz_type) for quiz_type in cls.QUIZ_TYPES.keys()])
+        return cls.get_all_attempts_for_user_id_async(user_id).get_result()
 
     @classmethod
     def get_all_attempts(cls):

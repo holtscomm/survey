@@ -113,6 +113,22 @@ export default class SurveyAnswerGroup extends React.Component {
             </span>
           </label>
         </span>
+        <span className='survey-page__question-choice'>
+          <label htmlFor={answerName + 'not-applicable'}>
+            <input
+              type='radio'
+              id={answerName + 'not-applicable'}
+              name={answerName}
+              ref='notApplicable'
+              value='0'
+              onChange={this.handleOnChange}
+              required />
+            <span>
+              <span className="hidden-xs hidden-sm">Not Applicable</span>
+              <span className="hidden-md hidden-lg">N/A</span>
+            </span>
+          </label>
+        </span>
       </span>
     );
   }
