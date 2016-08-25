@@ -77,7 +77,17 @@ class User(ndb.Model):
         :param user_id:
         :return:
         """
-        return cls.build_key(user_id).get()
+        return cls.get_by_user_id_async(user_id).get_result()
+
+    @classmethod
+    @ndb.tasklet
+    def get_by_user_id_async(cls, user_id):
+        """
+        Get a user by user id, asynchronously.
+        :param user_id:
+        :return:
+        """
+        raise ndb.Return(cls.build_key(user_id).get_async())
 
     @classmethod
     def get_or_create_by_user_id(cls, user_id):
