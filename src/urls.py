@@ -7,7 +7,7 @@ from webapp2_extras.routes import RedirectRoute
 from webapp2 import Route
 
 ROUTES = [
-    RedirectRoute('/superadmin/', name='superadmin-main', handler='app.views.superadmin.MainView'),
+    RedirectRoute('/superadmin/', name='superadmin-main', handler='app.views.superadmin.MainView', strict_slash=True),
     RedirectRoute('/superadmin/generate/', name='generate-surveys', handler='app.views.superadmin.GenerateView', strict_slash=True),
     RedirectRoute('/superadmin/questions/', name='view-questions', handler='app.views.superadmin.PrintQuestionsView', strict_slash=True),
     RedirectRoute('/superadmin/import/', name='import-questions', handler='app.views.superadmin.ImportQuestionsView', strict_slash=True),
