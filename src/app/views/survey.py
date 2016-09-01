@@ -16,7 +16,7 @@ class SurveyBaseView(TemplatedView):
         attempt = QuizAttempt.get_by_user_id(user.user_id, context['quiz_type'])
         if not attempt:
             # Start up a new QuizAttempt!
-            QuizAttempt.create(user_id=user.user_id, quiz_type=context['quiz_type'])
+            attempt = QuizAttempt.create(user_id=user.user_id, quiz_type=context['quiz_type'])
 
         context.update({
             'user': user,
