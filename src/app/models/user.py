@@ -87,7 +87,8 @@ class User(ndb.Model):
         :param user_id:
         :return:
         """
-        raise ndb.Return(cls.build_key(user_id).get_async())
+        user = yield cls.build_key(user_id).get_async()
+        raise ndb.Return(user)
 
     @classmethod
     def get_or_create_by_user_id(cls, user_id):

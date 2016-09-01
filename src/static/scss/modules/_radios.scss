@@ -20,18 +20,21 @@ label {
 [type="radio"] + span {
   display: table-cell;
   width: 1000px;
+  transition: background 0.2s ease-out;
 }
 
 [type="radio"]:hover + span {
   background: $gray-lighter;
-  transition: 0.2s ease all;
+  transition: background 0.2s ease-out;
 }
 
 /* the checked style using the :checked pseudo class */
 [type="radio"]:checked + span {
   background: darken($btn-success-bg, 18%);
   color: $btn-primary-color;
-  transition: 0.2s ease all;
+  transition:
+          background 0.2s ease-in,
+          color 0.2s ease-in;
 }
 
 /* never forget focus styling */
