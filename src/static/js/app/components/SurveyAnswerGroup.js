@@ -8,20 +8,6 @@ export default class SurveyAnswerGroup extends React.Component {
     hasErrors: React.PropTypes.bool
   };
 
-  componentDidMount() {
-    if (this.props.questionAnswer == 5) {
-      this.refs.stronglyAgree.checked = true;
-    } else if (this.props.questionAnswer == 4) {
-      this.refs.agree.checked = true;
-    } else if (this.props.questionAnswer == 3) {
-      this.refs.neutral.checked = true;
-    } else if (this.props.questionAnswer == 2) {
-      this.refs.disagree.checked = true;
-    } else if (this.props.questionAnswer == 1) {
-      this.refs.stronglyDisagree.checked = true;
-    }
-  }
-
   handleOnChange = (e) => {
     this.refs.choices.classList.remove('has-error');
     this.props.handleOnChangeCallback(e);
