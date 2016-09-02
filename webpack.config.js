@@ -46,7 +46,7 @@ if (process.env.NODE_ENV === 'production') {
     };
     config.output = {
         path: 'build/static/js',
-        filename: '[name].js'
+        filename: '[name].js'  // TODO: Add the file hashing as well as the HTML altering webpack plugin
     };
 }
 
