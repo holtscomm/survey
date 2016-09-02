@@ -1,4 +1,5 @@
 import React from 'react';
+import { RadioButton } from './RadioButton';
 
 export default class SurveyAnswerGroup extends React.Component {
   static propTypes = {
@@ -34,100 +35,76 @@ export default class SurveyAnswerGroup extends React.Component {
         ref='choices'
         className={'survey-page__question-choices' + errorClass}>
         <span className='survey-page__question-choice survey-page--first-question-choice'>
-          <label htmlFor={answerName + 'strongly-disagree'}>
-            <input
-              type='radio'
-              id={answerName + 'strongly-disagree'}
-              name={answerName}
-              ref='stronglyDisagree'
-              value='1'
-              onChange={this.handleOnChange}
-              required />
-            <span>
-              <span className="hidden-xs hidden-sm">Strongly Disagree</span>
-              <span className="hidden-md hidden-lg">SD</span>
-            </span>
-          </label>
+          <RadioButton
+            inputId={answerName + 'strongly-disagree'}
+            inputName={answerName}
+            inputValue="1"
+            handleOnChange={this.handleOnChange}
+            desktopText="Strongly Disagree"
+            mobileText="SD"
+            ref="stronglyDisagree"
+            >
+          </RadioButton>
         </span>
         <span className='survey-page__question-choice'>
-          <label htmlFor={answerName + 'disagree'}>
-            <input
-              type='radio'
-              id={answerName + 'disagree'}
-              name={answerName}
-              ref='disagree'
-              value='2'
-              onChange={this.handleOnChange}
-              required />
-            <span>
-              <span className="hidden-xs hidden-sm">Disagree</span>
-              <span className="hidden-md hidden-lg">D</span>
-            </span>
-          </label>
+          <RadioButton
+            inputId={answerName + 'disagree'}
+            inputName={answerName}
+            inputValue="2"
+            handleOnChange={this.handleOnChange}
+            desktopText="Disagree"
+            mobileText="D"
+            ref="disagree"
+            >
+          </RadioButton>
         </span>
         <span className='survey-page__question-choice'>
-          <label htmlFor={answerName + 'neutral'}>
-            <input
-              type='radio'
-              id={answerName + 'neutral'}
-              name={answerName}
-              ref='neutral'
-              value='3'
-              onChange={this.handleOnChange}
-              required />
-            <span>
-              <span className="hidden-xs hidden-sm">Neutral</span>
-              <span className="hidden-md hidden-lg">N</span>
-            </span>
-          </label>
+          <RadioButton
+            inputId={answerName + 'neutral'}
+            inputName={answerName}
+            inputValue="3"
+            handleOnChange={this.handleOnChange}
+            desktopText="Neutral"
+            mobileText="N"
+            ref="neutral"
+            >
+          </RadioButton>
         </span>
         <span className='survey-page__question-choice'>
-          <label htmlFor={answerName + 'agree'}>
-            <input
-              type='radio'
-              id={answerName + 'agree'}
-              name={answerName}
-              ref='agree'
-              value='4'
-              onChange={this.handleOnChange}
-              required />
-            <span>
-              <span className="hidden-xs hidden-sm">Agree</span>
-              <span className="hidden-md hidden-lg">A</span>
-            </span>
-          </label>
+          <RadioButton
+            inputId={answerName + 'agree'}
+            inputName={answerName}
+            inputValue="4"
+            handleOnChange={this.handleOnChange}
+            desktopText="Agree"
+            mobileText="A"
+            ref="agree"
+            >
+          </RadioButton>
         </span>
         <span className='survey-page__question-choice'>
-          <label htmlFor={answerName + 'strongly-agree'}>
-            <input
-              type='radio'
-              id={answerName + 'strongly-agree'}
-              name={answerName}
-              ref='stronglyAgree'
-              value='5'
-              onChange={this.handleOnChange}
-              required />
-            <span>
-              <span className="hidden-xs hidden-sm">Strongly Agree</span>
-              <span className="hidden-md hidden-lg">SA</span>
-            </span>
-          </label>
+          <RadioButton
+            inputId={answerName + 'strongly-agree'}
+            inputName={answerName}
+            inputValue="5"
+            handleOnChange={this.handleOnChange}
+            desktopText="Strongly Agree"
+            mobileText="SA"
+            ref="stronglyAgree"
+            >
+          </RadioButton>
         </span>
         <span className='survey-page__question-choice'>
-          <label htmlFor={answerName + 'not-applicable'}>
-            <input
-              type='radio'
-              id={answerName + 'not-applicable'}
-              name={answerName}
-              ref='notApplicable'
-              value='0'
-              onChange={this.handleOnChange}
-              required />
-            <span>
-              <span className="hidden-xs hidden-sm">Not Applicable</span>
-              <span className="hidden-md hidden-lg">N/A</span>
-            </span>
-          </label>
+          <RadioButton
+            inputId={answerName + 'not-applicable'}
+            inputName={answerName}
+            inputValue="0"
+            handleOnChange={this.handleOnChange}
+            desktopText="Not Applicable"
+            mobileText="NA"
+            ref="notApplicable"
+            >
+          </RadioButton>
         </span>
       </span>
     );

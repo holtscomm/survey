@@ -32,7 +32,6 @@ export default class Survey extends React.Component {
 
   getNextPageOrSubmit = (e) => {
     if (Object.keys(this._surveyPage.getQuestions()).length !== 15) {
-      console.log("running");
       this.setState({
         pageHasErrors: true
       });
@@ -62,10 +61,10 @@ export default class Survey extends React.Component {
     SurveyApi.submitAnswers(userId, this._surveyPage.giveQuestionData(), this.props.quizType);
   }
 
-  updateQuestionsInState = (questionJson) => {
+  updateQuestionsInState = ({data, nextPage}) => {
     this.setState({
-      questions: questionJson.data,
-      nextPage: questionJson.nextPage,
+      questions: data,
+      nextPage: nextPage,
       pageHasLoaded: true
     });
   };
