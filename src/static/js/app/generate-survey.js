@@ -1,9 +1,9 @@
 import $ from 'jquery';
 
 function createSurvey(type, surveyLink) {
-  var $email = $('#email');
-  var $firstName = $('#firstName');
-  var $lastName = $('#lastName');
+  const $email = $('#email');
+  const $firstName = $('#firstName');
+  const $lastName = $('#lastName');
 
   if ($email.val() === '' || $firstName.val() === '' || $lastName.val() === '') {
     alert('One or more of the required fields (all of them) is empty');
@@ -17,7 +17,7 @@ function createSurvey(type, surveyLink) {
     'user_info[first_name]': $firstName.val(),
     'user_info[last_name]': $lastName.val()
   }).done(function (response) {
-    var userId = JSON.parse(response).data.user_id;
+    const userId = JSON.parse(response).data.user_id;
     $('#doneDiv').html('<br /><p class="bg-success">Done: new user id is <a target="_blank" href="/gifts'
       + surveyLink + '/?userId=' + userId + '">' + userId + '</a>.<br />' +
       'A task has been dispatched to send an email to ' + $email.val() + '.</p>');
