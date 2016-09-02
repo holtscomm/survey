@@ -30,6 +30,7 @@
     @include make-xs-column(10);
     border-left: thin solid black;
     min-height: 40px;
+    margin-bottom: 3px;
   }
 
   &__question-choices {

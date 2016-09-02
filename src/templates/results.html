@@ -16,6 +16,8 @@
                     {% for category in quiz_attempt.top_categories %}
                         <li class="gift">
                             <span class="gift__gift-name">{{ category[0] }}</span> ({{ category[1] }})
+                            <a data-toggle="tooltip" data-placement="right" href="#explanation" title="The number in brackets indicates the strength of one’s connecting to each of the spiritual gifts
+                    - the higher the number the great the resonance of responses to particular gifts.">*</a>
                         </li>
                         {{ blurb_for_gift(category[0]) }}
                     {% endfor %}
@@ -33,6 +35,9 @@
                 </ol>
                 <p>If you'd like more information about the spiritual gifts you can read more about them
                     <a href="http://keithdwalker.ca/resources/spiritual-gifts-definitions-and-scriptures/">here</a>.</p>
+
+                <p id="explanation">*: The number in brackets indicates the strength of one’s connecting to each of the spiritual gifts
+                    - the higher the number the great the resonance of responses to particular gifts.</p>
             {% else %}
                 <p>None taken yet!</p>
             {% endif %}
@@ -40,5 +45,12 @@
         </div>
     </div>
 </div>
+{% endblock %}
 
+{% block body_scripts %}
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    })
+</script>
 {% endblock %}
