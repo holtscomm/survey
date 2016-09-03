@@ -21,7 +21,7 @@
                 <ul>
                     <li><a href="/superadmin/generate/">Generate paid survey</a></li>
                     <li><a href="/superadmin/questions/">View a printable version of all the questions</a></li>
-                    {% if env == 'local' %}<li><a href="/superadmin/import/" onclick="return prompt('Are you sure?');">Import questions</a></li>{% endif %}
+                    {% if env == 'local' %}<li><a href="/superadmin/import/" onclick="return confirm('Are you sure?');">Import questions</a></li>{% endif %}
                 </ul>
             </div>
         </div>
