@@ -28,7 +28,6 @@ export default class SurveyAnswerGroup extends React.Component {
             handleOnChange={this.handleOnChange}
             desktopText="Strongly Disagree"
             mobileText="SD"
-            ref="stronglyDisagree"
             >
           </RadioButton>
         </span>
@@ -40,7 +39,6 @@ export default class SurveyAnswerGroup extends React.Component {
             handleOnChange={this.handleOnChange}
             desktopText="Disagree"
             mobileText="D"
-            ref="disagree"
             >
           </RadioButton>
         </span>
@@ -52,7 +50,6 @@ export default class SurveyAnswerGroup extends React.Component {
             handleOnChange={this.handleOnChange}
             desktopText="Neutral"
             mobileText="N"
-            ref="neutral"
             >
           </RadioButton>
         </span>
@@ -64,7 +61,6 @@ export default class SurveyAnswerGroup extends React.Component {
             handleOnChange={this.handleOnChange}
             desktopText="Agree"
             mobileText="A"
-            ref="agree"
             >
           </RadioButton>
         </span>
@@ -76,7 +72,6 @@ export default class SurveyAnswerGroup extends React.Component {
             handleOnChange={this.handleOnChange}
             desktopText="Strongly Agree"
             mobileText="SA"
-            ref="stronglyAgree"
             >
           </RadioButton>
         </span>
@@ -88,7 +83,6 @@ export default class SurveyAnswerGroup extends React.Component {
             handleOnChange={this.handleOnChange}
             desktopText="Not Applicable"
             mobileText="NA"
-            ref="notApplicable"
             >
           </RadioButton>
         </span>
