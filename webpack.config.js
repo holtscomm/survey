@@ -1,6 +1,8 @@
 const webpack = require('webpack');
 
 const config = {};
+module.exports = config;
+
 config.entry = {
     survey: './src/static/js/app/survey.js',
     generate: './src/static/js/app/generate-survey.js'
@@ -49,5 +51,3 @@ if (process.env.NODE_ENV === 'production') {
         filename: '[name].js'  // TODO: Add the file hashing as well as the HTML altering webpack plugin
     };
 }
-
-module.exports = config;
