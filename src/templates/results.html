@@ -8,10 +8,10 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1>Survey Results{% if user.first_name %} for {{ user.first_name }} {{ user.last_name }}{% endif %}</h1>
+            <h1 class="text-center">Spiritual Gifts Inventory Results{% if user.first_name %} for {{ user.first_name }} {{ user.last_name }}{% endif %}</h1>
             {% if quiz_attempts %}
                 {% for quiz_attempt in quiz_attempts|sort(attribute='quiz_type') %}
-                    <h2>{{ quiz_attempt.quiz_type_display }}</h2>
+                    <h2 class="text-center">{{ quiz_attempt.quiz_type_results_display }}</h2>
                     <ol>
                     {% for category in quiz_attempt.top_categories %}
                         <li class="gift">
@@ -23,18 +23,18 @@
                     {% endfor %}
                     </ol>
                 {% endfor %}
-                <h3>Note</h3>
-                <p>This inventory is only a <strong>tool</strong> for discovery of gifts, <strong>not</strong> a definite indicator (See #2 below)</p>
+                <h2>Special Note:</h2>
+                <p><strong>Remember</strong> this inventory is only a <strong>tool</strong> for discovery of gifts, <strong>not</strong> a definite indicator.</p>
                 <ol>
                     <li>Express your availability to have God lead you according to His Word</li>
                     <li>Explore possibilities</li>
                     <li>Experiment</li>
                     <li>Examine your heart</li>
                     <li>Evaluate your effectiveness</li>
-                    <li>Expect confirmation from the Body</li>
+                    <li>Expect confirmation from fellow Christians and congregational leaders.</li>
                 </ol>
-                <p>If you'd like more information about the spiritual gifts you can read more about them
-                    <a href="http://keithdwalker.ca/resources/spiritual-gifts-definitions-and-scriptures/">here</a>.</p>
+                <h4>To further develop your understanding of your spiritual gifts and those given to others, you can find expanded definitions and scripture references,
+                    <a href="http://keithdwalker.ca/resources/spiritual-gifts-definitions-and-scriptures/">here</a>.</h4>
 
                 <hr />
                 <p id="explanation" class="small">* - The number in brackets indicates the strength of one’s connecting to each of the spiritual gifts

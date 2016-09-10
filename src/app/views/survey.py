@@ -3,6 +3,7 @@ Survey view
 """
 import logging
 
+import settings
 from app.models.user import User
 from . import TemplatedView
 from app.models.quiz_attempt import QuizAttempt
@@ -17,7 +18,8 @@ class SurveyBaseView(TemplatedView):
         if not attempt:
             # Start up a new QuizAttempt!
             attempt = QuizAttempt.create(user_id=user.user_id, quiz_type=context['quiz_type'])
-
+        if settings.is_devappserver():
+            user.paid = True
         context.update({
             'user': user,
             'user_id': user.user_id,
