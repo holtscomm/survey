@@ -35,6 +35,8 @@
 
   &__question-choices {
     @include make-xs-column(12);
+    @include make-md-column(11);
+    @include make-md-column-push(1);
     margin-top: 5px;
     padding-left: 0;
     padding-right: 0;
