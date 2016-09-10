@@ -77,9 +77,6 @@
 .question-descriptions {
   span {
     font-weight: bold;
-
-    @media (min-width: $screen-md-min) {
-      text-align: center;
-    }
+    text-align: center;
   }
 }
