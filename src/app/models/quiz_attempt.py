@@ -18,10 +18,17 @@ class QuizAttempt(ndb.Model):
     Stores information about a quiz attempt for a user.
     """
     QUIZ_TYPES = {
-        'fullform': 'Full',
-        'short_a': 'Short A',
-        'short_b': 'Short B',
-        'trial': 'Trial'
+        'fullform': 'Full Survey',
+        'short_a': 'Short Survey: Version A',
+        'short_b': 'Short Survey: Version B',
+        'trial': 'Trial Survey'
+    }
+
+    QUIZ_TYPES_FOR_RESULTS = {
+        'fullform': 'Full Survey',
+        'short_a': 'Version A of Short Survey',
+        'short_b': 'Version B of Short Survey',
+        'trial': 'Trial Survey'
     }
 
     user_id = ndb.StringProperty()
@@ -79,6 +86,14 @@ class QuizAttempt(ndb.Model):
         :return:
         """
         return self.QUIZ_TYPES[self.quiz_type]
+
+    @property
+    def quiz_type_results_display(self):
+        """
+        Return the display version of the quiz type.
+        :return:
+        """
+        return self.QUIZ_TYPES_FOR_RESULTS[self.quiz_type]
 
     @property
     def graded_categories(self):

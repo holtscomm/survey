@@ -35,7 +35,14 @@
 
   &__question-choices {
     @include make-xs-column(12);
+    @include make-sm-column(10);
+    @include make-sm-column-push(2);
+    @include make-md-column(11);
+    @include make-md-column-push(1);
     margin-top: 5px;
+    padding-left: 0;
+    padding-right: 0;
+
     @media (min-width: $screen-md-min) {
       margin-top: 0;
     }
@@ -77,9 +84,6 @@
 .question-descriptions {
   span {
     font-weight: bold;
-
-    @media (min-width: $screen-md-min) {
-      text-align: center;
-    }
+    text-align: center;
   }
 }
