@@ -36,7 +36,8 @@
     "build-css:prod": "node-sass --include-path scss build/static/scss/main.scss build/static/css/global.css",
     "build:prod": "npm run clean && cp -r src build && export NODE_ENV=production && npm run build-js:prod && npm run build-css:prod",
     "clean": "rm -rf build",
-    "deploy": "gcloud app deploy --project=keith-walker-survey build/app.yaml"
+    "deploy": "gcloud app deploy --project=keith-walker-survey build/app.yaml",
+    "bnd": "npm run build:prod && npm run deploy"
   },
   "jest": {
     "scriptPreprocessor": "node_modules/babel-jest",
