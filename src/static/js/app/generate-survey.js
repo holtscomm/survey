@@ -5,8 +5,8 @@ function createSurvey(type, surveyLink) {
   const $firstName = $('#firstName');
   const $lastName = $('#lastName');
 
-  if ($email.val() === '' || $firstName.val() === '' || $lastName.val() === '') {
-    alert('One or more of the required fields (all of them) is empty');
+  if ($email.val() === '' || $firstName.val() === '') {
+    alert('One or more of the required fields (email or first name) is empty');
     return false;
   }
 

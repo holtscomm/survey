@@ -8,10 +8,12 @@ from app.models.user import User
 class Purchase(object):
     """ Purchase domain object """
     def __init__(self, purchase_body):
+        """ Initialize purchase body """
         self.purchase_body = purchase_body
 
     @property
     def full_name(self):
+        """ Full name of the purchaser """
         if self.first_name != '' and self.last_name == '':
             return self.first_name
         elif self.first_name == '' and self.last_name != '':
@@ -21,23 +23,28 @@ class Purchase(object):
 
     @property
     def product(self):
+        """ Which 'product' was purchasd (i.e. full or short a/b) """
         return (self.purchase_body.get('cart_details[0][name]') or self.purchase_body.get('cart_details[0][name][]'))[0]
 
     @property
     def purchase_date(self):
+        """ Date the survey was purchased """
         return self.purchase_body.get('date', datetime.datetime.utcnow())
 
     @property
     def email(self):
+        """ Email of purchaser of the survey """
         return self.purchase_body['email'][0]
 
     @property
     def first_name(self):
+        """ First name of purchaser of the survey """
         return self.purchase_body['user_info[first_name]'][0]
 
     @property
     def last_name(self):
-        return self.purchase_body['user_info[last_name]'][0]
+        """ Not a required field for purchases so last_name could be empty. """
+        return self.purchase_body.get('user_info[last_name]', [''])[0]
 
 
 def create_new_premium_user(purchase_object):
