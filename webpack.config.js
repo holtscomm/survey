@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const DashboardPlugin = require('webpack-dashboard/plugin');
 
 const config = {};
 module.exports = config;
@@ -34,6 +35,10 @@ config.plugins = [
         'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
      })
 ];
+if (process.env.NODE_ENV !== 'production') {
+    config.plugins.push(new DashboardPlugin());
+}
+
 config.node = {
     net: "empty",
     tls: "empty",
