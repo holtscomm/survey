@@ -38,7 +38,8 @@
     "build:prod": "npm run clean && cp -r src build && export NODE_ENV=production && npm run build-js:prod && npm run build-css:prod",
     "clean": "rm -rf build",
     "deploy": "gcloud app deploy --project=keith-walker-survey build/app.yaml",
-    "bnd": "npm run build:prod && npm run deploy"
+    "bnd": "npm run build:prod && npm run deploy",
+    "start": "dev_appserver.py src/app.yaml --port=8079 --admin_port=9079 --storage_path=./data/"
   },
   "jest": {
     "scriptPreprocessor": "node_modules/babel-jest",
