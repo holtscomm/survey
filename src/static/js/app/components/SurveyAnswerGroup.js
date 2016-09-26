@@ -4,7 +4,7 @@ import { RadioButton } from './RadioButton';
 export default class SurveyAnswerGroup extends React.Component {
   static propTypes = {
     questionNumber: React.PropTypes.number.isRequired,
-    questionAnswer: React.PropTypes.number,
+    handleOnChangeCallback: React.PropTypes.func,
     hasErrors: React.PropTypes.bool
   };
 
