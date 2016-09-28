@@ -76,13 +76,13 @@ export default class Survey extends React.Component {
   };
 
   render() {
-    let completedStyles = {
+    const completedStyles = {
       display: this.state.nextPage === false && this.state.questions.length === 0 ? 'block' : 'none'
     };
-    let errorsStyles = {
+    const errorsStyles = {
       display: this.state.pageHasErrors ? 'block' : 'none'
     };
-    let nextPageBtnStyles = {
+    const nextPageBtnStyles = {
       display: this.state.pageHasLoaded &&
         this.state.questions.length > 0 ? 'block' : 'none'
     };
@@ -93,7 +93,7 @@ export default class Survey extends React.Component {
           ref={(c) => this._surveyPage = c}
           hasErrors={this.state.pageHasErrors}
         />
-      <div className='survey__completed' style={completedStyles}>
+        <div className='survey__completed' style={completedStyles}>
           <p>You have already completed the survey. View your results <a href={'/results/?userId=' + this.userId}>here</a>.</p>
         </div>
         <div className='survey-page__next-area'>
