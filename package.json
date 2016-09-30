@@ -19,7 +19,7 @@
     "jest": "^15.1.1",
     "jest-cli": "^15.1.1",
     "json-loader": "^0.5.4",
-    "node-sass": "^3.3.3",
+    "node-sass": "^3.10.0",
     "nodemon": "^1.7.1",
     "react-addons-test-utils": "^15.3.2",
     "webpack": "^1.13.2",
