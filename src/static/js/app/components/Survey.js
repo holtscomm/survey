@@ -4,15 +4,18 @@ import SurveyApi from '../api/SurveyApi';
 import SurveyPage from './SurveyPage';
 
 export default class Survey extends React.Component {
+  static propTypes = {
+    quizType: React.PropTypes.string
+  };
+  static defaultProps = {
+    quizType: ''
+  };
   userId = 0;
   state = {
     pageHasLoaded: false,
     pageHasErrors: false,
     questions: [],
     nextPage: 2
-  };
-  static defaultProps = {
-    quizType: ''
   };
 
   componentDidMount() {
@@ -46,7 +49,7 @@ export default class Survey extends React.Component {
       this.getSurveyPage(this.userId, this.state.nextPage);
     } else {
       if (this.props.quizType === 'trial') {
-        window.location.href = 'http://keithdwalker.ca/resources/discover-your-spiritual-gifts/';
+        window.location.href = 'http://gifts.holtscomm.ca/';
       } else {
         window.location.href = `/results/?userId=${this.userId}`;
       }
