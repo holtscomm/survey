@@ -22,7 +22,7 @@ describe('SurveyPage', () => {
         category: 'adm'
       };
       const wrapper = shallow(SurveyPage.fillInQuestion(question, undefined, true));
-      expect()
+      // expect(wrapper).toIncludeJSX()
     })
   });
 });
