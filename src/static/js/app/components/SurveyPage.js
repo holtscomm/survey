@@ -32,7 +32,7 @@ export default class SurveyPage extends React.Component {
     return questionData;
   }
 
-  fillInQuestion(question, answeredQuestion, hasErrors) {
+  static fillInQuestion(question, answeredQuestion, hasErrors) {
     const shouldHighlight = hasErrors && question.answer === null && answeredQuestion === undefined;
 
     return <SurveyQuestion
@@ -50,7 +50,7 @@ export default class SurveyPage extends React.Component {
     let allQuestions = [];
     console.log(this.props.hasErrors);
     this.props.questions.forEach((question) => {
-      allQuestions.push(this.fillInQuestion(
+      allQuestions.push(SurveyPage.fillInQuestion(
         question,
         answeredQuestions[question.question_number],
         this.props.hasErrors
