@@ -49,7 +49,7 @@ export default class Survey extends React.Component {
       this.getSurveyPage(this.userId, this.state.nextPage);
     } else {
       if (this.props.quizType === 'trial') {
-        window.location.href = 'http://gifts.holtscomm.ca/';
+        window.location.href = 'https://gifts.holtscomm.ca/';
       } else {
         window.location.href = `/results/?userId=${this.userId}`;
       }
