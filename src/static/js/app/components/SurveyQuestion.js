@@ -8,8 +8,7 @@ export default class SurveyQuestion extends React.Component {
     questionNumber: React.PropTypes.number.isRequired,
     questionText: React.PropTypes.string.isRequired,
     questionCategory: React.PropTypes.string.isRequired,
-    questionAnswer: React.PropTypes.number,
-    passUpAnswer: React.PropTypes.func
+    questionAnswer: React.PropTypes.number
   };
 
   handleChange = (e) => {

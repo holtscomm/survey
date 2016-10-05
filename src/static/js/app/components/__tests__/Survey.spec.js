@@ -18,7 +18,6 @@ describe('Survey', function () {
   describe('componentDidMount', function () {
     it('should get a userId from the DOM', function () {
       var survey = mount(<Survey quizType="trial" />);
-      console.log(document.getElementById('user-id'));
       expect(survey.userId).toBe('1234');
     });
   });

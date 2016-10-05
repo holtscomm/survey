@@ -9,7 +9,7 @@ export default class SurveyAnswerGroup extends React.Component {
   };
 
   handleOnChange = (e) => {
-    this.refs.choices.classList.remove('has-error');
+    this.choices.classList.remove('has-error');
     this.props.handleOnChangeCallback(e);
   };
 
@@ -18,7 +18,7 @@ export default class SurveyAnswerGroup extends React.Component {
     const errorClass = this.props.hasErrors ? ' survey-page--errors' : '';
     return (
       <span
-        ref='choices'
+        ref={(span) => this.choices = span}
         className={'survey-page__question-choices' + errorClass}>
         <span className='survey-page__question-choice survey-page--first-question-choice'>
           <RadioButton

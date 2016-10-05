@@ -25,7 +25,7 @@ export default class Survey extends React.Component {
 
   componentDidUpdate() {
     if (!this.state.pageHasErrors && this.state.nextPage !== 2) {
-      window.scrollTo(0, this.refs.surveyTop.offsetTop);
+      window.scrollTo(0, this.surveyTop.offsetTop);
     }
   }
 
@@ -84,7 +84,7 @@ export default class Survey extends React.Component {
         this.state.questions.length > 0 ? 'block' : 'none'
     };
     return (
-      <div ref='surveyTop'>
+      <div ref={(div) => this.surveyTop = div }>
         <SurveyPage
           questions={this.state.questions}
           ref={(c) => this._surveyPage = c}
@@ -101,7 +101,7 @@ export default class Survey extends React.Component {
             style={nextPageBtnStyles}
             className='survey-page__next-btn'
             onClick={this.getNextPageOrSubmit}>
-            { this.state.nextPage === false ? 'Submit' : 'Next &rarr;'}
+            { this.state.nextPage === false ? 'Submit' : 'Next →'}
           </button>
         </div>
       </div>
