@@ -16,13 +16,13 @@ export default class SurveyPage extends React.Component {
     return this.state.questions;
   }
 
-  gatherQuestionData = (questionObj) => {
+  gatherQuestionData(questionObj) {
     let questions = this.state.questions;
     questions[`${questionObj.question_number}`] = questionObj.category + ':' + questionObj.answer;
     this.setState({
       questions: questions
     });
-  };
+  }
 
   giveQuestionData() {
     let questionData = this.getQuestions();
@@ -32,12 +32,12 @@ export default class SurveyPage extends React.Component {
     return questionData;
   }
 
-  static fillInQuestion(question, answeredQuestion, hasErrors) {
+  fillInQuestion(question, answeredQuestion, hasErrors) {
     const shouldHighlight = hasErrors && question.answer === null && answeredQuestion === undefined;
 
     return <SurveyQuestion
         key={question.question_number}
-        passUpAnswer={this.gatherQuestionData}
+        passUpAnswer={this.gatherQuestionData.bind(this)}
         questionText={question.text}
         questionNumber={question.question_number}
         questionAnswer={question.answer}
@@ -48,9 +48,8 @@ export default class SurveyPage extends React.Component {
   render() {
     let answeredQuestions = this.getQuestions();
     let allQuestions = [];
-    console.log(this.props.hasErrors);
     this.props.questions.forEach((question) => {
-      allQuestions.push(SurveyPage.fillInQuestion(
+      allQuestions.push(this.fillInQuestion(
         question,
         answeredQuestions[question.question_number],
         this.props.hasErrors
