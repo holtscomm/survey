@@ -12,7 +12,7 @@ export default class SurveyQuestion extends React.Component {
     passUpAnswer: React.PropTypes.func
   };
 
-  handleChange = (e) = > {
+  handleChange = (e) => {
     this.props.passUpAnswer({
       'question_number': this.props.questionNumber,
       'category': this.props.questionCategory,

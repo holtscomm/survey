@@ -18,8 +18,9 @@ describe('SurveyPage', () => {
     it('should highlight if the question has errors', () => {
       const question = {
         question_number: 1,
-        answer: 'Test',
-        category: 'adm'
+        answer: 3,
+        category: 'adm',
+        text: 'Hello testing world'
       };
       const wrapper = shallow(SurveyPage.fillInQuestion(question, undefined, true));
       // expect(wrapper).toIncludeJSX()
