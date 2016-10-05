@@ -72,12 +72,6 @@ export default class Survey extends React.Component {
     });
   };
 
-  getSafeMarkupForNextButton = () => {
-    // This is the way they would have you do it:
-    // https://facebook.github.io/react/tips/dangerously-set-inner-html.html
-    return {__html: this.state.nextPage === false ? 'Submit' : 'Next &rarr;'}
-  };
-
   render() {
     const completedStyles = {
       display: this.state.nextPage === false && this.state.questions.length === 0 ? 'block' : 'none'
@@ -106,8 +100,8 @@ export default class Survey extends React.Component {
           <button
             style={nextPageBtnStyles}
             className='survey-page__next-btn'
-            onClick={this.getNextPageOrSubmit}
-            dangerouslySetInnerHTML={this.getSafeMarkupForNextButton()}>
+            onClick={this.getNextPageOrSubmit}>
+            { this.state.nextPage === false ? 'Submit' : 'Next &rarr;'}
           </button>
         </div>
       </div>
