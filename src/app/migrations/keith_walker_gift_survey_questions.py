@@ -351,7 +351,7 @@ questions = """
 
 176. I would rather research, read, and pass along my learning than many other activities.
 
-177. I have felt the lack of words to praise God in a way I wish I could.
+177. When I have felt the lack of words to praise God as I wish I could - He has given me other ways and words to praise Him.
 
 178. When I first prayed in tongues, I did so comfortably, without internal or external pressure.
 
