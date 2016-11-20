@@ -18,6 +18,11 @@ export default class Survey extends React.Component {
     nextPage: 2
   };
 
+  constructor() {
+    super();
+    this.surveyApi = new SurveyApi();
+  }
+
   componentDidMount() {
     this.userId = document.getElementById('user-id').innerHTML;
     this.getFirstPageForUser(this.userId);
@@ -30,7 +35,7 @@ export default class Survey extends React.Component {
   }
 
   getFirstPageForUser(userId) {
-    SurveyApi.getFirstPageForUserId(userId, this.props.quizType, this.updateQuestionsInState);
+    this.surveyApi.getFirstPageForUserId(userId, this.props.quizType, this.updateQuestionsInState);
   }
 
   getNextPageOrSubmit = (e) => {
@@ -57,11 +62,11 @@ export default class Survey extends React.Component {
   };
 
   getSurveyPage(userId, pageNum) {
-    SurveyApi.getSurveyPage(userId, pageNum, this.props.quizType, this.updateQuestionsInState);
+    surveyApi.getSurveyPage(userId, pageNum, this.props.quizType, this.updateQuestionsInState);
   }
 
   submitAnswers(userId) {
-    SurveyApi.submitAnswers(userId, this._surveyPage.giveQuestionData(), this.props.quizType);
+    surveyApi.submitAnswers(userId, this._surveyPage.giveQuestionData(), this.props.quizType);
   }
 
   updateQuestionsInState = ({data, nextPage}) => {
