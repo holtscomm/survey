@@ -1,7 +1,7 @@
 // React isn't used directly within jsx, but the transpiled code will use it.
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 
 import Survey from './components/Survey';
 
-ReactDOM.render(<Survey quizType={window.quizType} />, document.getElementById('survey'));
+render(<Survey quizType={window.quizType} />, document.getElementById('survey'));
