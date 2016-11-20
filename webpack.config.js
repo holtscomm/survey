@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const DashboardPlugin = require('webpack-dashboard/plugin');
+const argv = require('yargs').argv;
 
 const config = {};
 module.exports = config;
@@ -12,31 +13,39 @@ config.output = {
     path: 'src/static/js',
     filename: '[name].js'
 };
+config.resolve = {
+  "alias": {
+    "react": "preact-compat",
+    "react-dom": "preact-compat"
+  }
+};
 config.module = {
-    loaders: [
+    rules: [
         {
             test: /\.js$/,
             exclude: /node_modules/,
-            loader: 'babel-loader',
-            query: {
-                presets: ['es2015', 'react'],
+            use: 'babel-loader',
+            options: {
+                presets: [['es2015', { modules: false }], 'react'],
                 plugins: ['transform-class-properties']
             }
         },
         {
             test: /\.json$/,
-            loader: 'json'
+            use: 'json-loader'
         }
     ]
 };
 config.plugins = [
      new webpack.ProvidePlugin({
-        'Promise': 'imports?this=>global!exports?global.Promise!es6-promise',
-        'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+        'Promise': 'imports-loader?this=>global!exports-loader?global.Promise!es6-promise',
+        'fetch': 'imports-loader?this=>global!exports-loader?global.fetch!whatwg-fetch'
      })
 ];
 if (process.env.NODE_ENV !== 'production') {
-    config.plugins.push(new DashboardPlugin());
+    if (argv.watch) {
+      config.plugins.push(new DashboardPlugin());
+    }
 }
 
 config.node = {
@@ -47,12 +56,12 @@ config.node = {
 
 // Production settings
 if (process.env.NODE_ENV === 'production') {
-    config.entry = {
-        survey: './build/static/js/app/survey.js',
-        generate: './build/static/js/app/generate-survey.js'
-    };
-    config.output = {
-        path: 'build/static/js',
-        filename: '[name].js'  // TODO: Add the file hashing as well as the HTML altering webpack plugin
-    };
+    // config.entry = {
+    //     survey: './build/static/js/app/survey.js',
+    //     generate: './build/static/js/app/generate-survey.js'
+    // };
+    // config.output = {
+    //     path: 'build/static/js',
+    //     filename: '[name].js'  // TODO: Add the file hashing as well as the HTML altering webpack plugin
+    // };
 }
