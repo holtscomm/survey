@@ -11,14 +11,15 @@ config.entry = {
 };
 config.output = {
     path: 'src/static/js',
-    filename: '[name].js'
+    filename: '[name].js',
+    publicPath: '/static/js/'
 };
-config.resolve = {
-  "alias": {
-    "react": "preact-compat",
-    "react-dom": "preact-compat"
-  }
-};
+// config.resolve = {
+//   "alias": {
+//     "react": "preact-compat",
+//     "react-dom": "preact-compat"
+//   }
+// };
 config.module = {
     rules: [
         {
@@ -38,8 +39,8 @@ config.module = {
 };
 config.plugins = [
      new webpack.ProvidePlugin({
-        'Promise': 'imports-loader?this=>global!exports-loader?global.Promise!es6-promise',
-        'fetch': 'imports-loader?this=>global!exports-loader?global.fetch!whatwg-fetch'
+        'Promise': 'imports-loader?this=>global!exports-loader?global.Promise!es6-promise'
+        // 'fetch': 'imports-loader?this=>global!exports-loader?global.fetch!whatwg-fetch'
      })
 ];
 if (process.env.NODE_ENV !== 'production') {
