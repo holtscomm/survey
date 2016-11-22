@@ -37,12 +37,7 @@ config.module = {
         }
     ]
 };
-config.plugins = [
-     new webpack.ProvidePlugin({
-        'Promise': 'imports-loader?this=>global!exports-loader?global.Promise!es6-promise'
-        // 'fetch': 'imports-loader?this=>global!exports-loader?global.fetch!whatwg-fetch'
-     })
-];
+config.plugins = [];
 if (process.env.NODE_ENV !== 'production') {
     if (argv.watch) {
       config.plugins.push(new DashboardPlugin());
