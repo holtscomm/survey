@@ -18,11 +18,6 @@ export default class Survey extends React.Component {
     nextPage: 2
   };
 
-  constructor() {
-    super();
-    this.surveyApi = new SurveyApi();
-  }
-
   componentDidMount() {
     this.userId = document.getElementById('user-id').innerHTML;
     this.getFirstPageForUser(this.userId);
