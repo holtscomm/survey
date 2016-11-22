@@ -14,12 +14,12 @@ config.output = {
     filename: '[name].js',
     publicPath: '/static/js/'
 };
-// config.resolve = {
-//   "alias": {
-//     "react": "preact-compat",
-//     "react-dom": "preact-compat"
-//   }
-// };
+config.resolve = {
+    "alias": {
+        "react": "preact-compat",
+        "react-dom": "preact-compat"
+    }
+};
 config.module = {
     rules: [
         {
