@@ -16,4 +16,5 @@ keith-walker-survey-83a1562532b1.json
 *.dist-info
 source-context*.json
 src/static/js/generate.js
+src/static/js/0.js
 build

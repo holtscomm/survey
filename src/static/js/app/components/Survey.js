@@ -35,7 +35,7 @@ export default class Survey extends React.Component {
   }
 
   getFirstPageForUser(userId) {
-    this.surveyApi.getFirstPageForUserId(userId, this.props.quizType, this.updateQuestionsInState);
+    SurveyApi.getFirstPageForUserId(userId, this.props.quizType, this.updateQuestionsInState);
   }
 
   getNextPageOrSubmit = (e) => {
@@ -62,11 +62,11 @@ export default class Survey extends React.Component {
   };
 
   getSurveyPage(userId, pageNum) {
-    surveyApi.getSurveyPage(userId, pageNum, this.props.quizType, this.updateQuestionsInState);
+    SurveyApi.getSurveyPage(userId, pageNum, this.props.quizType, this.updateQuestionsInState);
   }
 
   submitAnswers(userId) {
-    surveyApi.submitAnswers(userId, this._surveyPage.giveQuestionData(), this.props.quizType);
+    SurveyApi.submitAnswers(userId, this._surveyPage.giveQuestionData(), this.props.quizType);
   }
 
   updateQuestionsInState = ({data, nextPage}) => {
