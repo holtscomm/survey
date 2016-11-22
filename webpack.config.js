@@ -52,12 +52,12 @@ config.node = {
 
 // Production settings
 if (process.env.NODE_ENV === 'production') {
-    // config.entry = {
-    //     survey: './build/static/js/app/survey.js',
-    //     generate: './build/static/js/app/generate-survey.js'
-    // };
-    // config.output = {
-    //     path: 'build/static/js',
-    //     filename: '[name].js'  // TODO: Add the file hashing as well as the HTML altering webpack plugin
-    // };
+    config.entry = {
+        survey: './build/static/js/app/survey.js',
+        generate: './build/static/js/app/generate-survey.js'
+    };
+    config.output = {
+        path: 'build/static/js',
+        filename: '[name].js'  // TODO: Add the file hashing as well as the HTML altering webpack plugin
+    };
 }
