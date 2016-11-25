@@ -15,10 +15,10 @@ config.output = {
     publicPath: '/static/js/'
 };
 config.resolve = {
-    "alias": {
-        "react": "preact-compat",
-        "react-dom": "preact-compat"
-    }
+    // "alias": {  // Disabled for now, until I figure out what's up with UglifyJS and punc())s
+    //     "react": "preact-compat",
+    //     "react-dom": "preact-compat"
+    // }
 };
 config.module = {
     rules: [

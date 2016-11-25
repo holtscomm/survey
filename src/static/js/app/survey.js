@@ -17,5 +17,5 @@ if (browserSupportsAllFeatures()) {
   startRender();
 } else {
   // If it's not all supported, load some polyfills.
-  loadScript('https://cdn.polyfill.io/v2/polyfill.min.js?features=Promise,fetch', startRender);
+  loadScript('https://cdn.polyfill.io/v2/polyfill.min.js?features=Promise,fetch&rum=1', startRender);
 }
