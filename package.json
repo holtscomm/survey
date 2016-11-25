@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "fetch": "^1.1.0",
+    "iso-whatwg-fetch": "^1.0.1",
     "jquery": "^3.1.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2"
@@ -26,8 +27,9 @@
     "node-sass": "^3.3.3",
     "nodemon": "^1.7.1",
     "react-addons-test-utils": "^15.3.2",
-    "webpack": "^1.13.2",
-    "webpack-dashboard": "^0.2.0"
+    "webpack": "^2.1.0-beta.27",
+    "webpack-dashboard": "^0.2.0",
+    "yargs": "^6.4.0"
   },
   "scripts": {
     "preinstall": "bower install",
@@ -39,7 +41,7 @@
     "test": "mocha './src/**/*.spec.js' --require setup.js --compilers js:babel-core/register",
     "build-js:prod": "webpack -p",
     "build-css:prod": "node-sass --include-path scss build/static/scss/main.scss build/static/css/global.css",
-    "build:prod": "npm run clean && cp -r src build && export NODE_ENV=production && npm run build-js:prod && npm run build-css:prod",
+    "build:prod": "npm run clean && cp -r src build && npm run build-js:prod && npm run build-css:prod",
     "clean": "rm -rf build",
     "deploy": "gcloud app deploy --project=keith-walker-survey build/app.yaml",
     "bnd": "npm run build:prod && npm run deploy",
