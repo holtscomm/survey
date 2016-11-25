@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const DashboardPlugin = require('webpack-dashboard/plugin');
+const argv = require('yargs').argv;
 
 const config = {};
 module.exports = config;
@@ -10,33 +11,37 @@ config.entry = {
 };
 config.output = {
     path: 'src/static/js',
-    filename: '[name].js'
+    filename: '[name].js',
+    publicPath: '/static/js/'
+};
+config.resolve = {
+    // "alias": {  // Disabled for now, until I figure out what's up with UglifyJS and punc())s
+    //     "react": "preact-compat",
+    //     "react-dom": "preact-compat"
+    // }
 };
 config.module = {
-    loaders: [
+    rules: [
         {
             test: /\.js$/,
             exclude: /node_modules/,
-            loader: 'babel-loader',
-            query: {
-                presets: ['es2015', 'react'],
+            use: 'babel-loader',
+            options: {
+                presets: [['es2015', { modules: false }], 'react'],
                 plugins: ['transform-class-properties']
             }
         },
         {
             test: /\.json$/,
-            loader: 'json'
+            use: 'json-loader'
         }
     ]
 };
-config.plugins = [
-     new webpack.ProvidePlugin({
-        'Promise': 'imports?this=>global!exports?global.Promise!es6-promise',
-        'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
-     })
-];
+config.plugins = [];
 if (process.env.NODE_ENV !== 'production') {
-    config.plugins.push(new DashboardPlugin());
+    if (argv.watch) {
+      config.plugins.push(new DashboardPlugin());
+    }
 }
 
 config.node = {
