@@ -21,6 +21,9 @@ handlers:
   script: google.appengine.ext.admin.application
   login: admin
 
+- url: /.well-known
+  static_dir: .well-known
+
 - url: /_ah/queue/deferred.*
   script: google.appengine.ext.deferred.deferred.application
   login: admin
@@ -38,6 +41,6 @@ skip_files:
 - ^(.*/)?.*\.py[co]$
 - ^(.*/)?.*/RCS/.*$
 - ^(.*/)?.*/jspm_packages/.*$
-- ^(.*/)?\..*$
+# - ^(.*/)?\..*$
 - ^(.*/)?.*\.scss$
 - ^(.*/)?.*\.md$

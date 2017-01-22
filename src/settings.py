@@ -12,4 +12,4 @@ def is_devappserver():
     return True if os.environ['APPLICATION_ID'].startswith('dev') else False
 
 
-APP_URL = 'localhost:8079' if is_devappserver() else 'http://survey.keithdwalker.ca'
+APP_URL = 'localhost:8079' if is_devappserver() else 'http://survey.holtscomm.ca'
