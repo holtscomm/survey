@@ -10,30 +10,38 @@ libraries:
   version: latest
 
 handlers:
+- url: /.well-known
+  static_dir: .well-known
+
 - url: /favicon\.ico
   static_files: static/img/favicon.ico
   upload: static/img/favicon\.ico
+  secure: always
 
 - url: /static
   static_dir: static
+  secure: always
+  http_headers:
+    Strict-Transport-Security: "max-age=2592000; includeSubdomains"
 
 - url: /admin/.*
   script: google.appengine.ext.admin.application
   login: admin
-
-- url: /.well-known
-  static_dir: .well-known
+  secure: always
 
 - url: /_ah/queue/deferred.*
   script: google.appengine.ext.deferred.deferred.application
   login: admin
+  secure: always
 
 - url: /superadmin/.*
   script: main.APP
   login: admin
+  secure: always
 
 - url: /.*
   script: main.APP
+  secure: always
 
 skip_files:
 - ^(.*/)?#.*#$
