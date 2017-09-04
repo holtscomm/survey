@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const DashboardPlugin = require('webpack-dashboard/plugin');
 const argv = require('yargs').argv;
+const path = require('path');
 
 const config = {};
 module.exports = config;
@@ -10,7 +11,7 @@ config.entry = {
     generate: './src/static/js/app/generate-survey.js'
 };
 config.output = {
-    path: 'src/static/js',
+    path: path.resolve(__dirname, 'src/static/js'),
     filename: '[name].js',
     publicPath: '/static/js/'
 };
@@ -25,7 +26,7 @@ config.module = {
         {
             test: /\.js$/,
             exclude: /node_modules/,
-            use: 'babel-loader',
+            loader: 'babel-loader',
             options: {
                 presets: [['es2015', { modules: false }], 'react'],
                 plugins: ['transform-class-properties']
