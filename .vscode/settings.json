@@ -1,4 +1,5 @@
 {
     "typescript.check.workspaceVersion": false,
-    "vsicons.presets.angular": false
+    "vsicons.presets.angular": false,
+    "python.linting.pylintEnabled": false
 }
