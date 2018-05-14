@@ -3,10 +3,9 @@ settings.py Documentation
 """
 import os
 
+from settings_secret import SENDGRID_API_KEY
+
 STATIC_VERSION_NUMBER = 1
-
-SENDGRID_API_KEY = '***REMOVED***'
-
 
 def is_devappserver():
     return True if os.environ['APPLICATION_ID'].startswith('dev') else False
