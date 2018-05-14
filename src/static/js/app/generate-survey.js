@@ -18,10 +18,10 @@ function createSurvey(type, surveyLink) {
     'user_info[last_name]': $lastName.val()
   }).done(function (response) {
     const userId = JSON.parse(response).data.user_id;
-    document.getElementById('doneDiv').innerHTML(`
+    document.getElementById('doneDiv').innerHTML = `
 <br /><p class="bg-success">Done: new user id is <a target="_blank" href="/gifts${surveyLink}/?userId=${userId}">${userId}</a>.
 <br />A task has been dispatched to send an email to ${$email.val()}.</p>
-    `);
+    `;
   });
 }
 

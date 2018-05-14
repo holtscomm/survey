@@ -16,8 +16,16 @@ class MainView(TemplatedView):
             QuizAttempt.get_all_attempts().fetch_async(),
             QuizAttempt.get_non_trial_attempts().fetch_async()
         )
-        all_users = yield ndb.get_multi_async([User.build_key(attempt.user_id) for attempt in all_quiz_attempts])
-        raise ndb.Return((paid_survey_users, all_quiz_attempts, all_users, paid_quiz_attempts))
+        all_users = []
+        quiz_attempt_dicts = []
+        for attempt in all_quiz_attempts:
+            user = User.build_key(attempt.user_id).get()
+            quiz_attempt_dicts.append({
+                'attempt': attempt,
+                'user': user
+            })
+            all_users.append(user)
+        raise ndb.Return((paid_survey_users, quiz_attempt_dicts, all_users, paid_quiz_attempts))
 
     def get(self):
         paid_survey_users, all_quiz_attempts, all_users, paid_quiz_attempts = self.get_superadmin_index_data()
