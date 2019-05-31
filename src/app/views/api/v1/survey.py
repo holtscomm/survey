@@ -7,7 +7,7 @@ import urlparse
 
 from google.appengine.ext import deferred
 
-from app.domain.survey import survey_for_type
+from app.domain.survey import survey_for_type, survey_for_type_and_user
 from app.models.quiz_attempt import QuizAttemptAnswer
 from app.views.api import JsonApiHandler
 from app.domain.purchase import Purchase, create_new_premium_user, send_email_with_survey_link
@@ -21,7 +21,8 @@ class SurveyGetFirstPageApiHandler(JsonApiHandler):
         user_id = self.request.GET.get('userId', 1)
         quiz_type = self.request.GET.get('quizType', 'fullform')
 
-        survey = survey_for_type(quiz_type)(user_id)
+        survey = survey_for_type_and_user(user_id, quiz_type)
+
         questions, prev_page, next_page = survey.get_survey_page(survey.first_page)
         response_data = {
             'userId': user_id,
@@ -37,7 +38,7 @@ class SurveyPageApiHandler(JsonApiHandler):
     """
     def get(self, user_id, page_num):
         quiz_type = self.request.GET.get('quizType', 'fullform')
-        questions, prev_page, next_page = survey_for_type(quiz_type)(user_id).get_survey_page(int(page_num))
+        questions, prev_page, next_page = survey_for_type_and_user(user_id, quiz_type).get_survey_page(int(page_num))
         response_data = {
             'prevPage': prev_page,
             'nextPage': next_page,

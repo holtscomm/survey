@@ -21,6 +21,12 @@ def survey_for_type(quiz_type='fullform'):
         return Survey
 
 
+def survey_for_type_and_user(user_id, quiz_type='fullform'):
+    """ Get a survey for a provided user id and quiz type. """
+    qt = survey_for_type(quiz_type)
+    return qt(user_id)
+
+
 class Survey(object):
     """
     Base Survey object. Has 180 questions, as opposed to the shorter ones which have 90.
