@@ -30,15 +30,18 @@
                 <h2>User Data</h2>
                 <table class="table">
                     <tr>
-                        <td>User ID</td>
-                        <td>Completed?</td>
-                        <td>Quiz Type</td>
-                        <td>Results page</td>
+                        <th>User</th>
+                        <th>Created</th>
+                        <th>Modified</th>
+                        <th>Completed?</th>
+                        <th>Quiz Type</th>
+                        <th>Results page</th>
                     </tr>
-                    {% for attempt in quiz_attempt_data %}
+                    {% for attempt in quiz_attempt_data|sort(True, attribute="attempt.updated") %}
                         <tr>
-
                             <td>{{ attempt.user.first_name }} {{ attempt.user.last_name }}</td>
+                            <td>{{ attempt.attempt.created }}</td>
+                            <td>{{ attempt.attempt.updated }}</td>
                             <td>{{ attempt.attempt.quiz_completed }}</td>
                             <td><a href="{{ attempt.attempt.quiz_link }}">{{ attempt.attempt.quiz_type_display }}</a></td>
                             <td><a href="/results/?userId={{ attempt.attempt.user_id }}">here</a></td>
