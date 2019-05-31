@@ -1,6 +1,7 @@
 """
 View code
 """
+import datetime
 
 from webapp2 import RequestHandler, cached_property
 from webapp2_extras import jinja2
@@ -19,5 +20,9 @@ class TemplatedView(RequestHandler):
 
     def render_response(self, template, **context):
         """ Pass a template (html) and a dictionary """
+        if not context:
+            context = {}
+        now = datetime.datetime.now()
+        context['year'] = now.year
         content = self.jinja2.render_template(template, **context)
         self.response.write(content)
