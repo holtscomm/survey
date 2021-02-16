@@ -31,7 +31,7 @@ from app.migrations.question_migration import import_questions
 import_questions()
 ```
 
-Note: The Interactive Console is at http://localhost:8000/console for local instances, but often it's somewhere else on an actual application.
+Note: The Interactive Console is at http://localhost:9079/console for local instances, but often it's somewhere else on an actual application.
 
 ## Developing the app
 
