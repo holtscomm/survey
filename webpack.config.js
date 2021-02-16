@@ -1,14 +1,15 @@
 const webpack = require('webpack');
-const DashboardPlugin = require('webpack-dashboard/plugin');
 const argv = require('yargs').argv;
 const path = require('path');
 
 const config = {};
 module.exports = config;
 
+config.mode = 'development';
+config.devtool = 'eval-cheap-source-map';
 config.entry = {
     survey: './src/static/js/app/survey.js',
-    generate: './src/static/js/app/generate-survey.js'
+    generate: './src/static/js/app/generate-survey.js',
 };
 config.output = {
     path: path.resolve(__dirname, 'src/static/js'),
@@ -20,6 +21,7 @@ config.resolve = {
     //     "react": "preact-compat",
     //     "react-dom": "preact-compat"
     // }
+    extensions: ['.tsx', '.ts', '.js'],
 };
 config.module = {
     rules: [
@@ -27,10 +29,11 @@ config.module = {
             test: /\.js$/,
             exclude: /node_modules/,
             loader: 'babel-loader',
-            options: {
-                presets: [['es2015', { modules: false }], 'react'],
-                plugins: ['transform-class-properties']
-            }
+        },
+        {
+            test: /\.tsx?$/,
+            use: 'ts-loader',
+            exclude: /node_modules/,
         },
         {
             test: /\.json$/,
@@ -38,27 +41,16 @@ config.module = {
         }
     ]
 };
-config.plugins = [];
-if (process.env.NODE_ENV !== 'production') {
-    if (argv.watch) {
-      config.plugins.push(new DashboardPlugin());
-    }
-}
-
-config.node = {
-    net: "empty",
-    tls: "empty",
-    dns: "empty"
-};
 
 // Production settings
 if (process.env.NODE_ENV === 'production') {
     config.entry = {
-        survey: './build/static/js/app/survey.js',
-        generate: './build/static/js/app/generate-survey.js'
+        survey: './src/static/js/app/survey.js',
+        generate: './src/static/js/app/generate-survey.js',
     };
     config.output = {
-        path: 'build/static/js',
+        path: path.resolve(__dirname, './src/static/js'),
         filename: '[name].js'  // TODO: Add the file hashing as well as the HTML altering webpack plugin
     };
+    config.mode = 'production';
 }

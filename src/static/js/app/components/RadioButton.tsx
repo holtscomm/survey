@@ -1,6 +1,15 @@
 import React from 'react';
 
-export const RadioButton = ({inputId, inputName, inputValue, handleOnChange, desktopText, mobileText}) => {
+interface RadioButtonProps {
+    inputId: string;
+    inputName: string;
+    inputValue: string;
+    handleOnChange: () => void;
+    desktopText: string;
+    mobileText: string;
+}
+
+export const RadioButton = ({inputId, inputName, inputValue, handleOnChange, desktopText, mobileText}: RadioButtonProps) => {
   return (
     <label htmlFor={inputId}>
       <input
