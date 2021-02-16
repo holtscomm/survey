@@ -5,7 +5,6 @@ export default class SurveyAnswerGroup extends React.Component {
   static propTypes = {
     questionNumber: React.PropTypes.number.isRequired,
     handleOnChangeCallback: React.PropTypes.func,
-    hasErrors: React.PropTypes.bool
   };
 
   handleOnChange = (e) => {
@@ -15,11 +14,10 @@ export default class SurveyAnswerGroup extends React.Component {
 
   render() {
     const answerName = 'choice' + this.props.questionNumber;
-    const errorClass = this.props.hasErrors ? ' survey-page--errors' : '';
     return (
       <span
         ref={(span) => this.choices = span}
-        className={'survey-page__question-choices' + errorClass}>
+        className="survey-page__question-choices">
         <span className='survey-page__question-choice survey-page--first-question-choice'>
           <RadioButton
             inputId={answerName + 'strongly-disagree'}

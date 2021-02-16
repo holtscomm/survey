@@ -22,13 +22,14 @@ export default class SurveyQuestion extends React.Component {
   render() {
     return (
       <div className='survey-page__question'>
-        <span className='survey-page__question-number'>{ this.props.questionNumber }</span>
+        <span className={`survey-page__question-number${this.props.hasErrors ? ' has-errors' : ''}`}>
+          { this.props.questionNumber }
+        </span>
         <span className='survey-page__question-text'>{ this.props.questionText }</span>
         <SurveyAnswerGroup
           questionAnswer={this.props.questionAnswer}
           questionNumber={this.props.questionNumber}
           handleOnChangeCallback={this.handleChange}
-          hasErrors={this.props.hasErrors}
           />
       </div>
     );
