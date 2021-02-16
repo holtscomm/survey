@@ -4,9 +4,6 @@ import SurveyApi from '../api/SurveyApi';
 import SurveyPage from './SurveyPage';
 
 export default class Survey extends React.Component {
-  static propTypes = {
-    quizType: React.PropTypes.string
-  };
   static defaultProps = {
     quizType: ''
   };

@@ -3,8 +3,8 @@
     "fetch": "^1.1.0",
     "iso-whatwg-fetch": "^1.0.1",
     "jquery": "^3.5.0",
-    "react": "^15.3.2",
-    "react-dom": "^15.3.2"
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
   },
   "devDependencies": {
     "babel": "^6.5.2",
@@ -33,7 +33,6 @@
     "yargs": "^6.4.0"
   },
   "scripts": {
-    "postinstall": "bower install && npm run build-css && npm run build-js",
     "build-js": "webpack",
     "watch-js": "webpack-dashboard -- webpack --watch",
     "build-css": "node-sass --include-path scss src/static/scss/main.scss src/static/css/global.css",

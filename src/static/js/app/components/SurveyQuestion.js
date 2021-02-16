@@ -3,14 +3,6 @@ import React from 'react';
 import SurveyAnswerGroup from './SurveyAnswerGroup';
 
 export default class SurveyQuestion extends React.Component {
-  static propTypes = {
-    hasErrors: React.PropTypes.bool,
-    questionNumber: React.PropTypes.number.isRequired,
-    questionText: React.PropTypes.string.isRequired,
-    questionCategory: React.PropTypes.string.isRequired,
-    questionAnswer: React.PropTypes.number
-  };
-
   handleChange = (e) => {
     this.props.passUpAnswer({
       'question_number': this.props.questionNumber,

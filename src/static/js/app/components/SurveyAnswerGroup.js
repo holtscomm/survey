@@ -2,11 +2,6 @@ import React from 'react';
 import { RadioButton } from './RadioButton';
 
 export default class SurveyAnswerGroup extends React.Component {
-  static propTypes = {
-    questionNumber: React.PropTypes.number.isRequired,
-    handleOnChangeCallback: React.PropTypes.func,
-  };
-
   handleOnChange = (e) => {
     this.choices.classList.remove('has-error');
     this.props.handleOnChangeCallback(e);
