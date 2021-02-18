@@ -1,10 +1,14 @@
 """ appengine_config.py """
+import pkg_resources
 from google.appengine.ext import vendor
 
 
-# Add any libraries installed in the "lib" folder.
-vendor.add('lib')
-
+# Set path to your libraries folder.
+path = 'lib'
+# Add libraries installed in the path folder.
+vendor.add(path)
+# Add libraries to pkg_resources working set to find the distribution.
+pkg_resources.working_set.add_entry(path)
 
 def webapp_add_wsgi_middleware(app):
     from google.appengine.ext.appstats import recording

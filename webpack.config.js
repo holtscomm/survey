@@ -45,11 +45,11 @@ config.module = {
 // Production settings
 if (process.env.NODE_ENV === 'production') {
     config.entry = {
-        survey: './src/static/js/app/survey.js',
-        generate: './src/static/js/app/generate-survey.js',
+        survey: './build/static/js/app/survey.js',
+        generate: './build/static/js/app/generate-survey.js',
     };
     config.output = {
-        path: path.resolve(__dirname, './src/static/js'),
+        path: path.resolve(__dirname, './build/static/js'),
         filename: '[name].js'  // TODO: Add the file hashing as well as the HTML altering webpack plugin
     };
     config.mode = 'production';
