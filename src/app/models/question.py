@@ -1,8 +1,9 @@
 """
 Question model
 """
-from google.appengine.ext import ndb
+from google.cloud import ndb
 
+client = ndb.Client()
 
 class Question(ndb.Model):
 
@@ -55,7 +56,8 @@ class Question(ndb.Model):
             category=category,
             question_number=question_number
         )
-        question.put()
+        with client.context():
+            question.put()
 
     @property
     def pretty_category(self):
@@ -65,10 +67,11 @@ class Question(ndb.Model):
     @classmethod
     def get_all_questions(cls, ordered=False, limit=180):
         """ Returns all questions in a random order. """
-        if ordered:
-            return cls.query().order(cls.question_number).fetch(limit=limit)
+        with client.context():
+            if ordered:
+                return cls.query().order(cls.question_number).fetch(limit=limit)
 
-        return cls.query().fetch(limit=limit)
+            return cls.query().fetch(limit=limit)
 
     @classmethod
     def get_by_question_number(cls, question_number):
@@ -77,7 +80,8 @@ class Question(ndb.Model):
         :param question_number:
         :return:
         """
-        return cls.build_key(question_number).get()
+        with client.context():
+            return cls.build_key(question_number).get()
 
     @classmethod
     def get_questions_by_number_range(cls, from_number, to_number):
@@ -92,5 +96,6 @@ class Question(ndb.Model):
         if not to_number:
             raise ValueError('to_number is required')
 
-        return cls.query(cls.question_number >= from_number, cls.question_number <= to_number)\
-            .order(cls.question_number).fetch()
+        with client.context():
+            return cls.query(cls.question_number >= from_number, cls.question_number <= to_number)\
+                .order(cls.question_number).fetch()
