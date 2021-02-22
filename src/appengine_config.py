@@ -9,8 +9,3 @@ path = 'lib'
 vendor.add(path)
 # Add libraries to pkg_resources working set to find the distribution.
 pkg_resources.working_set.add_entry(path)
-
-def webapp_add_wsgi_middleware(app):
-    from google.appengine.ext.appstats import recording
-    app = recording.appstats_wsgi_middleware(app)
-    return app

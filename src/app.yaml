@@ -2,9 +2,6 @@ runtime: python27
 api_version: 1
 threadsafe: false
 
-builtins:
-- appstats: on
-
 libraries:
 - name: jinja2
   version: latest
@@ -27,10 +24,6 @@ handlers:
 
 - url: /admin/.*
   script: google.appengine.ext.admin.application
-  login: admin
-
-- url: /_ah/queue/deferred.*
-  script: google.appengine.ext.deferred.deferred.application
   login: admin
 
 - url: /superadmin/.*
