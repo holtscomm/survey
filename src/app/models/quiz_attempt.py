@@ -1,5 +1,7 @@
 """ Quiz attempts model """
-from google.appengine.ext import ndb
+from google.cloud import ndb
+
+client = ndb.Client()
 
 from .question import Question
 
@@ -151,6 +153,7 @@ class QuizAttempt(ndb.Model):
             raise ValueError('user_id must be provided')
 
         quiz_keys = [cls.build_key(user_id, quiz_type) for quiz_type in cls.QUIZ_TYPES.keys()]
+
         all_quizzes = yield ndb.get_multi_async(quiz_keys)
         all_quizzes = filter(None, all_quizzes)
         raise ndb.Return(all_quizzes)

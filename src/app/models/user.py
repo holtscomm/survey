@@ -3,7 +3,7 @@ User model
 """
 import uuid
 
-from google.appengine.ext import ndb
+from google.cloud import ndb
 
 
 class User(ndb.Model):

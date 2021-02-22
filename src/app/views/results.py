@@ -1,5 +1,7 @@
 """ Results views """
-from google.appengine.ext import ndb
+from google.cloud import ndb
+
+client = ndb.Client()
 
 from app.models.user import User
 from . import TemplatedView
@@ -20,11 +22,12 @@ class IndexView(TemplatedView):
     def get(self):
         """ GET """
         user_id = self.request.GET.get('userId', 1)
-        user, quiz_attempts = self.get_results_data(user_id)
+        with client.context():
+            user, quiz_attempts = self.get_results_data(user_id)
 
-        context = {
-            'user': user,
-            'quiz_attempts': quiz_attempts
-        }
+            context = {
+                'user': user,
+                'quiz_attempts': quiz_attempts
+            }
 
-        self.render_response("results.html", **context)
+            self.render_response("results.html", **context)

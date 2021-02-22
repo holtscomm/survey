@@ -3,6 +3,10 @@ Survey view
 """
 import logging
 
+from google.cloud import ndb
+
+client = ndb.Client()
+
 import settings
 from app.models.user import User
 from . import TemplatedView
@@ -13,21 +17,22 @@ class SurveyBaseView(TemplatedView):
     """ Survey base that other survey types inherit from """
     def get(self, **context):
         """ GET """
-        user = User.get_or_create_by_user_id(self.request.GET.get('userId'))
-        attempt = QuizAttempt.get_by_user_id(user.user_id, context['quiz_type'])
-        if not attempt:
-            # Start up a new QuizAttempt!
-            attempt = QuizAttempt.create(user_id=user.user_id, quiz_type=context['quiz_type'])
-        if settings.is_devappserver():
-            user.paid = True
-        context.update({
-            'user': user,
-            'user_id': user.user_id,
-            'quiz_attempt': attempt
-        })
+        with client.context():
+            user = User.get_or_create_by_user_id(self.request.GET.get('userId'))
+            attempt = QuizAttempt.get_by_user_id(user.user_id, context['quiz_type'])
+            if not attempt:
+                # Start up a new QuizAttempt!
+                attempt = QuizAttempt.create(user_id=user.user_id, quiz_type=context['quiz_type'])
+            if settings.is_devappserver():
+                user.paid = True
+            context.update({
+                'user': user,
+                'user_id': user.user_id,
+                'quiz_attempt': attempt
+            })
 
-        logging.info(context)
-        self.render_response('survey.html', **context)
+            logging.info(context)
+            self.render_response('survey.html', **context)
 
 
 class SurveyFullformView(SurveyBaseView):
