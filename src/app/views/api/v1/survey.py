@@ -5,7 +5,6 @@ import json
 import logging
 import urlparse
 
-from google.appengine.ext import deferred
 from google.cloud import ndb
 
 from app.domain.survey import survey_for_type, survey_for_type_and_user
@@ -86,8 +85,7 @@ class SurveyPurchaseApiHandler(JsonApiHandler):
         logging.info('Deferring task to create new purchase and send email')
         with client.context():
             user = create_new_premium_user(new_purchase)
-            deferred.defer(send_email_with_survey_link, user.email, new_purchase.full_name, new_purchase.product,
-                        user.user_id)
+            send_email_with_survey_link(user.email, new_purchase.full_name, new_purchase.product, user.user_id)
 
             self.return_json_response({'user_id': user.user_id})
 
