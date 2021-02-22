@@ -9,7 +9,7 @@ config.mode = 'development';
 config.devtool = 'eval-cheap-source-map';
 config.entry = {
     survey: './src/static/js/app/survey.js',
-    generate: './src/static/js/app/generate-survey.js',
+    generate: './src/static/js/app/generate-survey.tsx',
 };
 config.output = {
     path: path.resolve(__dirname, 'src/static/js'),
@@ -46,7 +46,7 @@ config.module = {
 if (process.env.NODE_ENV === 'production') {
     config.entry = {
         survey: './build/static/js/app/survey.js',
-        generate: './build/static/js/app/generate-survey.js',
+        generate: './build/static/js/app/generate-survey.tsx',
     };
     config.output = {
         path: path.resolve(__dirname, './build/static/js'),
