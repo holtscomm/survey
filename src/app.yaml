@@ -1,14 +1,4 @@
-runtime: python27
-api_version: 1
-threadsafe: false
-
-libraries:
-- name: jinja2
-  version: latest
-- name: grpcio
-  version: 1.0.0
-- name: ssl
-  version: latest
+runtime: python38
 
 handlers:
 - url: /favicon\.ico
@@ -22,18 +12,8 @@ handlers:
   http_headers:
     Strict-Transport-Security: "max-age=2592000; includeSubdomains"
 
-- url: /admin/.*
-  script: google.appengine.ext.admin.application
-  login: admin
-
-- url: /superadmin/.*
-  script: main.APP
-  login: admin
-  secure: always
-
 - url: /.*
-  script: main.APP
-  secure: always
+  script: auto
 
 skip_files:
 - ^(.*/)?#.*#$

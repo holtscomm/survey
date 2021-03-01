@@ -1,4 +1,6 @@
 """ superadmin.py """
+from flask import render_template
+
 from google.cloud import ndb
 
 client = ndb.Client()
@@ -42,7 +44,7 @@ class MainView(TemplatedView):
                 'env': 'local' if settings.is_devappserver() else 'not-local'
             }
 
-            self.render_response('superadmin/index.html', **context)
+            render_template('superadmin/index.html', **context)
 
 
 class GenerateView(TemplatedView):
