@@ -4,4 +4,4 @@ google-cloud-ndb
 enum34
 Flask==1.1.2
 grpcio==1.0.0
-sendgrid
+sendgrid==2.2.1

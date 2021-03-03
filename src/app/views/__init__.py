@@ -1,7 +1,8 @@
 """
 View code
 """
-# import datetime
+import datetime
+from flask import render_template
 
 # from webapp2 import RequestHandler, cached_property
 # from webapp2_extras import jinja2
@@ -26,3 +27,12 @@ View code
 #         context['year'] = now.year
 #         content = self.jinja2.render_template(template, **context)
 #         self.response.write(content)
+
+def render_survey_template(template, **context):
+    """ Pass a template (html) and a dictionary """
+    if not context:
+        context = {}
+    now = datetime.datetime.now()
+    context['year'] = now.year
+
+    return render_template(template, **context)

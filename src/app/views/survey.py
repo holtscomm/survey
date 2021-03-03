@@ -11,6 +11,7 @@ client = ndb.Client()
 import settings
 from app.models.user import User
 from app.models.quiz_attempt import QuizAttempt
+from app.views import render_survey_template
 
 bp = Blueprint('gifts', __name__, url_prefix='/gifts')
 
@@ -22,8 +23,8 @@ def render_survey(**context):
         if not attempt:
             # Start up a new QuizAttempt!
             attempt = QuizAttempt.create(user_id=user.user_id, quiz_type=context['quiz_type'])
-        # if settings.is_devappserver():
-        user.paid = True
+        if settings.is_devappserver():
+            user.paid = True
         context.update({
             'user': user,
             'user_id': user.user_id,
@@ -31,7 +32,7 @@ def render_survey(**context):
         })
 
         logging.info(context)
-        return render_template('survey.html', **context)
+        return render_survey_template('survey.html', **context)
 
 
 @bp.route('/')
@@ -44,7 +45,7 @@ def full_survey():
     return render_survey(**context)
 
 
-@bp.route('/a')
+@bp.route('/a/')
 def short_a():
     """ Short form A survey """
     context = {
@@ -54,17 +55,16 @@ def short_a():
     return render_survey(**context)
 
 
-@bp.route('/b')
+@bp.route('/b/')
 def short_b():
     """ Short form B survey """
     context = {
-        'request_path': '/gifts/b/',
         'quiz_type': 'short_b'
     }
     return render_survey(**context)
 
 
-@bp.route('/trial')
+@bp.route('/trial/')
 def trial():
     """ Trial survey """
     context = {
