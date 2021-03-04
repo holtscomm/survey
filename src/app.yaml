@@ -1,4 +1,4 @@
-runtime: python38
+runtime: python37
 
 handlers:
 - url: /favicon\.ico
@@ -14,13 +14,3 @@ handlers:
 
 - url: /.*
   script: auto
-
-skip_files:
-- ^(.*/)?#.*#$
-- ^(.*/)?.*~$
-- ^(.*/)?.*\.py[co]$
-- ^(.*/)?.*/RCS/.*$
-- ^(.*/)?.*/jspm_packages/.*$
-# - ^(.*/)?\..*$
-- ^(.*/)?.*\.scss$
-- ^(.*/)?.*\.md$

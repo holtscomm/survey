@@ -1,7 +1,7 @@
-googleapis_common_protos
-google-cloud-tasks
-google-cloud-ndb
-enum34
+googleapis_common_protos==1.53.0
+google-cloud-tasks==2.2.0
+google-cloud-ndb==1.7.3
+enum34==1.1.10
 Flask==1.1.2
-grpcio==1.0.0
+grpcio==1.29.0
 sendgrid==2.2.1

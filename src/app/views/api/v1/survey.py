@@ -4,7 +4,7 @@ APIs for surveys
 from flask import Flask, Blueprint, request
 import json
 import logging
-import urlparse
+from urllib import parse
 
 from google.cloud import ndb
 
@@ -82,7 +82,7 @@ def handle_survey_purchase():
     """
     API for purchasing surveys
     """
-    new_purchase = Purchase(urlparse.parse_qs(request.get_data()))
+    new_purchase = Purchase(parse.parse_qs(request.get_data()))
     logging.info('Someone bought the survey! %s %s %s %s %s', new_purchase.email, new_purchase.first_name,
                     new_purchase.last_name, new_purchase.product, new_purchase.purchase_date)
     logging.info('Deferring task to create new purchase and send email')
