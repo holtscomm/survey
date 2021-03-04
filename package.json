@@ -55,7 +55,7 @@
     "clean": "rm -rf build",
     "deploy": "gcloud app deploy --project=keith-walker-survey build/app.yaml",
     "bnd": "yarn build:prod && yarn deploy",
-    "start": "dev_appserver.py src/app.yaml --port=8079 --admin_port=9079 --storage_path=./data/ --enable_console"
+    "start": "GAE_APPLICATION=local GOOGLE_CLOUD_PROJECT=keith-walker-survey python3 src/main.py"
   },
   "jest": {
     "scriptPreprocessor": "node_modules/babel-jest",

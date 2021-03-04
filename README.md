@@ -12,27 +12,17 @@ To get things up and running, here's "all" you have to do:
   3. `yarn` (for Javascript-related things and some command-line tools)
   4. `yarn build-js` (to compile the Javascript app)
   5. `yarn build-css` (to compile the styles for the app)
-3. Start up the virtualenv for python development: `. venv/bin/activate`
-4.
-4. Navigate to `http://localhost:8080` (your port may vary)!
-
-Those steps will work best on \*nix. Here's what I found worked for me on Windows (10):
-
-1. Download and install NodeJS from [here](https://nodejs.org/en/)
-2. Open the `Node.js command prompt` that should have come with your installation.
-3. Follow the steps above!
+3. Start up the virtualenv for python development: `source venv/bin/activate`
+4. Do a pip install if you haven't already `pip3 install -r src/requirements.txt`
+5. Run the app `yarn start`
+6. Navigate to `http://localhost:8080` (your port may vary)!
 
 ### Bootstrapping
 
-Once you have the app running, go to the Interactive Console and copy-paste the following script to get the 180 quiz questions installed in your datastore:
+Note: Now that we're using google-cloud-ndb this step shouldn't be necessary. But if it is, do the following:
 
-```python
-from app.migrations.question_migration import import_questions
-
-import_questions()
-```
-
-Note: The Interactive Console is at http://localhost:9079/console for local instances, but often it's somewhere else on an actual application.
+Once you have the app running, go to [superadmin](http://localhost:8080/superadmin/) and
+click on the link that says Import questions.
 
 ## Developing the app
 
