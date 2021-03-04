@@ -75,7 +75,7 @@ def _normalize_data(json_answers):
             answer=int(category_answer[1])
         ))
 
-    return sorted(answers, cmp=lambda x, y: cmp(x.question_number, y.question_number))
+    return sorted(answers, key=lambda answer: answer.question_number)
 
 @bp.route('/purchase/', methods=['POST'])
 def handle_survey_purchase():
