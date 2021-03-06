@@ -116,7 +116,7 @@ class QuizAttempt(ndb.Model):
                               if question.category == category])
             categories.append((Question.CATEGORY_MAPPINGS[category], sum_points))
 
-        return sorted(categories, cmp=lambda x, y: cmp(x[1], y[1]), reverse=True)
+        return sorted(categories, key=lambda cat: cat[1], reverse=True)
 
     @property
     def top_categories(self):

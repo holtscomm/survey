@@ -24,27 +24,27 @@ class Purchase(object):
     @property
     def product(self):
         """ Which 'product' was purchasd (i.e. full or short a/b) """
-        return (self.purchase_body.get('cart_details[0][name]') or self.purchase_body.get('cart_details[0][name][]'))[0]
+        return (self.purchase_body.get(b'cart_details[0][name]') or self.purchase_body.get(b'cart_details[0][name][]'))[0]
 
     @property
     def purchase_date(self):
         """ Date the survey was purchased """
-        return self.purchase_body.get('date', datetime.datetime.utcnow())
+        return self.purchase_body.get(b'date', datetime.datetime.utcnow())
 
     @property
     def email(self):
         """ Email of purchaser of the survey """
-        return self.purchase_body['email'][0]
+        return self.purchase_body[b'email'][0]
 
     @property
     def first_name(self):
         """ First name of purchaser of the survey """
-        return self.purchase_body['user_info[first_name]'][0]
+        return self.purchase_body[b'user_info[first_name]'][0]
 
     @property
     def last_name(self):
         """ Not a required field for purchases so last_name could be empty. """
-        return self.purchase_body.get('user_info[last_name]', [''])[0]
+        return self.purchase_body.get(b'user_info[last_name]', [''])[0]
 
 
 def create_new_premium_user(purchase_object):

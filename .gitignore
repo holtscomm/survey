@@ -18,5 +18,7 @@ source-context*.json
 src/static/js/generate.js
 src/static/js/0.js
 build
+__pycache__
+venv
 
 src/settings_secret.py

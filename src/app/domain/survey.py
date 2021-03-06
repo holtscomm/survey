@@ -120,7 +120,7 @@ class Survey(object):
         from_number = ((page_num - 1) * QUESTIONS_PER_PAGE) + 1 if page_num > 1 else page_num
         to_number = page_num * QUESTIONS_PER_PAGE
 
-        return from_number, to_number
+        return int(from_number), int(to_number)
 
     def _normalize_question_numbers(self, questions, page_num, out=True):
         """
