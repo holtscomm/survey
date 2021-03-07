@@ -1,9 +1,11 @@
 from flask import Flask, render_template
+from settings_secret import SENDGRID_API_KEY
 
-from app.views import render_survey_template, results, survey, superadmin
+from app.views import auth, render_survey_template, results, survey, superadmin
 from app.views.api.v1 import survey as survey_api
 
 app = Flask(__name__)
+app.secret_key = SENDGRID_API_KEY
 
 # now = datetime.datetime.now()
 # context['year'] = now.year
@@ -12,6 +14,7 @@ app = Flask(__name__)
 def main():
     return render_survey_template('index.html')
 
+app.register_blueprint(auth.bp)
 app.register_blueprint(results.bp)
 app.register_blueprint(survey.bp)
 app.register_blueprint(survey_api.bp)

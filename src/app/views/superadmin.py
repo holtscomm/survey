@@ -1,5 +1,5 @@
 """ superadmin.py """
-from flask import Blueprint, render_template_string
+from flask import Blueprint, render_template_string, session, redirect
 
 from google.cloud import ndb
 
@@ -36,6 +36,8 @@ def get_superadmin_index_data():
 
 @bp.route('/')
 def superadmin_index():
+    if 'credentials' not in session:
+        return redirect('/auth/login')
     with client.context():
         paid_survey_users, all_quiz_attempts, all_users, paid_quiz_attempts = get_superadmin_index_data()
 
@@ -53,11 +55,16 @@ def superadmin_index():
 
 @bp.route('/generate/')
 def generate_survey():
+    if 'credentials' not in session:
+        return redirect('/auth/login')
+    print(session)
     return render_survey_template('superadmin/generate.html')
 
 
 @bp.route('/questions/')
 def print_questions():
+    if 'credentials' not in session:
+        return redirect('/auth/login')
     with client.context():
         context = {
             'questions': Question.get_all_questions(ordered=True)
@@ -68,6 +75,8 @@ def print_questions():
 
 @bp.route('/import/')
 def import_questions():
+    if 'credentials' not in session:
+        return redirect('/auth/login')
     from app.migrations.question_migration import import_questions
     with client.context():
         import_questions()
