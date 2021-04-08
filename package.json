@@ -39,12 +39,11 @@
     "typescript": "^4.1.5",
     "webpack": "^5.22.0",
     "webpack-cli": "^4.5.0",
-    "webpack-dashboard": "^0.2.0",
     "yargs": "^6.4.0"
   },
   "scripts": {
     "build-js": "webpack --progress",
-    "watch-js": "webpack-dashboard -- webpack --watch",
+    "watch-js": "webpack --watch --progress",
     "build-css": "node-sass --include-path scss src/static/scss/main.scss src/static/css/global.css",
     "watch-css": "nodemon -e scss -x \"yarn build-css\"",
     "test": "mocha './src/**/*.spec.js' --require setup.js --compilers js:babel-core/register",
@@ -55,7 +54,7 @@
     "clean": "rm -rf build",
     "deploy": "gcloud app deploy --project=keith-walker-survey build/app.yaml",
     "bnd": "yarn build:prod && yarn deploy",
-    "start": "GAE_APPLICATION=local GOOGLE_CLOUD_PROJECT=keith-walker-survey python3 src/main.py"
+    "start": "OAUTHLIB_INSECURE_TRANSPORT=1 GAE_APPLICATION=local GOOGLE_CLOUD_PROJECT=keith-walker-survey python3 src/main.py"
   },
   "jest": {
     "scriptPreprocessor": "node_modules/babel-jest",
